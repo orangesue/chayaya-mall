@@ -1,0 +1,28 @@
+<view class="page">
+  <scroll-view scroll-x class="chat-quick">
+    <view class="chip {{active === 'all' ? 'on' : ''}}" data-cat="all" bindtap="pick">全部（{{total}}）</view>
+    <view wx:for="{{categories}}" wx:key="key" class="chip" data-cat="{{item.key}}" bindtap="pick">{{item.name}}（{{item.count}}）</view>
+  </scroll-view>
+
+  <view class="pad">
+    <view class="notice info">核心卖点：天然物理冷榨山茶油 · 0 添加 · 母婴安全 · 一物一码全程溯源 · 乡村助农</view>
+
+    <view wx:for="{{list}}" wx:key="code" class="card">
+      <view class="goods-row" style="border:0;padding:0">
+        <image class="goods-thumb" src="{{item.image}}" mode="aspectFill" data-code="{{item.code}}" bindtap="goProduct" />
+        <view class="grow">
+          <view class="bold" style="font-size:28rpx" data-code="{{item.code}}" bindtap="goProduct">{{item.title}}</view>
+          <view class="small muted">{{item.subtitle || item.spec}}</view>
+          <view class="mt10">
+            <text wx:for="{{item.tags}}" wx:key="*this" class="tag">{{item}}</text>
+          </view>
+          <view class="row-between mt10">
+            <view class="price">¥{{item.priceText}}</view>
+            <view wx:if="{{!item.presale}}" class="btn sm" data-code="{{item.code}}" bindtap="addCart">加入购物车</view>
+            <view wx:else class="tag warn">预售中</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

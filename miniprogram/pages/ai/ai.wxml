@@ -1,0 +1,33 @@
+<view class="page">
+  <view class="pad">
+    <view class="notice danger">重要提示：我是护肤客服，不是医生。涉及症状诊断与用药请以医生意见为准；宝宝出现发热、化脓渗液、精神差、拒奶、呼吸异常时请立即就医。</view>
+  </view>
+
+  <scroll-view scroll-y style="height:calc(100vh - 420rpx);padding:0 24rpx">
+    <view wx:for="{{messages}}" wx:key="index" class="msg {{item.role === 'user' ? 'me' : ''}}">
+      <image class="avatar" src="/assets/img/image20.png" wx:if="{{item.role !== 'user'}}" />
+      <view class="avatar" wx:else />
+      <view>
+        <view wx:if="{{item.levelClass}}" class="triage-badge {{item.levelClass}}">{{item.levelText}}</view>
+        <view class="bubble">{{item.content}}</view>
+        <view wx:for="{{item.cards}}" wx:for-item="c" wx:key="title" class="chat-card" data-url="{{c.url}}" bindtap="openCard">
+          <view class="grow">
+            <view class="bold" style="font-size:26rpx">{{c.title}}</view>
+            <view class="tiny muted">{{c.desc}}</view>
+          </view>
+          <view class="muted">›</view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{sending}}" class="msg"><image class="avatar" src="/assets/img/image20.png" /><view class="bubble">正在思考…</view></view>
+  </scroll-view>
+
+  <scroll-view scroll-x class="chat-quick">
+    <view wx:for="{{quick}}" wx:key="*this" class="chip" data-q="{{item}}" bindtap="tapQuick">{{item}}</view>
+  </scroll-view>
+
+  <view class="chat-input">
+    <input class="input grow" placeholder="描述宝宝的情况，或问产品/订单问题…" value="{{input}}" bindinput="onInput" confirm-type="send" bindconfirm="send" />
+    <view class="btn" bindtap="send">发送</view>
+  </view>
+</view>

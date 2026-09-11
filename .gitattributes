@@ -1,0 +1,26 @@
+# 统一换行符，避免 Windows 提交后在其他系统上出现整文件 diff
+* text=auto eol=lf
+
+# 图片等二进制文件不要做换行转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+
+# 这些文本文件保持 LF
+*.js text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.wxml text eol=lf
+*.wxss text eol=lf
+*.md text eol=lf
+*.sql text eol=lf
+*.yml text eol=lf
+
+# 语言统计时把小程序页面识别为 JS/HTML/CSS
+*.wxml linguist-language=HTML
+*.wxss linguist-language=CSS

@@ -1,0 +1,61 @@
+<view class="page">
+  <view class="hero">
+    <image src="{{images.poster}}" mode="widthFix" style="width:100%" />
+  </view>
+  <view class="pad">
+    <view class="card" style="background:linear-gradient(135deg,#eaf6ef,#fdfaf1)">
+      <view class="row-between">
+        <view>
+          <view class="bold" style="font-size:30rpx">{{brand.subSlogan}}</view>
+          <view class="small muted">注册会员即享浒口村集体直供价</view>
+        </view>
+        <view class="btn sm" bindtap="goShop">去看看</view>
+      </view>
+    </view>
+
+    <view class="row" style="flex-wrap:wrap;gap:16rpx;margin-bottom:24rpx">
+      <view wx:for="{{facts}}" wx:key="label" class="card grow" style="width:44%;margin:0;background:#f3f8f4">
+        <view class="bold" style="color:#2e6b4f;font-size:30rpx">{{item.value}}</view>
+        <view class="tiny muted">{{item.label}}</view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">🌱 品牌故事 · 山林里的祝福</view>
+      <view wx:for="{{story}}" wx:key="*this" class="small" style="color:#4d5b54;margin-bottom:12rpx">{{item}}</view>
+      <view class="small" style="color:#3f8a63;font-weight:600" bindtap="goBrand">阅读完整品牌故事 →</view>
+    </view>
+
+    <view class="row-between">
+      <view class="card-title">🛒 热销单品</view>
+      <view class="small muted" bindtap="goShop">全部商品 ›</view>
+    </view>
+    <view class="goods-grid">
+      <view wx:for="{{hot}}" wx:key="code" class="cell" data-code="{{item.code}}" bindtap="goProduct">
+        <image src="{{item.image}}" mode="aspectFill" />
+        <view class="info">
+          <view style="font-size:26rpx;font-weight:600;min-height:72rpx">{{item.title}}</view>
+          <view class="tiny muted">{{item.spec}}</view>
+          <view class="row-between">
+            <view class="price">¥{{item.priceText}}</view>
+            <view class="tiny muted">已售 {{item.sales}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card mt10">
+      <view class="card-title">🔍 一瓶一码，扫码看它的前世今生</view>
+      <view class="small muted mb10">刮开瓶底涂层扫码，可查看这一棵油茶林的地块、采摘日期、压榨批次、农户姓名与 SGS 检测报告。</view>
+      <image src="{{images.traceSystem}}" mode="widthFix" style="width:100%;border-radius:16rpx" />
+      <view class="row mt10" style="gap:16rpx">
+        <view class="btn ghost grow" bindtap="goTrace">体验扫码溯源</view>
+        <view class="btn outline grow" bindtap="goAI">问芽芽客服</view>
+      </view>
+    </view>
+
+    <view class="notice info">
+      本小程序为「浒口茶油·乡味新生」大学生创业项目的技术实现，含商品购买、产品背书、一物一码溯源与 AI 客服四大模块；AI 客服不提供医疗诊断，宝宝异常请及时就医。
+    </view>
+  </view>
+</view>

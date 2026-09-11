@@ -1,0 +1,35 @@
+<view class="page">
+  <scroll-view scroll-x class="chat-quick">
+    <view class="chip" data-s="all" bindtap="pick">全部</view>
+    <view class="chip" data-s="pending_pay" bindtap="pick">待付款</view>
+    <view class="chip" data-s="paid" bindtap="pick">待发货</view>
+    <view class="chip" data-s="shipped" bindtap="pick">待收货</view>
+    <view class="chip" data-s="done" bindtap="pick">已完成</view>
+  </scroll-view>
+
+  <view class="pad">
+    <view wx:for="{{list}}" wx:key="orderNo" class="card">
+      <view class="row-between mb10">
+        <view class="tiny muted">{{item.orderNo}}</view>
+        <view class="small bold" style="color:#2e6b4f">{{item.statusText}}</view>
+      </view>
+      <view wx:for="{{item.items}}" wx:for-item="it" wx:key="title" class="goods-row">
+        <image class="goods-thumb" src="{{it.image}}" mode="aspectFill" />
+        <view class="grow">
+          <view class="small bold">{{it.title}}</view>
+          <view class="tiny muted">{{it.spec}} × {{it.qty}}</view>
+        </view>
+      </view>
+      <view class="row-between mt10">
+        <view class="small muted">实付</view>
+        <view class="price">¥{{item.payAmount / 100}}</view>
+      </view>
+      <view class="row mt10" style="gap:16rpx">
+        <view class="btn sm ghost" data-no="{{item.orderNo}}" bindtap="detail">订单详情</view>
+        <view wx:if="{{item.status === 'pending_pay'}}" class="btn sm" data-no="{{item.orderNo}}" bindtap="pay">去支付</view>
+        <view wx:if="{{item.status === 'shipped'}}" class="btn sm" data-no="{{item.orderNo}}" bindtap="confirm">确认收货</view>
+      </view>
+    </view>
+    <view wx:if="{{!list.length}}" class="empty">暂无订单</view>
+  </view>
+</view>

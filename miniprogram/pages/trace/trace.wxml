@@ -1,0 +1,148 @@
+<view class="page">
+  <!-- 频道首页 -->
+  <block wx:if="{{mode === 'home'}}">
+    <view class="pad">
+      <view class="card" style="background:linear-gradient(135deg,#eaf6ef,#fdfaf1)">
+        <view class="card-title">🔍 一物一码 · 全流程溯源</view>
+        <view class="small mb10">刮开产品瓶底涂层，用微信扫码即可查看这一瓶的完整履历：油茶林地块、采摘日期、压榨批次、农户姓名、检测报告与物流轨迹。</view>
+        <input class="input mb10" placeholder="也可手动输入瓶底溯源码" value="{{code}}" bindinput="onInput" />
+        <view class="row" style="gap:16rpx">
+          <view class="btn grow" bindtap="query">查询真伪</view>
+          <view class="btn ghost grow" bindtap="demo">用示例码体验</view>
+        </view>
+      </view>
+
+      <view class="card" wx:if="{{overview}}">
+        <view class="card-title">🏔 溯源体系</view>
+        <image src="{{overview.images.system}}" mode="widthFix" style="width:100%;border-radius:16rpx" />
+        <view class="row mt10" style="gap:12rpx">
+          <view wx:for="{{overview.flow}}" wx:key="key" class="card grow" style="margin:0;padding:16rpx 10rpx;background:#f3f8f4">
+            <view class="small bold center">{{item.name}}</view>
+            <view class="tiny muted center">{{item.desc}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="card" wx:if="{{overview}}">
+        <view class="card-title">🔐 防伪与存证技术</view>
+        <view class="small">· 数字身份证：{{overview.algorithm.code}}</view>
+        <view class="small">· 防篡改存证：{{overview.algorithm.chain}}</view>
+        <view class="notice ok mt10">{{overview.antiFakeTip}}</view>
+      </view>
+
+      <view class="card" wx:if="{{overview}}">
+        <view class="card-title">📦 在售批次</view>
+        <view wx:for="{{overview.batches}}" wx:key="batchNo" class="row-between" style="padding:16rpx 0;border-bottom:2rpx solid #e5eae6">
+          <view class="grow">
+            <view class="small bold">{{item.batchNo}}</view>
+            <view class="tiny muted">{{item.origin}} · 农户 {{item.farmer}}</view>
+            <view class="tiny muted">赋码 {{item.unitTotal}} 个 · 被扫码 {{item.scans}} 次</view>
+          </view>
+          <view class="btn sm outline" data-batch="{{item.batchNo}}" bindtap="openBatch">查看</view>
+        </view>
+      </view>
+
+      <view class="card" wx:if="{{demoCodes.length}}">
+        <view class="card-title">🧪 演示用溯源码</view>
+        <text wx:for="{{demoCodes}}" wx:key="traceCode" class="tag">{{item.traceCode}}</text>
+      </view>
+
+      <view class="card">
+        <view class="card-title">🖨 生成瓶底二维码</view>
+        <input class="input mb10" placeholder="溯源码" value="{{code}}" bindinput="onInput" />
+        <view class="btn sm" bindtap="genQr">生成</view>
+        <view wx:if="{{qr}}" class="center mt10">
+          <view class="mono tiny">{{qr.url}}</view>
+          <view class="tiny muted mt10">签名 {{qr.signature}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 正品结果 -->
+  <block wx:elif="{{mode === 'result'}}">
+    <view class="pad">
+      <view class="card" style="background:linear-gradient(135deg,#eaf6ef,#fdfaf1)">
+        <view class="bold" style="font-size:32rpx;color:#123f2e">✅ 正品验证通过</view>
+        <view class="tiny muted">溯源码 {{result.traceCode}}</view>
+        <view class="notice {{result.scan.isFirst ? 'ok' : ''}} mt10">{{result.scan.tip}}</view>
+      </view>
+
+      <view class="card" wx:if="{{result.product}}">
+        <view class="row">
+          <image src="{{result.product.image}}" style="width:150rpx;height:150rpx;border-radius:18rpx" mode="aspectFill" />
+          <view class="grow">
+            <view class="bold">{{result.product.title}}</view>
+            <view class="small muted">{{result.product.subtitle}}</view>
+            <view class="mt10"><text class="tag">{{result.product.spec}}</text><text class="tag plain">{{result.unitStatusText}}</text></view>
+          </view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="card-title">📍 原料产地与种植管护</view>
+        <view class="tl-detail">
+          <view class="kv"><view class="k">产地</view><view class="grow">{{result.batch.origin}}</view></view>
+          <view class="kv"><view class="k">地块编号</view><view class="grow">{{result.batch.plotNo}}</view></view>
+          <view class="kv"><view class="k">负责农户</view><view class="grow">{{result.batch.farmer}}</view></view>
+          <view class="kv"><view class="k">采摘日期</view><view class="grow">{{result.batch.harvestDate}}</view></view>
+          <view class="kv"><view class="k">压榨工艺</view><view class="grow">{{result.batch.pressTech}}</view></view>
+          <view class="kv"><view class="k">加工工厂</view><view class="grow">{{result.batch.factory}}</view></view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="card-title">🕒 全流程时间轴</view>
+        <view class="timeline">
+          <view wx:for="{{result.timeline}}" wx:key="hash" class="tl-item">
+            <view class="tl-dot">{{item.icon}}</view>
+            <view class="tl-head">{{item.stageName}}</view>
+            <view class="tl-meta">{{item.happenedAt}} · {{item.operator}}</view>
+            <view class="tl-detail">
+              <view wx:for="{{item.detail}}" wx:for-item="kv" wx:key="*this" class="kv">
+                <view class="k">{{index}}</view><view class="grow">{{kv}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="card-title">🔬 检测报告</view>
+        <view class="small muted">报告编号：{{result.report.inspectionNo}}</view>
+        <view class="btn outline block mt10" bindtap="openReport">查看电子质检报告原文 ›</view>
+      </view>
+
+      <view class="card">
+        <view class="card-title">🔐 防伪与存证校验</view>
+        <view class="notice {{result.chain.intact ? 'ok' : 'danger'}}">{{result.chain.note}}</view>
+        <view class="tl-detail mt10">
+          <view class="kv"><view class="k">签名算法</view><view class="grow">{{result.signature.algorithm}}</view></view>
+          <view class="kv"><view class="k">存证链</view><view class="grow">{{result.chain.algorithm}}（{{result.chain.nodeCount}} 个节点）</view></view>
+          <view class="kv"><view class="k">本次查询</view><view class="grow">第 {{result.scan.count}} 次</view></view>
+        </view>
+      </view>
+
+      <view class="btn ghost block" bindtap="back">返回溯源首页</view>
+    </view>
+  </block>
+
+  <!-- 未通过 -->
+  <block wx:else>
+    <view class="pad">
+      <view class="card" style="background:#fdf0ef">
+        <view class="center">
+          <view class="bold" style="font-size:34rpx;color:#d0453b">未通过正品验证</view>
+          <view class="small" style="color:#9c2f28">{{result.message || '查询失败'}}</view>
+        </view>
+      </view>
+      <view class="card">
+        <view class="card-title">可能的原因</view>
+        <view class="small muted">· 溯源码输入有误
+· 商品并非官方渠道售出
+· 二维码被复制或二次封装</view>
+      </view>
+      <view class="btn block" bindtap="back">重新查询</view>
+    </view>
+  </block>
+</view>

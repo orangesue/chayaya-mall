@@ -1,0 +1,31 @@
+<view class="page">
+  <scroll-view scroll-x class="chat-quick">
+    <view class="chip" data-m="2" bindtap="pick">0-3 个月</view>
+    <view class="chip" data-m="5" bindtap="pick">4-6 个月</view>
+    <view class="chip" data-m="9" bindtap="pick">6 个月以上</view>
+  </scroll-view>
+
+  <view class="pad" wx:if="{{cur}}">
+    <view class="card">
+      <view class="card-title">{{cur.title}}</view>
+      <view class="small muted mb10">建议时长：{{cur.duration}}</view>
+      <view wx:for="{{cur.steps}}" wx:key="*this" class="small" style="margin-bottom:14rpx">{{index + 1}}. {{item}}</view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">💧 用量参考</view>
+      <view class="small">· 100ml 家庭装：按压一次 0.5ml，约 2-3 滴 / 小腿</view>
+      <view class="small">· 30ml 体验装：按压一次 0.25ml，约 1-2 滴 / 小腿</view>
+      <view class="small muted mt10">全身抚触约按压 4-6 次（2-3ml）。记住"少量多次、掌心搓热再上手"。</view>
+    </view>
+
+    <view class="card" style="background:#f3f8f4">
+      <view class="card-title">⚠️ 抚触禁忌</view>
+      <view class="small">· 皮肤破损、渗液、化脓处不要涂油，先就医；</view>
+      <view class="small">· 发热、精神差、拒奶期间暂停抚触并就医；</view>
+      <view class="small">· 刚吃饱、饥饿哭闹时不做抚触；</view>
+      <view class="small">· 宝宝哭闹抗拒时立即停止。</view>
+      <view class="btn ghost sm mt20" bindtap="goAI">宝宝有具体症状？问芽芽 ›</view>
+    </view>
+  </view>
+</view>

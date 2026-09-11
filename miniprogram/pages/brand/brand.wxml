@@ -1,0 +1,62 @@
+<view class="page" wx:if="{{b}}">
+  <image src="{{b.images.scenePicking}}" mode="widthFix" style="width:100%" />
+  <view class="pad">
+    <view class="card">
+      <view class="card-title">🌳 山林里的祝福</view>
+      <view wx:for="{{b.story}}" wx:key="*this" class="small" style="color:#4d5b54;margin-bottom:14rpx">{{item}}</view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">🧬 品牌 DNA</view>
+      <image src="{{b.images.brandDna}}" mode="widthFix" style="width:100%;border-radius:16rpx" />
+      <view class="row mt10" style="gap:12rpx">
+        <view wx:for="{{b.dna}}" wx:key="key" class="card grow center" style="margin:0;background:#f3f8f4">
+          <view class="bold" style="color:#2e6b4f">{{item.key}}</view>
+          <view class="tiny muted">{{item.desc}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">📈 为什么现在做这件事</view>
+      <image src="{{b.images.marketSize}}" mode="widthFix" style="width:100%;border-radius:16rpx" />
+      <view wx:for="{{b.market.facts}}" wx:key="label" class="row-between" style="padding:12rpx 0;border-bottom:2rpx solid #e5eae6">
+        <view class="small grow">{{item.label}}</view>
+        <view class="small bold" style="color:#2e6b4f">{{item.value}}</view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">😣 现有抚触油的痛点（调研数据）</view>
+      <view wx:for="{{b.market.painPoints}}" wx:key="name" style="margin-bottom:16rpx">
+        <view class="row-between small"><view>{{item.name}}</view><view class="bold">{{item.ratio}}%</view></view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">🥇 六大差异化优势</view>
+      <view wx:for="{{b.advantages}}" wx:key="dimension" style="margin-bottom:20rpx">
+        <view class="bold" style="font-size:27rpx">{{item.dimension}}</view>
+        <view class="tiny muted">竞品：{{item.highEnd}}</view>
+        <view class="tiny" style="color:#2e6b4f">茶芽芽：{{item.ours}}</view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">🔗 助农闭环</view>
+      <image src="{{b.images.closedLoop}}" mode="widthFix" style="width:100%;border-radius:16rpx" />
+      <view wx:for="{{b.aidChain}}" wx:key="step" class="small" style="margin-top:12rpx">· <text class="bold">{{item.step}}</text>：{{item.desc}}</view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">🛡 合规与品控</view>
+      <view wx:for="{{b.compliance}}" wx:key="*this" class="small" style="margin-bottom:12rpx">· {{item}}</view>
+    </view>
+
+    <view class="card" style="background:#f3f8f4">
+      <view class="bold">{{b.fullName}}</view>
+      <view class="small muted mt10">{{b.team}}</view>
+      <view class="tiny muted">{{b.competition}}</view>
+    </view>
+  </view>
+</view>

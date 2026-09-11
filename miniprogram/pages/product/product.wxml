@@ -1,0 +1,84 @@
+<view class="page" wx:if="{{p}}">
+  <swiper style="height:750rpx;background:#f3f8f4" circular bindchange="swipe">
+    <swiper-item wx:for="{{gallery}}" wx:key="*this">
+      <image src="{{item}}" mode="aspectFill" style="width:100%;height:750rpx" />
+    </swiper-item>
+  </swiper>
+  <view class="center tiny muted" style="margin-top:10rpx">{{current + 1}} / {{gallery.length}}</view>
+
+  <view class="pad">
+    <view class="card">
+      <view class="row-between">
+        <view class="price">¥{{p.priceText}}<text wx:if="{{p.listPrice > p.price}}" class="tiny muted" style="text-decoration:line-through;margin-left:12rpx">¥{{p.listPriceText}}</text></view>
+        <view class="tiny muted">已售 {{p.sales}} · 库存 {{p.stock}}</view>
+      </view>
+      <view class="bold mt10" style="font-size:32rpx">{{p.title}}</view>
+      <view class="small muted">{{p.subtitle}}</view>
+      <view class="mt10"><text wx:for="{{p.tags}}" wx:key="*this" class="tag">{{item}}</text></view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">✨ 六大核心卖点</view>
+      <view wx:for="{{p.sellingPoints}}" wx:key="title" style="margin-bottom:18rpx">
+        <view class="bold" style="font-size:27rpx">· {{item.title}}</view>
+        <view class="small muted">{{item.desc}}</view>
+      </view>
+    </view>
+
+    <view class="card" wx:if="{{p.detail.positioning}}">
+      <view class="card-title">🎯 产品定位</view>
+      <view class="small">{{p.detail.positioning}}</view>
+      <view class="small muted mt10">适用人群：{{p.detail.audience}}</view>
+    </view>
+
+    <view class="card" wx:if="{{p.detail.specs.length}}">
+      <view class="card-title">📋 产品参数</view>
+      <view wx:for="{{p.detail.specs}}" wx:key="k" class="row tl-detail" style="margin-bottom:10rpx">
+        <view class="small muted" style="flex:0 0 200rpx">{{item.k}}</view>
+        <view class="small grow">{{item.v}}</view>
+      </view>
+    </view>
+
+    <view class="card" wx:if="{{p.detail.usage.length}}">
+      <view class="card-title">🧴 使用方法</view>
+      <view wx:for="{{p.detail.usage}}" wx:key="*this" class="small" style="margin-bottom:12rpx">{{index + 1}}. {{item}}</view>
+    </view>
+
+    <view class="card" wx:if="{{p.detail.safety.length}}">
+      <view class="card-title">🛡 安全与合规</view>
+      <view wx:for="{{p.detail.safety}}" wx:key="*this" class="small" style="margin-bottom:12rpx">· {{item}}</view>
+      <view class="btn ghost sm" bindtap="goTrace">查看扫码溯源 ›</view>
+    </view>
+
+    <view class="card" wx:if="{{batches.length}}">
+      <view class="card-title">🔍 在售批次（可溯源）</view>
+      <view wx:for="{{batches}}" wx:key="batch_no" class="row-between small" style="padding:10rpx 0;border-bottom:2rpx solid #e5eae6">
+        <view class="bold">{{item.batch_no}}</view>
+        <view class="muted">{{item.farmer}} · {{item.harvest_date}}</view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">🤖 有疑问？问芽芽</view>
+      <view class="small muted mb10">宝宝皮肤能不能用、一次用多少、怎么抚触，都可以问 AI 客服（涉及症状会先提示就医）。</view>
+      <view class="btn ghost block" bindtap="goAI">咨询 AI 客服</view>
+    </view>
+
+    <view wx:if="{{related.length}}">
+      <view class="card-title">你可能还需要</view>
+      <view class="goods-grid">
+        <view wx:for="{{related}}" wx:key="code" class="cell" data-code="{{item.code}}" bindtap="goProduct">
+          <image src="{{item.image}}" mode="aspectFill" />
+          <view class="info"><view class="small bold">{{item.title}}</view><view class="price">¥{{item.priceText}}</view></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view style="height:140rpx"></view>
+  <view style="position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2rpx solid #e5eae6;padding:18rpx 24rpx;display:flex;gap:16rpx">
+    <view class="btn outline" bindtap="goAI">问客服</view>
+    <view class="btn ghost grow" bindtap="addCart">加入购物车</view>
+    <view class="btn grow" bindtap="buy">立即购买</view>
+  </view>
+</view>

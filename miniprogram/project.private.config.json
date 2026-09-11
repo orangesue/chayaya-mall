@@ -1,0 +1,7 @@
+{
+  "description": "本地调试配置（不参与版本管理）",
+  "setting": {
+    "compileHotReLoad": true,
+    "urlCheck": false
+  }
+}

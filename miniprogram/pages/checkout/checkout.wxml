@@ -1,0 +1,55 @@
+<view class="page" wx:if="{{preview}}">
+  <view class="pad">
+    <view class="card">
+      <block wx:if="{{address}}">
+        <view class="row-between">
+          <view class="grow">
+            <view class="bold">{{address.receiver}} <text class="small muted">{{address.phone}}</text></view>
+            <view class="small muted">{{address.province}}{{address.city}}{{address.district}} {{address.detail}}</view>
+          </view>
+          <picker mode="selector" range="{{addresses}}" range-key="detail" bindchange="pickAddress">
+            <view class="btn sm outline">更换</view>
+          </picker>
+        </view>
+      </block>
+      <view wx:else class="center">
+        <view class="small muted mb10">还没有收货地址</view>
+        <view class="btn sm" bindtap="addAddress">添加收货地址</view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">商品清单</view>
+      <view wx:for="{{preview.items}}" wx:key="index" class="goods-row">
+        <image class="goods-thumb" src="{{item.image}}" mode="aspectFill" />
+        <view class="grow">
+          <view class="small bold">{{item.title}}</view>
+          <view class="tiny muted">{{item.spec}} × {{item.qty}}</view>
+        </view>
+        <view class="small price">¥{{item.price * item.qty / 100}}</view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="row-between mb10">
+        <view class="small">优惠券</view>
+        <view class="btn sm outline" bindtap="pickCoupon">{{couponCode ? couponCode : '选择优惠券'}}</view>
+      </view>
+      <view class="row-between"><view class="small muted">商品金额</view><view class="small">¥{{preview.goodsAmount / 100}}</view></view>
+      <view class="row-between" wx:if="{{preview.tierDiscount}}"><view class="small muted">会员折扣</view><view class="small">-¥{{preview.tierDiscount / 100}}</view></view>
+      <view class="row-between" wx:if="{{preview.couponDiscount}}"><view class="small muted">优惠券</view><view class="small">-¥{{preview.couponDiscount / 100}}</view></view>
+      <view class="row-between"><view class="small muted">运费</view><view class="small">{{preview.freight ? '¥' + preview.freight / 100 : '免运费'}}</view></view>
+      <view class="divider"></view>
+      <view class="row-between"><view class="bold">应付金额</view><view class="price">¥{{preview.payAmount / 100}}</view></view>
+    </view>
+
+    <view class="card">
+      <view class="small muted mb10">订单备注（可选）</view>
+      <input class="input" placeholder="如：需要礼盒包装 / 指定送达时间" value="{{remark}}" bindinput="onRemark" />
+    </view>
+
+    <view class="notice info mb10">支付方式：微信支付（演示环境为模拟支付，不产生真实扣款）。下单后系统会自动为本单分配一物一码，可扫码溯源。</view>
+
+    <view class="btn block" bindtap="submit">提交订单并支付 ¥{{preview.payAmount / 100}}</view>
+  </view>
+</view>

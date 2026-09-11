@@ -1,0 +1,55 @@
+# ============================================================
+# 茶芽芽项目 .gitignore
+# 原则：仓库只放"代码 + 文档 + 经过脱敏的素材"，
+#      依赖、数据库、日志、含个人信息的原件一律不进仓库。
+# ============================================================
+
+# ---------- 依赖 ----------
+node_modules/
+.pnpm-store/
+.npmcache/
+_npmcache/
+
+# ---------- 数据库（运行时生成，含演示数据） ----------
+backend/data/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# ---------- 运行时产物 ----------
+logs/
+*.log
+npm-debug.log*
+backend/scripts/*.png
+backend/src/scripts/qr-test.png
+backend/src/scripts/debug-out.txt
+
+# ---------- 环境与密钥（务必不要提交） ----------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.json
+
+# ---------- 隐私素材备份（含身份证/证书扫描件，仅本地保留） ----------
+.publish-excluded/
+
+# ---------- 编辑器 / 系统 ----------
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- 无头浏览器残留（如果本地跑过 UI 截图） ----------
+.chrome-profile*/
+docs/_chrome-profile*/
+docs/screenshots/_tmp/
+
+# ---------- 其他 ----------
+*.tmp
+*.bak

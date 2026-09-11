@@ -1,0 +1,31 @@
+{
+  "name": "chayaya-mall",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "茶芽芽·浒口茶油助农先锋队 —— 婴儿山茶抚触油全渠道商城（Node.js 后端，默认零外部服务依赖）",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node src/main.mjs",
+    "dev": "node --watch src/main.mjs",
+    "reset": "node src/db/reset.mjs",
+    "qr:check": "node src/scripts/qr-check.mjs",
+    "smoke": "node src/scripts/smoke.mjs",
+    "ui:check": "node src/scripts/ui-check.mjs",
+    "serve:check": "node src/scripts/serve-check.mjs",
+    "link:check": "node src/scripts/link-check.mjs",
+    "export:mp": "node src/scripts/export-miniprogram.mjs",
+    "verify": "node src/scripts/qr-check.mjs && node src/scripts/smoke.mjs && node src/scripts/ui-check.mjs && node src/scripts/serve-check.mjs && node src/scripts/link-check.mjs"
+  },
+  "dependencies": {
+    "mysql2": "^3.24.4",
+    "qrcode": "^1.5.4",
+    "redis": "^6.2.1"
+  },
+  "devDependencies": {
+    "jsqr": "^1.4.0",
+    "pngjs": "^7.0.0"
+  }
+}

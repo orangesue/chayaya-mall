@@ -1,0 +1,79 @@
+<view class="page">
+  <block wx:if="{{logged && me}}">
+    <view class="pad">
+      <view class="card" style="background:linear-gradient(135deg,#eaf6ef,#fdfaf1)">
+        <view class="row">
+          <image src="{{me.user.avatar}}" style="width:110rpx;height:110rpx;border-radius:50%" mode="aspectFill" />
+          <view class="grow">
+            <view class="bold" style="font-size:32rpx">{{me.user.nickname}}</view>
+            <view class="small muted">{{me.user.phone}}</view>
+            <view class="mt10"><text class="tag">{{me.tier.current.name}}</text><text class="tag plain">累计消费 ¥{{me.user.totalPaid / 100}}</text></view>
+          </view>
+        </view>
+        <view wx:if="{{me.tier.next}}" class="mt10">
+          <view class="tiny muted">距 {{me.tier.next.name}} 还差 ¥{{me.tier.next.gap / 100}}</view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="row" style="justify-content:space-around;text-align:center">
+          <view class="grow" bindtap="orders"><view class="bold" style="font-size:32rpx;color:#2e6b4f">{{me.counts.orders}}</view><view class="tiny muted">全部订单</view></view>
+          <view class="grow"><view class="bold" style="font-size:32rpx;color:#2e6b4f">{{me.counts.coupons}}</view><view class="tiny muted">可用券</view></view>
+          <view class="grow" bindtap="cart"><view class="bold" style="font-size:32rpx;color:#2e6b4f">{{me.counts.cart}}</view><view class="tiny muted">购物车</view></view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="card-title">🔍 我买到的溯源码</view>
+        <view wx:if="{{!codes.length}}" class="small muted">下单支付后，系统会为本单每一瓶分配独立溯源码</view>
+        <view wx:for="{{codes}}" wx:key="traceCode" class="row-between" style="padding:14rpx 0;border-bottom:2rpx solid #e5eae6">
+          <view class="grow">
+            <view class="small bold">{{item.traceCode}}</view>
+            <view class="tiny muted">{{item.title}} {{item.spec}} · 已查询 {{item.scanCount}} 次</view>
+          </view>
+          <view class="btn sm outline" data-code="{{item.traceCode}}" bindtap="goTraceResult">溯源</view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="card-title">🎁 会员权益</view>
+        <view wx:for="{{me.tier.current.benefits}}" wx:key="*this" class="small" style="margin-bottom:10rpx">· {{item}}</view>
+      </view>
+
+      <view class="card">
+        <view class="card-title">🚌 浒口村溯源之旅</view>
+        <view class="small muted mb10">守护会员可免费参加：实地参观山茶花种植基地、产品生产过程，体验浒口特色油茶。</view>
+        <view class="btn ghost block" bindtap="bookTrip">报名溯源之旅</view>
+      </view>
+
+      <view class="card">
+        <view class="row-between" style="padding:16rpx 0;border-bottom:2rpx solid #e5eae6" bindtap="goBrand">
+          <view class="small">品牌故事</view><view class="small muted">阅读 ›</view>
+        </view>
+        <view class="row-between" style="padding:16rpx 0;border-bottom:2rpx solid #e5eae6" bindtap="goGuide">
+          <view class="small">抚触教程</view><view class="small muted">学习 ›</view>
+        </view>
+        <view class="row-between" style="padding:16rpx 0" bindtap="logout">
+          <view class="small">退出登录</view><view class="small muted">›</view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="pad">
+      <view class="card center">
+        <image src="/assets/img/image20.png" style="width:180rpx;margin:0 auto" mode="widthFix" />
+        <view class="bold" style="font-size:30rpx">登录后享村集体直供价</view>
+        <view class="small muted">还能查看你买到的每一瓶的溯源记录</view>
+        <view class="btn block mt20" bindtap="login">立即登录 / 注册</view>
+      </view>
+      <view class="card">
+        <view class="card-title">🌱 会员权益</view>
+        <view class="small" style="margin-bottom:10rpx">· 新芽会员：注册即享村集体直供价</view>
+        <view class="small" style="margin-bottom:10rpx">· 成长会员：累计满 100 元，赠育儿手册 + 月度优惠券</view>
+        <view class="small">· 守护会员：累计满 500 元，免费参与浒口村溯源之旅</view>
+      </view>
+    </view>
+  </block>
+</view>

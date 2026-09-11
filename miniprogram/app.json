@@ -1,0 +1,59 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/shop/shop",
+    "pages/product/product",
+    "pages/cart/cart",
+    "pages/checkout/checkout",
+    "pages/orders/orders",
+    "pages/order-detail/order-detail",
+    "pages/trace/trace",
+    "pages/ai/ai",
+    "pages/brand/brand",
+    "pages/guide/guide",
+    "pages/me/me",
+    "pages/login/login"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fdfaf1",
+    "navigationBarTitleText": "茶芽芽",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#eef2ee"
+  },
+  "tabBar": {
+    "color": "#86948c",
+    "selectedColor": "#3f8a63",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/shop/shop",
+        "text": "产品中心"
+      },
+      {
+        "pagePath": "pages/trace/trace",
+        "text": "溯源"
+      },
+      {
+        "pagePath": "pages/ai/ai",
+        "text": "AI问症"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于展示浒口村油茶林位置与溯源之旅"
+    }
+  }
+}
