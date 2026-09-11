@@ -2,6 +2,7 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import config, { LAN_IP } from './config.mjs';
 import { ok, fail, ApiError } from './http/respond.mjs';
@@ -128,6 +129,63 @@ async function serveStatic(req, res, pathname) {
   return false;
 }
 
+/** 从请求头推断"访问者正在使用的站点地址"，用于动态生成溯源二维码 */
+function deriveBaseUrl(req) {
+  const proto = (req.headers['x-forwarded-proto'] || '').split(',')[0].trim()
+    || (req.socket?.encrypted ? 'https' : 'http');
+  const host = (req.headers['x-forwarded-host'] || req.headers.host || '').split(',')[0].trim();
+  if (!host) return config.publicBaseUrl;
+  return `${proto}://${host}`;
+}
+
+/* ---------------- 可选访问口令（经过 http 基本认证） ---------------- */
+const accessKey = process.env.ACCESS_KEY || '';
+const safeEqual = (a, b) => {
+  const ba = Buffer.from(String(a));
+  const bb = Buffer.from(String(b));
+  if (ba.length !== bb.length) return false;
+  return crypto.timingSafeEqual(ba, bb);
+};
+
+function checkAccessKey(req, res) {
+  if (!accessKey) return true;
+
+  /**
+   * 本机访问免口令。
+   * 注意：cloudflared 隧道是从本机 127.0.0.1 连进来的，所以不能只看 remoteAddress，
+   * 否则公网流量会被误判为本机而绕过口令。判断依据改为：
+   *   - 没有经由代理（无 x-forwarded-host / x-forwarded-for），且
+   *   - Host 是 127.0.0.1 / localhost / 局域网 IP
+   * 这两条同时成立才算本机/局域网，公网隧道访问一定会带 x-forwarded-* 头。
+   */
+  const host = String(req.headers.host || '');
+  const hostname = host.split(':')[0];
+  const viaProxy = Boolean(req.headers['x-forwarded-host'] || req.headers['x-forwarded-for'] || req.headers['cf-connecting-ip']);
+  const isLocalHost = ['127.0.0.1', 'localhost', '::1', LAN_IP].includes(hostname);
+  if (!viaProxy && isLocalHost) return true;
+
+  const header = req.headers.authorization || '';
+  if (header.startsWith('Basic ')) {
+    const decoded = Buffer.from(header.slice(6), 'base64').toString('utf8');
+    const idx = decoded.indexOf(':');
+    const pass = decoded.slice(idx + 1);
+    if (safeEqual(pass, accessKey)) return true;
+  }
+  res.writeHead(401, {
+    'WWW-Authenticate': 'Basic realm="Chayaya Demo", charset="UTF-8"',
+    'Content-Type': 'text/html; charset=utf-8',
+  });
+  res.end(`<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><title>需要访问口令</title>
+    <style>body{font-family:"PingFang SC",sans-serif;padding:44px;line-height:1.9;color:#23302b;background:#fdfaf1}
+    code{background:#eef3ef;padding:2px 8px;border-radius:4px;font-size:18px}</style></head><body>
+    <h2>🌱 茶芽芽演示站</h2>
+    <p>这是「浒口茶油·乡味新生」大学生创业项目的演示环境，需要访问口令。</p>
+    <p>浏览器弹出的登录框里：<b>用户名随便填</b>，<b>密码填</b> <code>${accessKey}</code></p>
+    <p style="color:#7c8a83;font-size:14px">口令由演示者提供；本机访问无需口令。</p>
+    </body></html>`);
+  return false;
+}
+
 export function createServer() {
   registerRoutes(route);
 
@@ -135,6 +193,9 @@ export function createServer() {
     const started = Date.now();
     const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     const pathname = url.pathname;
+
+    // 可选访问口令（设置了 ACCESS_KEY 环境变量才生效）
+    if (!checkAccessKey(req, res)) return;
 
     // CORS（便于本地用浏览器 / 微信开发者工具联调）
     res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
@@ -146,6 +207,9 @@ export function createServer() {
       return;
     }
 
+    // 让每个请求都知道自己是通过哪个地址进来的（局域网 IP / 隧道域名 / 正式域名）
+    req.baseUrl = deriveBaseUrl(req);
+
     try {
       if (pathname.startsWith('/api/')) {
         for (const r of routes) {
@@ -155,7 +219,7 @@ export function createServer() {
           const params = {};
           r.keys.forEach((k, i) => { params[k] = decodeURIComponent(m[i + 1]); });
           const body = ['POST', 'PUT', 'PATCH'].includes(req.method) ? await readJsonBody(req) : {};
-          const result = await r.handler({ req, res, url, params, body, query: url.searchParams });
+          const result = await r.handler({ req, res, url, params, body, query: url.searchParams, baseUrl: req.baseUrl });
           if (res.writableEnded) return;
           if (result instanceof ApiError) throw result;
           json(res, 200, result && result.code !== undefined ? result : ok(result));

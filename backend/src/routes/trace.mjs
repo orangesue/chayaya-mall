@@ -44,9 +44,9 @@ export function registerTraceRoutes(route) {
   });
 
   /** 生成某个溯源码的防伪链接与二维码 SVG（用于打印瓶底标签） */
-  route('GET', '/api/trace/qr/:code', async ({ params, query, res }) => {
+  route('GET', '/api/trace/qr/:code', async ({ params, query, res, baseUrl }) => {
     const fmt = query.get('format') || 'json';
-    const qr = await buildTraceQr(params.code, { size: Number(query.get('size')) || 0 });
+    const qr = await buildTraceQr(params.code, { size: Number(query.get('size')) || 0, base: baseUrl });
     if (fmt === 'svg') {
       res.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'no-store' });
       res.end(qr.svg);
@@ -88,10 +88,10 @@ export function registerTraceRoutes(route) {
   });
 
   /** 演示用溯源码（首页快捷体验按钮） */
-  route('GET', '/api/trace/demo', async () => {
+  route('GET', '/api/trace/demo', async ({ baseUrl }) => {
     const unit = await get("SELECT trace_code, batch_no FROM trace_units WHERE batch_no = 'CHY-20260115-01' ORDER BY id ASC LIMIT 1");
     if (!unit) throw notFound('暂无溯源码，请先执行 npm run reset');
-    const qr = await buildTraceQr(unit.trace_code);
+    const qr = await buildTraceQr(unit.trace_code, { base: baseUrl });
     return ok({ traceCode: unit.trace_code, batchNo: unit.batch_no, url: qr.url, qrSvg: qr.svg });
   });
 }

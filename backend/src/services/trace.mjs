@@ -221,12 +221,14 @@ async function recordScan(traceCode, ip, ua, result) {
 }
 
 /** 为某个单品码生成可打印的防伪链接与二维码 */
-export async function buildTraceQr(traceCode, { size } = {}) {
+export async function buildTraceQr(traceCode, { size, base } = {}) {
   const unit = await get('SELECT * FROM trace_units WHERE trace_code = ?', [traceCode]);
   if (!unit) throw notFound('溯源码不存在');
   const batch = await get('SELECT * FROM batches WHERE batch_no = ?', [unit.batch_no]);
   const token = tokenForTrace(unit.trace_code, unit.batch_no, batch?.inspection_no ?? '');
-  const url = traceUrl(token);
+  // base 由请求上下文传入：局域网访问就用局域网 IP，隧道/域名访问就用对应域名，
+  // 保证"谁扫码，码就指向谁能打开的地址"
+  const url = traceUrl(token, base || config.publicBaseUrl);
   const svg = await qrSvg(url, { ecl: config.trace.qrEcl, width: size, dark: '#123f2e' });
   return {
     traceCode: unit.trace_code,
