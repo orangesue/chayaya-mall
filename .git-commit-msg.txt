@@ -1,8 +1,6 @@
-﻿chore: configure-pages 增加 enablement 参数尝试自动开启 Pages
+﻿docs: 更新公网访问指南，标注 Pages 已上线并完成验证
 
-GitHub 限制 GITHUB_TOKEN 无法代为开启 Pages 仓库设置，
-因此首选方案仍是手动把 Settings → Pages → Source 设为 GitHub Actions；
-此参数在部分情况下可自动完成，作为兜底。
-
-同时本次 push 会重新触发部署（path 过滤已覆盖 workflow 文件本身），
-用户无需在 Actions 页面手动点 Run workflow。
+- 记录线上地址 https://orangesue.github.io/chayaya-mall/ 与验证结果（线上功能自检 24/24）
+- 说明 configure-pages 的 enablement 参数已完成 Pages 自动开启，手动步骤标注为已完成
+- 补充 Run workflow 按钮位置说明（需进入具体工作流页面才会出现）
+- 补充部署失败时的排查方向（Settings → Pages → Source 需为 GitHub Actions）
