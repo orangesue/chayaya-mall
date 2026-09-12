@@ -276,7 +276,20 @@ export const quickQuestions = [
   '会员有什么权益？',
 ];
 
+/**
+ * 溯源「产链信息」对外展示的节点白名单。
+ *
+ * 决策记录：团队确认产链信息页只展示加工之后的环节，从「冷榨加工」开始，共 4 个节点；
+ * 种植管护与果实采摘两个节点不再在 C 端展示。
+ *
+ * 重要：这只是**展示层过滤**。
+ * trace_events 表里 6 个节点完整保留，哈希链校验（verifyChain）仍然校验全部节点，
+ * 因此防伪能力不受影响 —— 少展示不等于少存证。
+ */
+export const PUBLIC_CHAIN_STAGES = ['press', 'inspect', 'fill', 'logistics'];
+
 export default {
   kbCategories, kbEntries, intentKeywords, symptomRules,
   medicalRedFlags, medicalDisclaimer, emotionKeywords, handoffTriggers, quickQuestions,
+  PUBLIC_CHAIN_STAGES,
 };

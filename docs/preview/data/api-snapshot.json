@@ -1,0 +1,2453 @@
+{
+ "builtAt": "2026-09-12T11:38:17.157Z",
+ "baseUrl": "/chayaya-mall/",
+ "demoMode": true,
+ "brand": {
+  "name": "茶芽芽",
+  "slogan": "与茶树一同生长，伴宝宝安心长大",
+  "subSlogan": "源头自营，省心省钱",
+  "positioning": "真实乡味 · 母婴天然护肤",
+  "origin": "湖南省郴州市浒口村",
+  "team": "北京师范大学（珠海校区）浒口茶油助农先锋队",
+  "emotion": "天然、安心、有温度",
+  "images": {
+   "poster": "/chayaya-mall/assets/img/image17.png",
+   "brandDna": "/chayaya-mall/assets/img/image3.png",
+   "roadmap": "/chayaya-mall/assets/img/image4.png",
+   "closedLoop": "/chayaya-mall/assets/img/image5.jpeg",
+   "positioning": "/chayaya-mall/assets/img/image6.png",
+   "traceSystem": "/chayaya-mall/assets/img/image7.png",
+   "bottlePair": "/chayaya-mall/assets/img/image18.png",
+   "bottleLying": "/chayaya-mall/assets/img/image19.png",
+   "bottle30": "/chayaya-mall/assets/img/image20.png",
+   "pumpHead": "/chayaya-mall/assets/img/image21.png",
+   "antiFake": "/chayaya-mall/assets/img/image22.jpeg",
+   "scenePicking": "/chayaya-mall/assets/img/image23.png",
+   "marketSize": "/chayaya-mall/assets/img/image8.png",
+   "shareTrend": "/chayaya-mall/assets/img/image9.png",
+   "demandShift": "/chayaya-mall/assets/img/image10.png",
+   "preferencePie": "/chayaya-mall/assets/img/image11.png",
+   "infoChannel": "/chayaya-mall/assets/img/image13.png",
+   "productFlow": "/chayaya-mall/assets/img/image16.png",
+   "uiProduct": "/chayaya-mall/assets/img/image24.png",
+   "uiAi": "/chayaya-mall/assets/img/image25.png",
+   "traceDashboard": "/chayaya-mall/assets/img/image26.jpeg",
+   "traceUpload": "/chayaya-mall/assets/img/image27.jpeg",
+   "traceQuery": "/chayaya-mall/assets/img/image28.jpeg",
+   "profitTrend": "/chayaya-mall/assets/img/image31.png"
+  }
+ },
+ "brandFull": {
+  "name": "茶芽芽",
+  "fullName": "茶芽芽·婴儿山茶抚触油",
+  "series": "初生系列",
+  "slogan": "与茶树一同生长，伴宝宝安心长大",
+  "subSlogan": "源头自营，省心省钱",
+  "positioning": "真实乡味 · 母婴天然护肤",
+  "origin": "湖南省郴州市浒口村",
+  "originCoord": "北纬 25°（世界山茶树适生黄金地带）",
+  "team": "北京师范大学（珠海校区）浒口茶油助农先锋队",
+  "teamId": "16106641",
+  "competition": "第十六届全国大学生电子商务“创新、创意及创业”挑战赛 · 三农电子商务赛道",
+  "emotion": "天然、安心、有温度",
+  "story": [
+   "在湖南郴州浒口村的深山里，藏着一片百年山茶林。每年春天，当第一缕阳光穿透晨雾，茶树枝头便冒出嫩绿的新芽——它们柔软、娇嫩，却蕴藏着破土而出的生命力。",
+   "漫山遍野的山茶树开了又谢，结出一季饱满的果实。这份大山的馈赠，由浒口村村民以古法制作、代代相传：从茶果采摘、自然晾晒到手工压榨，每一道工序都恪守老祖宗留下的古法技艺，不含添加剂、不做过度加工，凝萃成清透的茶油，入食、养生、润肤，养育了一代代浒口子民。",
+   "酒香也怕巷子深，油好也惧山岭峻。直到有一双来自浒口村儿女的手，摘下了枝头的花，把她带出深山，带进城市，带进实验室。“茶芽芽”的故事，就从这里开始。"
+  ],
+  "dna": [
+   {
+    "key": "天然",
+    "desc": "浒口山林纯净的天然植萃成分",
+    "image": "/chayaya-mall/assets/img/image3.png"
+   },
+   {
+    "key": "科学",
+    "desc": "科学验证有效的母婴护肤功效",
+    "image": "/chayaya-mall/assets/img/image3.png"
+   },
+   {
+    "key": "陪伴",
+    "desc": "亲子成长时光的忠实陪伴者",
+    "image": "/chayaya-mall/assets/img/image3.png"
+   }
+  ],
+  "advantages": [
+   {
+    "dimension": "溯源体系",
+    "highEnd": "原料来自优质山茶油产区，拥有 7 项专利技术，但具体产地和加工过程以品牌整体宣传为主，消费者难以追踪单一产品源头。",
+    "mass": "成分表复杂，原料多为工业化采购，信息不透明，无公开溯源路径。",
+    "ours": "浒口村原生山茶林直供，老油坊匠人工艺传承，全程实拍溯源（可查看山林、采摘、压榨实景），原料真实可查。"
+   },
+   {
+    "dimension": "功效验证",
+    "highEnd": "拥有 7 项山茶油专利，通过老爸抽检 4924 项检测，获三甲医院临床测试认可。",
+    "mass": "功效以基础保湿、温和为主，验证多依赖品牌整体安全背书。",
+    "ours": "针对婴儿肌肤干燥、泛红等细分场景研发，通过皮肤刺激性测试，功效精准可验证；已在湖南郴州区域用户中积累真实口碑。"
+   },
+   {
+    "dimension": "母婴场景适配度",
+    "highEnd": "产品线覆盖面霜、乳、沐浴露等，包装以实用为主，未针对母婴单手操作、防洒、分龄等场景做专项优化。",
+    "mass": "包装大众化，部分产品有基础安全设计，整体未以“母婴深度使用场景”为核心开发。",
+    "ours": "融入“乡村记忆”视觉符号，加入手握弧度设计，包装兼顾安全（防洒、易握）与美感，贴合母婴日常护理场景。"
+   },
+   {
+    "dimension": "购买便捷性",
+    "highEnd": "电商平台全覆盖，线下商超及母婴店广泛铺货，渠道成熟。",
+    "mass": "电商平台、商超全覆盖，渠道属性偏大众化，缺乏深度服务。",
+    "ours": "线上小程序 + 本地生活平台 + 线下合作商店双线布局，B 端母婴店稳定供货，零售端精准试销，购买场景全覆盖。"
+   },
+   {
+    "dimension": "用户体验",
+    "highEnd": "提供标准化产品，会员体系以积分、促销为主，缺乏一对一护肤指导。",
+    "mass": "以单品销售为主，用户体验依赖用户自行摸索，缺少系统性服务。",
+    "ours": "会员制 + 私域社群运营，提供肤质适配建议、抚触教程等定制化服务，建立用户长期信任关系。"
+   },
+   {
+    "dimension": "情感价值",
+    "highEnd": "品牌故事源于创始人“为女儿寻找天然安全产品”的父爱初心。",
+    "mass": "品牌情感偏“大众家庭、温和可信”，缺乏独特文化内核。",
+    "ours": "以“与茶树一同生长，伴宝宝安心长大”为情感主张，绑定乡土真实与乡村助农理念，引发母婴群体深度情感共鸣。"
+   }
+  ],
+  "communication": [
+   {
+    "title": "极简成分",
+    "subtitle": "高纯度天然山茶油成分",
+    "desc": "人体皮脂的主要成分是油酸。相较于进口橄榄油约 70% 的油酸含量，浒口村山茶油的油酸含量高达 80% 以上，并富含不饱和脂肪酸与维生素 E。产品山茶基底油含量占比高至 95%，减少各类香精、化学防腐剂添加。"
+   },
+   {
+    "title": "产地透明",
+    "subtitle": "一码一溯源",
+    "desc": "用户扫码后，不仅能看到电子质检报告，更能看到这一瓶抚触油对应的油茶林坐标、采摘日期、压榨批次甚至农户姓名，让产品安全从“品牌单向宣传”转向双方共同监督。"
+   },
+   {
+    "title": "拒绝溢价",
+    "subtitle": "乡村振兴下的良心国货",
+    "desc": "与浒口村村集体生产深度绑定，缩减达人营销预算，用户支付的每一分钱都在为更好的原料和乡村的未来付费。"
+   }
+  ],
+  "market": {
+   "marketSize": [
+    {
+     "year": "2017",
+     "value": 85.7
+    },
+    {
+     "year": "2018",
+     "value": 98.6
+    },
+    {
+     "year": "2019",
+     "value": 114.1
+    },
+    {
+     "year": "2020",
+     "value": 123.6
+    },
+    {
+     "year": "2021",
+     "value": 142.3
+    },
+    {
+     "year": "2022",
+     "value": 137.3
+    },
+    {
+     "year": "2023",
+     "value": 157.3
+    },
+    {
+     "year": "2024",
+     "value": 172.8
+    },
+    {
+     "year": "2025",
+     "value": 187.5
+    },
+    {
+     "year": "2026",
+     "value": 202.6
+    },
+    {
+     "year": "2027",
+     "value": 217.8
+    }
+   ],
+   "facts": [
+    {
+     "label": "2027 年中国婴童护肤市场规模预计",
+     "value": "217.8 亿元"
+    },
+    {
+     "label": "Z 世代妈妈偏好“适合中国宝宝”的国货婴护品牌",
+     "value": "88.34%"
+    },
+    {
+     "label": "2022 年功能性护肤媒体声量同比",
+     "value": "+57.9%"
+    },
+    {
+     "label": "受访者选择抚触油时最看重“成分天然无添加”",
+     "value": "92.6%"
+    },
+    {
+     "label": "受访者最看重“温和低敏”",
+     "value": "89.8%"
+    },
+    {
+     "label": "受访者最看重“原料产地可溯源”",
+     "value": "78.5%"
+    },
+    {
+     "label": "愿意或非常愿意尝试茶芽芽抚触油",
+     "value": "82%"
+    },
+    {
+     "label": "领取试用后愿意复购的月子中心客户占比",
+     "value": "超 50%"
+    }
+   ],
+   "painPoints": [
+    {
+     "name": "质地厚重不易吸收",
+     "ratio": 68.5
+    },
+    {
+     "name": "包装设计不合理（难操作、易洒）",
+     "ratio": 62.3
+    },
+    {
+     "name": "有香精与异味",
+     "ratio": 58.7
+    },
+    {
+     "name": "成分复杂有添加剂",
+     "ratio": 45.2
+    },
+    {
+     "name": "无溯源信息，安全性存疑",
+     "ratio": 42.6
+    },
+    {
+     "name": "价格偏高",
+     "ratio": 32.1
+    }
+   ]
+  },
+  "tiers": [
+   {
+    "code": "xinYa",
+    "name": "新芽会员",
+    "min": 0,
+    "discount": 100,
+    "benefits": [
+     "注册即享村集体直供价",
+     "可查看产品基础溯源记录",
+     "分月龄抚触教程"
+    ]
+   },
+   {
+    "code": "chengZhang",
+    "name": "成长会员",
+    "min": 10000,
+    "discount": 98,
+    "benefits": [
+     "定制育儿科普手册",
+     "每月额外优惠券",
+     "可购买浒口村其他油类产品（食用山茶油等）"
+    ]
+   },
+   {
+    "code": "shouHu",
+    "name": "守护会员",
+    "min": 50000,
+    "discount": 95,
+    "benefits": [
+     "免费参与“浒口村溯源之旅”",
+     "实地参观山茶花种植基地与产品生产过程",
+     "体验浒口特色油茶"
+    ]
+   }
+  ],
+  "aidChain": [
+   {
+    "step": "源头整合",
+    "desc": "对接村集体与合作社，锁定山茶油源头供应"
+   },
+   {
+    "step": "产品创新",
+    "desc": "古法工艺 + 物理冷榨，升级为母婴级护肤产品"
+   },
+   {
+    "step": "品牌打造",
+    "desc": "“乡村记忆”视觉符号与乡土 IP 内容矩阵"
+   },
+   {
+    "step": "渠道运营",
+    "desc": "线上小程序 + 线下月子中心/母婴店双线联动"
+   },
+   {
+    "step": "助农闭环",
+    "desc": "带动农户种植、采摘、初加工增收，收益回流村集体"
+   }
+  ],
+  "traceFlow": [
+   {
+    "key": "plant",
+    "name": "茶树种植",
+    "desc": "有机种植 / 产地信息"
+   },
+   {
+    "key": "harvest",
+    "name": "果实采摘",
+    "desc": "成熟度筛选 / 采摘时间"
+   },
+   {
+    "key": "press",
+    "name": "冷榨加工",
+    "desc": "低温冷榨 / 工艺标准"
+   },
+   {
+    "key": "fill",
+    "name": "成品灌装",
+    "desc": "无菌车间 / 质检报告"
+   }
+  ],
+  "compliance": [
+   "执行《儿童化妆品监督管理条例》，完成儿童化妆品备案与成分检测",
+   "原料准入执行“三筛”标准：一筛种植环境（无污染）、二筛采摘工艺（无霉果）、三筛压榨流程（物理低温冷榨），达标率 100% 方可进入生产环节",
+   "产品详情页动态更新每批次原料的农残检测报告"
+  ],
+  "images": {
+   "poster": "/chayaya-mall/assets/img/image17.png",
+   "brandDna": "/chayaya-mall/assets/img/image3.png",
+   "roadmap": "/chayaya-mall/assets/img/image4.png",
+   "closedLoop": "/chayaya-mall/assets/img/image5.jpeg",
+   "positioning": "/chayaya-mall/assets/img/image6.png",
+   "traceSystem": "/chayaya-mall/assets/img/image7.png",
+   "bottlePair": "/chayaya-mall/assets/img/image18.png",
+   "bottleLying": "/chayaya-mall/assets/img/image19.png",
+   "bottle30": "/chayaya-mall/assets/img/image20.png",
+   "pumpHead": "/chayaya-mall/assets/img/image21.png",
+   "antiFake": "/chayaya-mall/assets/img/image22.jpeg",
+   "scenePicking": "/chayaya-mall/assets/img/image23.png",
+   "marketSize": "/chayaya-mall/assets/img/image8.png",
+   "shareTrend": "/chayaya-mall/assets/img/image9.png",
+   "demandShift": "/chayaya-mall/assets/img/image10.png",
+   "preferencePie": "/chayaya-mall/assets/img/image11.png",
+   "infoChannel": "/chayaya-mall/assets/img/image13.png",
+   "productFlow": "/chayaya-mall/assets/img/image16.png",
+   "uiProduct": "/chayaya-mall/assets/img/image24.png",
+   "uiAi": "/chayaya-mall/assets/img/image25.png",
+   "traceDashboard": "/chayaya-mall/assets/img/image26.jpeg",
+   "traceUpload": "/chayaya-mall/assets/img/image27.jpeg",
+   "traceQuery": "/chayaya-mall/assets/img/image28.jpeg",
+   "profitTrend": "/chayaya-mall/assets/img/image31.png"
+  }
+ },
+ "story": [
+  "在湖南郴州浒口村的深山里，藏着一片百年山茶林。每年春天，当第一缕阳光穿透晨雾，茶树枝头便冒出嫩绿的新芽——它们柔软、娇嫩，却蕴藏着破土而出的生命力。",
+  "漫山遍野的山茶树开了又谢，结出一季饱满的果实。这份大山的馈赠，由浒口村村民以古法制作、代代相传：从茶果采摘、自然晾晒到手工压榨，每一道工序都恪守老祖宗留下的古法技艺，不含添加剂、不做过度加工，凝萃成清透的茶油，入食、养生、润肤，养育了一代代浒口子民。",
+  "酒香也怕巷子深，油好也惧山岭峻。直到有一双来自浒口村儿女的手，摘下了枝头的花，把她带出深山，带进城市，带进实验室。“茶芽芽”的故事，就从这里开始。"
+ ],
+ "marketFacts": [
+  {
+   "label": "2027 年中国婴童护肤市场规模预计",
+   "value": "217.8 亿元"
+  },
+  {
+   "label": "Z 世代妈妈偏好“适合中国宝宝”的国货婴护品牌",
+   "value": "88.34%"
+  },
+  {
+   "label": "2022 年功能性护肤媒体声量同比",
+   "value": "+57.9%"
+  },
+  {
+   "label": "受访者选择抚触油时最看重“成分天然无添加”",
+   "value": "92.6%"
+  },
+  {
+   "label": "受访者最看重“温和低敏”",
+   "value": "89.8%"
+  },
+  {
+   "label": "受访者最看重“原料产地可溯源”",
+   "value": "78.5%"
+  },
+  {
+   "label": "愿意或非常愿意尝试茶芽芽抚触油",
+   "value": "82%"
+  },
+  {
+   "label": "领取试用后愿意复购的月子中心客户占比",
+   "value": "超 50%"
+  }
+ ],
+ "tiers": [
+  {
+   "code": "xinYa",
+   "name": "新芽会员",
+   "min": 0,
+   "discount": 100,
+   "benefits": [
+    "注册即享村集体直供价",
+    "可查看产品基础溯源记录",
+    "分月龄抚触教程"
+   ]
+  },
+  {
+   "code": "chengZhang",
+   "name": "成长会员",
+   "min": 10000,
+   "discount": 98,
+   "benefits": [
+    "定制育儿科普手册",
+    "每月额外优惠券",
+    "可购买浒口村其他油类产品（食用山茶油等）"
+   ]
+  },
+  {
+   "code": "shouHu",
+   "name": "守护会员",
+   "min": 50000,
+   "discount": 95,
+   "benefits": [
+    "免费参与“浒口村溯源之旅”",
+    "实地参观山茶花种植基地与产品生产过程",
+    "体验浒口特色油茶"
+   ]
+  }
+ ],
+ "products": [
+  {
+   "code": "CY-OIL-100",
+   "title": "茶芽芽 婴儿山茶抚触油",
+   "subtitle": "初生系列 · 100ml 家庭常规装",
+   "category": "oil",
+   "spec": "100ml",
+   "price": 6900,
+   "listPrice": 9900,
+   "priceText": "69.00",
+   "listPriceText": "99.00",
+   "stock": 1200,
+   "sales": 3260,
+   "soldOut": false,
+   "presale": false,
+   "doseMl": 0.5,
+   "volumeMl": 100,
+   "tags": [
+    "0 添加",
+    "母婴安全",
+    "一物一码溯源",
+    "乡村助农"
+   ],
+   "sellingPoints": [
+    {
+     "title": "95% 高纯度冷榨山茶油基底",
+     "desc": "油酸含量高达 80% 以上，富含不饱和脂肪酸与维生素 E，契合“以油养肤、精简护肤”理念。"
+    },
+    {
+     "title": "0 添加 · 温和低敏",
+     "desc": "无香精、无化学防腐剂、无矿物油，通过皮肤刺激性测试，适用于 0-12 个月新生儿及敏感肌婴幼儿。"
+    },
+    {
+     "title": "一物一码全流程溯源",
+     "desc": "扫码可查油茶林坐标、采摘日期、压榨批次、农户姓名与电子质检报告，源头真实可查。"
+    },
+    {
+     "title": "防回流婴儿专用油头",
+     "desc": "微孔定量设计，按压一次出油 0.5ml；内置防回流结构隔绝空气、手油与细菌，延缓油体氧化变质。"
+    },
+    {
+     "title": "单手操作的收腰瓶身",
+     "desc": "中间收腰、两侧微凸，适配女性手掌尺寸；哑光磨砂防滑，沾油也能稳握，抱娃时单手可用。"
+    },
+    {
+     "title": "避光抗氧化包装",
+     "desc": "食品级 PET 瓶身 + 淡黄茶色避光设计，阻隔紫外线，延缓山茶油酸败，保持油体清澈。"
+    }
+   ],
+   "image": "/chayaya-mall/assets/img/image18.png",
+   "gallery": [
+    "/chayaya-mall/assets/img/image18.png",
+    "/chayaya-mall/assets/img/image19.png",
+    "/chayaya-mall/assets/img/image17.png",
+    "/chayaya-mall/assets/img/image21.png",
+    "/chayaya-mall/assets/img/image22.jpeg",
+    "/chayaya-mall/assets/img/image23.png"
+   ],
+   "sourcePlatform": "self",
+   "detail": {
+    "positioning": "纯天然、无添加、冷榨一级山茶油基底的母婴专用抚触油，主打温和保湿、肌肤护理、新生儿抚触、预防干红痒。",
+    "audience": "0-12 个月新生儿及敏感肌婴幼儿",
+    "coreValues": [
+     "原生态",
+     "可溯源",
+     "助农",
+     "高纯度"
+    ],
+    "specs": [
+     {
+      "k": "净含量",
+      "v": "100ml"
+     },
+     {
+      "k": "基底油",
+      "v": "一级物理冷榨山茶油（浒口村原生山茶林）"
+     },
+     {
+      "k": "山茶基底油占比",
+      "v": "≥95%"
+     },
+     {
+      "k": "主要成分",
+      "v": "山茶籽油、维生素 E；不含香精、防腐剂、矿物油"
+     },
+     {
+      "k": "瓶身材质",
+      "v": "食品级 PET（无毒、无味、无 BPA，不与山茶油发生化学反应）"
+     },
+     {
+      "k": "泵头材质",
+      "v": "食品级 PP + 医用级硅胶阀门，密封可靠、控量精准、防漏"
+     },
+     {
+      "k": "出油量",
+      "v": "按压一次 0.5ml（约适配单部位抚触用量）"
+     },
+     {
+      "k": "外盒材质",
+      "v": "FSC 认证环保纸材，无溶剂印刷"
+     },
+     {
+      "k": "保质期",
+      "v": "3 年（避光常温保存，开封后建议 12 个月内用完）"
+     },
+     {
+      "k": "适用场景",
+      "v": "新生儿抚触按摩、头垢清洁、淹红舒缓、日常保湿"
+     }
+    ],
+    "usage": [
+     "取 2-3 滴于掌心搓热（约按压 4-6 次），先在自己手腕内侧试温。",
+     "按“胸口 → 腹部顺时针 → 四肢 → 背部”顺序轻柔抚触，每个部位 5-6 次。",
+     "建议在宝宝清醒、不饥饿、室温 26-28℃ 时进行，每次 5-10 分钟。",
+     "使用后旋紧瓶盖，避光常温存放；如出现皮肤不适请立即停用并咨询医生。"
+    ],
+    "package": [
+     "瓶身核心视觉以淡黄色为基底、芽绿色点缀，低饱和度柔和色系，贴合新生儿视觉感受。",
+     "以“初生”为灵感，圆润线条勾勒新生茶芽形态，呼应“茶芽芽”品牌主题。",
+     "环保水性油墨直接印刷于瓶身，避免贴纸脱胶、油墨脱落被宝宝误食的风险。",
+     "瓶身底部一圈凸起立体“小芽”触点，兼具品牌标识、防滑与亲子互动功能，可轻点宝宝脚底、手心。"
+    ],
+    "safety": [
+     "已完成儿童化妆品备案（执行《儿童化妆品监督管理条例》）",
+     "原料准入执行“三筛”：种植环境无污染、采摘无霉果、压榨为物理低温冷榨",
+     "每批次原料农残检测报告在详情页动态更新"
+    ],
+    "comparison": [
+     {
+      "name": "松达 婴儿山茶油",
+      "spec": "30ml",
+      "price": 7800,
+      "per10ml": 2600,
+      "note": "烘炒工艺，行业知名度高"
+     },
+     {
+      "name": "贝亲 经典婴儿油",
+      "spec": "矿物油基底",
+      "price": 4500,
+      "per10ml": 900,
+      "note": "矿物油基底，透气性与肤感弱于植物油"
+     },
+     {
+      "name": "农家自榨山茶油",
+      "spec": "散装",
+      "price": 5800,
+      "per10ml": 580,
+      "note": "价格低，但过滤不彻底、合规性不足、气味不佳"
+     },
+     {
+      "name": "茶芽芽 婴儿抚触油（本项目）",
+      "spec": "100ml",
+      "price": 6900,
+      "per10ml": 690,
+      "note": "一级冷榨山茶油，一瓶一码一农户，全程溯源"
+     }
+    ],
+    "comparisonSummary": "100ml 常规装 69 元，仅为松达（78 元/30ml）单价的 35%-45%，同样采用一级物理冷榨山茶油，且具备全程溯源体系，价格优势显著；与农家款每 10ml 价格持平，但产品形态专业化升级（婴儿专用油头、定量按压、避光包装、儿童化妆品备案），附加价值更高。"
+   }
+  },
+  {
+   "code": "CY-OIL-30",
+   "title": "茶芽芽 婴儿山茶抚触油",
+   "subtitle": "初生系列 · 30ml 便携体验装",
+   "category": "trial",
+   "spec": "30ml",
+   "price": 2900,
+   "listPrice": 3900,
+   "priceText": "29.00",
+   "listPriceText": "39.00",
+   "stock": 2400,
+   "sales": 5820,
+   "soldOut": false,
+   "presale": false,
+   "doseMl": 0.25,
+   "volumeMl": 30,
+   "tags": [
+    "爆款引流",
+    "月子中心同款",
+    "可溯源"
+   ],
+   "sellingPoints": [
+    {
+     "title": "低门槛体验装",
+     "desc": "月子中心同款抚触油，新手家庭第一次接触山茶抚触油的最优选择。"
+    },
+    {
+     "title": "按压一次 0.25ml",
+     "desc": "微孔定量出油，单部位抚触精准用量，避免倒取过量造成浪费。"
+    },
+    {
+     "title": "便携避光小瓶",
+     "desc": "30ml 按压式避光小瓶，外出、产康、赠礼均适用。"
+    },
+    {
+     "title": "同样一物一码",
+     "desc": "体验装与正装同源同批次，扫码可查同一片山茶林的溯源信息。"
+    }
+   ],
+   "image": "/chayaya-mall/assets/img/image20.png",
+   "gallery": [
+    "/chayaya-mall/assets/img/image20.png",
+    "/chayaya-mall/assets/img/image19.png",
+    "/chayaya-mall/assets/img/image21.png"
+   ],
+   "sourcePlatform": "self",
+   "detail": {
+    "positioning": "面向首次尝试家庭的 30ml 便携体验装，与 100ml 家庭装同源同批次。",
+    "audience": "首次尝试、月子中心体验、赠礼场景",
+    "coreValues": [
+     "低门槛",
+     "可溯源",
+     "便携"
+    ],
+    "specs": [
+     {
+      "k": "净含量",
+      "v": "30ml"
+     },
+     {
+      "k": "基底油",
+      "v": "一级物理冷榨山茶油（浒口村原生山茶林）"
+     },
+     {
+      "k": "出油量",
+      "v": "按压一次 0.25ml"
+     },
+     {
+      "k": "瓶身材质",
+      "v": "食品级 PET + 避光设计"
+     },
+     {
+      "k": "适用场景",
+      "v": "试用体验、月子中心、随身携带"
+     }
+    ],
+    "usage": [
+     "按压 1-2 次取油，掌心搓热后用于局部抚触或保湿。",
+     "如需系统抚触，建议改用 100ml 家庭装更经济。"
+    ],
+    "package": [
+     "与正装一致的“初生茶芽”视觉符号，小瓶同样可单手握住。",
+     "瓶底贴一物一码溯源二维码，扫码即可查看本瓶对应的山茶林信息。"
+    ],
+    "safety": [
+     "已完成儿童化妆品备案（执行《儿童化妆品监督管理条例》）",
+     "原料准入执行“三筛”：种植环境无污染、采摘无霉果、压榨为物理低温冷榨",
+     "每批次原料农残检测报告在详情页动态更新"
+    ],
+    "comparison": [],
+    "comparisonSummary": "30ml 体验装承担引流获客功能，回购用户可迁移至 100ml 家庭装（每 10ml 单价更优）。"
+   }
+  },
+  {
+   "code": "CY-TRIAL-5",
+   "title": "茶芽芽 山茶抚触油试用小样",
+   "subtitle": "5ml 出行装 · 3 支组合",
+   "category": "trial",
+   "spec": "5ml × 3",
+   "price": 990,
+   "listPrice": 1500,
+   "priceText": "9.90",
+   "listPriceText": "15.00",
+   "stock": 3000,
+   "sales": 7410,
+   "soldOut": false,
+   "presale": false,
+   "doseMl": 0.25,
+   "volumeMl": 15,
+   "tags": [
+    "9.9 元试用",
+    "过敏可退",
+    "引流款"
+   ],
+   "sellingPoints": [
+    {
+     "title": "9.9 元低门槛试用",
+     "desc": "线下体验货架与月子中心试用同款，降低首次尝试的决策成本。"
+    },
+    {
+     "title": "过敏可退",
+     "desc": "首次使用出现不适，凭小样照片与订单可申请退货退款（详见售后说明）。"
+    },
+    {
+     "title": "出行便携",
+     "desc": "5ml 独立小支，放入待产包与出门随身包都方便。"
+    }
+   ],
+   "image": "/chayaya-mall/assets/img/image19.png",
+   "gallery": [
+    "/chayaya-mall/assets/img/image19.png",
+    "/chayaya-mall/assets/img/image18.png"
+   ],
+   "sourcePlatform": "self",
+   "detail": {
+    "positioning": "面向 B 端团购与线下体验的引流小样，附赠溯源二维码，把线下流量导入线上私域。",
+    "audience": "月子中心、母婴门店、早教机构体验客户",
+    "coreValues": [
+     "低门槛",
+     "引流",
+     "可溯源"
+    ],
+    "specs": [
+     {
+      "k": "规格",
+      "v": "5ml × 3 支/套"
+     },
+     {
+      "k": "基底油",
+      "v": "一级物理冷榨山茶油"
+     },
+     {
+      "k": "包装",
+      "v": "独立小支 + 溯源二维码卡"
+     }
+    ],
+    "usage": [
+     "单支适合 1-2 次局部体验；打开后建议 1 个月内用完。"
+    ],
+    "package": [
+     "随附抚触教学卡与溯源二维码，扫码注册会员可领线下专属满减券。"
+    ],
+    "safety": [
+     "已完成儿童化妆品备案（执行《儿童化妆品监督管理条例》）",
+     "原料准入执行“三筛”：种植环境无污染、采摘无霉果、压榨为物理低温冷榨",
+     "每批次原料农残检测报告在详情页动态更新"
+    ],
+    "comparison": [],
+    "comparisonSummary": "小样承担“体验—注册—复购”闭环的引流入口，团队按项目书规划以小样切入 B 端团购。"
+   }
+  },
+  {
+   "code": "CY-CARE-PP",
+   "title": "茶芽芽 婴儿山茶护臀膏",
+   "subtitle": "洗护护理 · 隔离舒缓",
+   "category": "care",
+   "spec": "50g",
+   "price": 4900,
+   "listPrice": 6900,
+   "priceText": "49.00",
+   "listPriceText": "69.00",
+   "stock": 0,
+   "sales": 0,
+   "soldOut": true,
+   "presale": true,
+   "doseMl": null,
+   "volumeMl": 50,
+   "tags": [
+    "品类拓展中",
+    "预计上线"
+   ],
+   "sellingPoints": [
+    {
+     "title": "山茶油基底隔离舒缓",
+     "desc": "针对红屁股等尿布区刺激场景，形成温和隔离层。"
+    },
+    {
+     "title": "用户访谈高频需求",
+     "desc": "访谈中张阿姨、李小姐、周女士均提出护臀膏需求，为中期品类拓展首发单品。"
+    }
+   ],
+   "image": "/chayaya-mall/assets/img/image6.png",
+   "gallery": [
+    "/chayaya-mall/assets/img/image6.png"
+   ],
+   "sourcePlatform": "self",
+   "detail": {
+    "positioning": "中期（1-3 年）品类拓展单品，与抚触油共用山茶油基底原料与溯源体系。",
+    "audience": "0-2 岁尿布区易受刺激的婴幼儿",
+    "coreValues": [
+     "可溯源",
+     "温和"
+    ],
+    "specs": [
+     {
+      "k": "规格",
+      "v": "50g（规划中）"
+     },
+     {
+      "k": "基底油",
+      "v": "一级物理冷榨山茶油"
+     },
+     {
+      "k": "状态",
+      "v": "配方研发中，尚未上市"
+     }
+    ],
+    "usage": [
+     "上市后补充。"
+    ],
+    "package": [
+     "沿用“乡村记忆”视觉体系。"
+    ],
+    "safety": [
+     "已完成儿童化妆品备案（执行《儿童化妆品监督管理条例》）",
+     "原料准入执行“三筛”：种植环境无污染、采摘无霉果、压榨为物理低温冷榨",
+     "每批次原料农残检测报告在详情页动态更新"
+    ],
+    "comparison": [],
+    "comparisonSummary": "规划单品，暂未开售，可在小程序中「预约到货提醒」。"
+   }
+  },
+  {
+   "code": "CY-CARE-CREAM",
+   "title": "茶芽芽 婴儿山茶保湿霜",
+   "subtitle": "洗护护理 · 秋冬保湿",
+   "category": "care",
+   "spec": "50g",
+   "price": 5900,
+   "listPrice": 7900,
+   "priceText": "59.00",
+   "listPriceText": "79.00",
+   "stock": 0,
+   "sales": 0,
+   "soldOut": true,
+   "presale": true,
+   "doseMl": null,
+   "volumeMl": 50,
+   "tags": [
+    "品类拓展中",
+    "预计上线"
+   ],
+   "sellingPoints": [
+    {
+     "title": "山茶油滋润体系",
+     "desc": "面向秋冬干燥、面部起皮场景的保湿霜，延续“天然滋润，家庭友好”定位。"
+    }
+   ],
+   "image": "/chayaya-mall/assets/img/image6.png",
+   "gallery": [
+    "/chayaya-mall/assets/img/image6.png"
+   ],
+   "sourcePlatform": "self",
+   "detail": {
+    "positioning": "中期品类拓展单品，与抚触油、护臀膏组成山茶母婴护理家族。",
+    "audience": "0-3 岁婴童日常面霜需求",
+    "coreValues": [
+     "可溯源",
+     "温和"
+    ],
+    "specs": [
+     {
+      "k": "规格",
+      "v": "50g（规划中）"
+     },
+     {
+      "k": "状态",
+      "v": "配方研发中，尚未上市"
+     }
+    ],
+    "usage": [
+     "上市后补充。"
+    ],
+    "package": [
+     "沿用“乡村记忆”视觉体系。"
+    ],
+    "safety": [
+     "已完成儿童化妆品备案（执行《儿童化妆品监督管理条例》）",
+     "原料准入执行“三筛”：种植环境无污染、采摘无霉果、压榨为物理低温冷榨",
+     "每批次原料农残检测报告在详情页动态更新"
+    ],
+    "comparison": [],
+    "comparisonSummary": "规划单品，暂未开售，可在小程序中「预约到货提醒」。"
+   }
+  },
+  {
+   "code": "CY-GIFT-MAN",
+   "title": "茶芽芽 满月礼礼盒",
+   "subtitle": "满月礼 · 抚触油双支装",
+   "category": "gift",
+   "spec": "100ml + 30ml",
+   "price": 9900,
+   "listPrice": 13800,
+   "priceText": "99.00",
+   "listPriceText": "138.00",
+   "stock": 300,
+   "sales": 168,
+   "soldOut": false,
+   "presale": false,
+   "doseMl": 0.5,
+   "volumeMl": 130,
+   "tags": [
+    "满月礼",
+    "企业团购",
+    "可定制"
+   ],
+   "sellingPoints": [
+    {
+     "title": "满月礼场景定制",
+     "desc": "家庭装 + 便携装组合，附手写祝福卡与溯源卡，适合满月、百天、节日赠礼。"
+    },
+    {
+     "title": "企业/机构定制",
+     "desc": "面向本地企业、银行、高端酒店的节日福利礼盒与定制化采购方案，可专属包装设计。"
+    },
+    {
+     "title": "一盒两码",
+     "desc": "礼盒内两支各自独立溯源码，收礼人可分别验证。"
+    }
+   ],
+   "image": "/chayaya-mall/assets/img/image17.png",
+   "gallery": [
+    "/chayaya-mall/assets/img/image17.png",
+    "/chayaya-mall/assets/img/image18.png"
+   ],
+   "sourcePlatform": "self",
+   "detail": {
+    "positioning": "面向礼品与企业团购场景的组合装，提升品牌溢价与批量订单占比。",
+    "audience": "满月/百天送礼家庭、企业节日福利采购",
+    "coreValues": [
+     "送礼",
+     "可溯源",
+     "可定制"
+    ],
+    "specs": [
+     {
+      "k": "组合",
+      "v": "100ml 家庭常规装 + 30ml 便携体验装"
+     },
+     {
+      "k": "包装",
+      "v": "FSC 认证环保纸盒 + 溯源卡 + 祝福卡"
+     },
+     {
+      "k": "定制",
+      "v": "企业客户可定制外盒与贺卡文案"
+     }
+    ],
+    "usage": [
+     "按正装与体验装说明使用。"
+    ],
+    "package": [
+     "礼盒内附浒口村返乡创业故事卡，增强品牌情感温度。"
+    ],
+    "safety": [
+     "已完成儿童化妆品备案（执行《儿童化妆品监督管理条例》）",
+     "原料准入执行“三筛”：种植环境无污染、采摘无霉果、压榨为物理低温冷榨",
+     "每批次原料农残检测报告在详情页动态更新"
+    ],
+    "comparison": [],
+    "comparisonSummary": "组合装单毫升均价优于单买，适合礼赠与团购场景。"
+   }
+  }
+ ],
+ "productDetails": {
+  "CY-OIL-100": {
+   "code": "CY-OIL-100",
+   "title": "茶芽芽 婴儿山茶抚触油",
+   "subtitle": "初生系列 · 100ml 家庭常规装",
+   "category": "oil",
+   "spec": "100ml",
+   "price": 6900,
+   "listPrice": 9900,
+   "priceText": "69.00",
+   "listPriceText": "99.00",
+   "stock": 1200,
+   "sales": 3260,
+   "soldOut": false,
+   "presale": false,
+   "doseMl": 0.5,
+   "volumeMl": 100,
+   "tags": [
+    "0 添加",
+    "母婴安全",
+    "一物一码溯源",
+    "乡村助农"
+   ],
+   "sellingPoints": [
+    {
+     "title": "95% 高纯度冷榨山茶油基底",
+     "desc": "油酸含量高达 80% 以上，富含不饱和脂肪酸与维生素 E，契合“以油养肤、精简护肤”理念。"
+    },
+    {
+     "title": "0 添加 · 温和低敏",
+     "desc": "无香精、无化学防腐剂、无矿物油，通过皮肤刺激性测试，适用于 0-12 个月新生儿及敏感肌婴幼儿。"
+    },
+    {
+     "title": "一物一码全流程溯源",
+     "desc": "扫码可查油茶林坐标、采摘日期、压榨批次、农户姓名与电子质检报告，源头真实可查。"
+    },
+    {
+     "title": "防回流婴儿专用油头",
+     "desc": "微孔定量设计，按压一次出油 0.5ml；内置防回流结构隔绝空气、手油与细菌，延缓油体氧化变质。"
+    },
+    {
+     "title": "单手操作的收腰瓶身",
+     "desc": "中间收腰、两侧微凸，适配女性手掌尺寸；哑光磨砂防滑，沾油也能稳握，抱娃时单手可用。"
+    },
+    {
+     "title": "避光抗氧化包装",
+     "desc": "食品级 PET 瓶身 + 淡黄茶色避光设计，阻隔紫外线，延缓山茶油酸败，保持油体清澈。"
+    }
+   ],
+   "image": "/chayaya-mall/assets/img/image18.png",
+   "gallery": [
+    "/chayaya-mall/assets/img/image18.png",
+    "/chayaya-mall/assets/img/image19.png",
+    "/chayaya-mall/assets/img/image17.png",
+    "/chayaya-mall/assets/img/image21.png",
+    "/chayaya-mall/assets/img/image22.jpeg",
+    "/chayaya-mall/assets/img/image23.png"
+   ],
+   "sourcePlatform": "self",
+   "detail": {
+    "positioning": "纯天然、无添加、冷榨一级山茶油基底的母婴专用抚触油，主打温和保湿、肌肤护理、新生儿抚触、预防干红痒。",
+    "audience": "0-12 个月新生儿及敏感肌婴幼儿",
+    "coreValues": [
+     "原生态",
+     "可溯源",
+     "助农",
+     "高纯度"
+    ],
+    "specs": [
+     {
+      "k": "净含量",
+      "v": "100ml"
+     },
+     {
+      "k": "基底油",
+      "v": "一级物理冷榨山茶油（浒口村原生山茶林）"
+     },
+     {
+      "k": "山茶基底油占比",
+      "v": "≥95%"
+     },
+     {
+      "k": "主要成分",
+      "v": "山茶籽油、维生素 E；不含香精、防腐剂、矿物油"
+     },
+     {
+      "k": "瓶身材质",
+      "v": "食品级 PET（无毒、无味、无 BPA，不与山茶油发生化学反应）"
+     },
+     {
+      "k": "泵头材质",
+      "v": "食品级 PP + 医用级硅胶阀门，密封可靠、控量精准、防漏"
+     },
+     {
+      "k": "出油量",
+      "v": "按压一次 0.5ml（约适配单部位抚触用量）"
+     },
+     {
+      "k": "外盒材质",
+      "v": "FSC 认证环保纸材，无溶剂印刷"
+     },
+     {
+      "k": "保质期",
+      "v": "3 年（避光常温保存，开封后建议 12 个月内用完）"
+     },
+     {
+      "k": "适用场景",
+      "v": "新生儿抚触按摩、头垢清洁、淹红舒缓、日常保湿"
+     }
+    ],
+    "usage": [
+     "取 2-3 滴于掌心搓热（约按压 4-6 次），先在自己手腕内侧试温。",
+     "按“胸口 → 腹部顺时针 → 四肢 → 背部”顺序轻柔抚触，每个部位 5-6 次。",
+     "建议在宝宝清醒、不饥饿、室温 26-28℃ 时进行，每次 5-10 分钟。",
+     "使用后旋紧瓶盖，避光常温存放；如出现皮肤不适请立即停用并咨询医生。"
+    ],
+    "package": [
+     "瓶身核心视觉以淡黄色为基底、芽绿色点缀，低饱和度柔和色系，贴合新生儿视觉感受。",
+     "以“初生”为灵感，圆润线条勾勒新生茶芽形态，呼应“茶芽芽”品牌主题。",
+     "环保水性油墨直接印刷于瓶身，避免贴纸脱胶、油墨脱落被宝宝误食的风险。",
+     "瓶身底部一圈凸起立体“小芽”触点，兼具品牌标识、防滑与亲子互动功能，可轻点宝宝脚底、手心。"
+    ],
+    "safety": [
+     "已完成儿童化妆品备案（执行《儿童化妆品监督管理条例》）",
+     "原料准入执行“三筛”：种植环境无污染、采摘无霉果、压榨为物理低温冷榨",
+     "每批次原料农残检测报告在详情页动态更新"
+    ],
+    "comparison": [
+     {
+      "name": "松达 婴儿山茶油",
+      "spec": "30ml",
+      "price": 7800,
+      "per10ml": 2600,
+      "note": "烘炒工艺，行业知名度高"
+     },
+     {
+      "name": "贝亲 经典婴儿油",
+      "spec": "矿物油基底",
+      "price": 4500,
+      "per10ml": 900,
+      "note": "矿物油基底，透气性与肤感弱于植物油"
+     },
+     {
+      "name": "农家自榨山茶油",
+      "spec": "散装",
+      "price": 5800,
+      "per10ml": 580,
+      "note": "价格低，但过滤不彻底、合规性不足、气味不佳"
+     },
+     {
+      "name": "茶芽芽 婴儿抚触油（本项目）",
+      "spec": "100ml",
+      "price": 6900,
+      "per10ml": 690,
+      "note": "一级冷榨山茶油，一瓶一码一农户，全程溯源"
+     }
+    ],
+    "comparisonSummary": "100ml 常规装 69 元，仅为松达（78 元/30ml）单价的 35%-45%，同样采用一级物理冷榨山茶油，且具备全程溯源体系，价格优势显著；与农家款每 10ml 价格持平，但产品形态专业化升级（婴儿专用油头、定量按压、避光包装、儿童化妆品备案），附加价值更高。"
+   }
+  },
+  "CY-OIL-30": {
+   "code": "CY-OIL-30",
+   "title": "茶芽芽 婴儿山茶抚触油",
+   "subtitle": "初生系列 · 30ml 便携体验装",
+   "category": "trial",
+   "spec": "30ml",
+   "price": 2900,
+   "listPrice": 3900,
+   "priceText": "29.00",
+   "listPriceText": "39.00",
+   "stock": 2400,
+   "sales": 5820,
+   "soldOut": false,
+   "presale": false,
+   "doseMl": 0.25,
+   "volumeMl": 30,
+   "tags": [
+    "爆款引流",
+    "月子中心同款",
+    "可溯源"
+   ],
+   "sellingPoints": [
+    {
+     "title": "低门槛体验装",
+     "desc": "月子中心同款抚触油，新手家庭第一次接触山茶抚触油的最优选择。"
+    },
+    {
+     "title": "按压一次 0.25ml",
+     "desc": "微孔定量出油，单部位抚触精准用量，避免倒取过量造成浪费。"
+    },
+    {
+     "title": "便携避光小瓶",
+     "desc": "30ml 按压式避光小瓶，外出、产康、赠礼均适用。"
+    },
+    {
+     "title": "同样一物一码",
+     "desc": "体验装与正装同源同批次，扫码可查同一片山茶林的溯源信息。"
+    }
+   ],
+   "image": "/chayaya-mall/assets/img/image20.png",
+   "gallery": [
+    "/chayaya-mall/assets/img/image20.png",
+    "/chayaya-mall/assets/img/image19.png",
+    "/chayaya-mall/assets/img/image21.png"
+   ],
+   "sourcePlatform": "self",
+   "detail": {
+    "positioning": "面向首次尝试家庭的 30ml 便携体验装，与 100ml 家庭装同源同批次。",
+    "audience": "首次尝试、月子中心体验、赠礼场景",
+    "coreValues": [
+     "低门槛",
+     "可溯源",
+     "便携"
+    ],
+    "specs": [
+     {
+      "k": "净含量",
+      "v": "30ml"
+     },
+     {
+      "k": "基底油",
+      "v": "一级物理冷榨山茶油（浒口村原生山茶林）"
+     },
+     {
+      "k": "出油量",
+      "v": "按压一次 0.25ml"
+     },
+     {
+      "k": "瓶身材质",
+      "v": "食品级 PET + 避光设计"
+     },
+     {
+      "k": "适用场景",
+      "v": "试用体验、月子中心、随身携带"
+     }
+    ],
+    "usage": [
+     "按压 1-2 次取油，掌心搓热后用于局部抚触或保湿。",
+     "如需系统抚触，建议改用 100ml 家庭装更经济。"
+    ],
+    "package": [
+     "与正装一致的“初生茶芽”视觉符号，小瓶同样可单手握住。",
+     "瓶底贴一物一码溯源二维码，扫码即可查看本瓶对应的山茶林信息。"
+    ],
+    "safety": [
+     "已完成儿童化妆品备案（执行《儿童化妆品监督管理条例》）",
+     "原料准入执行“三筛”：种植环境无污染、采摘无霉果、压榨为物理低温冷榨",
+     "每批次原料农残检测报告在详情页动态更新"
+    ],
+    "comparison": [],
+    "comparisonSummary": "30ml 体验装承担引流获客功能，回购用户可迁移至 100ml 家庭装（每 10ml 单价更优）。"
+   }
+  },
+  "CY-TRIAL-5": {
+   "code": "CY-TRIAL-5",
+   "title": "茶芽芽 山茶抚触油试用小样",
+   "subtitle": "5ml 出行装 · 3 支组合",
+   "category": "trial",
+   "spec": "5ml × 3",
+   "price": 990,
+   "listPrice": 1500,
+   "priceText": "9.90",
+   "listPriceText": "15.00",
+   "stock": 3000,
+   "sales": 7410,
+   "soldOut": false,
+   "presale": false,
+   "doseMl": 0.25,
+   "volumeMl": 15,
+   "tags": [
+    "9.9 元试用",
+    "过敏可退",
+    "引流款"
+   ],
+   "sellingPoints": [
+    {
+     "title": "9.9 元低门槛试用",
+     "desc": "线下体验货架与月子中心试用同款，降低首次尝试的决策成本。"
+    },
+    {
+     "title": "过敏可退",
+     "desc": "首次使用出现不适，凭小样照片与订单可申请退货退款（详见售后说明）。"
+    },
+    {
+     "title": "出行便携",
+     "desc": "5ml 独立小支，放入待产包与出门随身包都方便。"
+    }
+   ],
+   "image": "/chayaya-mall/assets/img/image19.png",
+   "gallery": [
+    "/chayaya-mall/assets/img/image19.png",
+    "/chayaya-mall/assets/img/image18.png"
+   ],
+   "sourcePlatform": "self",
+   "detail": {
+    "positioning": "面向 B 端团购与线下体验的引流小样，附赠溯源二维码，把线下流量导入线上私域。",
+    "audience": "月子中心、母婴门店、早教机构体验客户",
+    "coreValues": [
+     "低门槛",
+     "引流",
+     "可溯源"
+    ],
+    "specs": [
+     {
+      "k": "规格",
+      "v": "5ml × 3 支/套"
+     },
+     {
+      "k": "基底油",
+      "v": "一级物理冷榨山茶油"
+     },
+     {
+      "k": "包装",
+      "v": "独立小支 + 溯源二维码卡"
+     }
+    ],
+    "usage": [
+     "单支适合 1-2 次局部体验；打开后建议 1 个月内用完。"
+    ],
+    "package": [
+     "随附抚触教学卡与溯源二维码，扫码注册会员可领线下专属满减券。"
+    ],
+    "safety": [
+     "已完成儿童化妆品备案（执行《儿童化妆品监督管理条例》）",
+     "原料准入执行“三筛”：种植环境无污染、采摘无霉果、压榨为物理低温冷榨",
+     "每批次原料农残检测报告在详情页动态更新"
+    ],
+    "comparison": [],
+    "comparisonSummary": "小样承担“体验—注册—复购”闭环的引流入口，团队按项目书规划以小样切入 B 端团购。"
+   }
+  },
+  "CY-CARE-PP": {
+   "code": "CY-CARE-PP",
+   "title": "茶芽芽 婴儿山茶护臀膏",
+   "subtitle": "洗护护理 · 隔离舒缓",
+   "category": "care",
+   "spec": "50g",
+   "price": 4900,
+   "listPrice": 6900,
+   "priceText": "49.00",
+   "listPriceText": "69.00",
+   "stock": 0,
+   "sales": 0,
+   "soldOut": true,
+   "presale": true,
+   "doseMl": null,
+   "volumeMl": 50,
+   "tags": [
+    "品类拓展中",
+    "预计上线"
+   ],
+   "sellingPoints": [
+    {
+     "title": "山茶油基底隔离舒缓",
+     "desc": "针对红屁股等尿布区刺激场景，形成温和隔离层。"
+    },
+    {
+     "title": "用户访谈高频需求",
+     "desc": "访谈中张阿姨、李小姐、周女士均提出护臀膏需求，为中期品类拓展首发单品。"
+    }
+   ],
+   "image": "/chayaya-mall/assets/img/image6.png",
+   "gallery": [
+    "/chayaya-mall/assets/img/image6.png"
+   ],
+   "sourcePlatform": "self",
+   "detail": {
+    "positioning": "中期（1-3 年）品类拓展单品，与抚触油共用山茶油基底原料与溯源体系。",
+    "audience": "0-2 岁尿布区易受刺激的婴幼儿",
+    "coreValues": [
+     "可溯源",
+     "温和"
+    ],
+    "specs": [
+     {
+      "k": "规格",
+      "v": "50g（规划中）"
+     },
+     {
+      "k": "基底油",
+      "v": "一级物理冷榨山茶油"
+     },
+     {
+      "k": "状态",
+      "v": "配方研发中，尚未上市"
+     }
+    ],
+    "usage": [
+     "上市后补充。"
+    ],
+    "package": [
+     "沿用“乡村记忆”视觉体系。"
+    ],
+    "safety": [
+     "已完成儿童化妆品备案（执行《儿童化妆品监督管理条例》）",
+     "原料准入执行“三筛”：种植环境无污染、采摘无霉果、压榨为物理低温冷榨",
+     "每批次原料农残检测报告在详情页动态更新"
+    ],
+    "comparison": [],
+    "comparisonSummary": "规划单品，暂未开售，可在小程序中「预约到货提醒」。"
+   }
+  },
+  "CY-CARE-CREAM": {
+   "code": "CY-CARE-CREAM",
+   "title": "茶芽芽 婴儿山茶保湿霜",
+   "subtitle": "洗护护理 · 秋冬保湿",
+   "category": "care",
+   "spec": "50g",
+   "price": 5900,
+   "listPrice": 7900,
+   "priceText": "59.00",
+   "listPriceText": "79.00",
+   "stock": 0,
+   "sales": 0,
+   "soldOut": true,
+   "presale": true,
+   "doseMl": null,
+   "volumeMl": 50,
+   "tags": [
+    "品类拓展中",
+    "预计上线"
+   ],
+   "sellingPoints": [
+    {
+     "title": "山茶油滋润体系",
+     "desc": "面向秋冬干燥、面部起皮场景的保湿霜，延续“天然滋润，家庭友好”定位。"
+    }
+   ],
+   "image": "/chayaya-mall/assets/img/image6.png",
+   "gallery": [
+    "/chayaya-mall/assets/img/image6.png"
+   ],
+   "sourcePlatform": "self",
+   "detail": {
+    "positioning": "中期品类拓展单品，与抚触油、护臀膏组成山茶母婴护理家族。",
+    "audience": "0-3 岁婴童日常面霜需求",
+    "coreValues": [
+     "可溯源",
+     "温和"
+    ],
+    "specs": [
+     {
+      "k": "规格",
+      "v": "50g（规划中）"
+     },
+     {
+      "k": "状态",
+      "v": "配方研发中，尚未上市"
+     }
+    ],
+    "usage": [
+     "上市后补充。"
+    ],
+    "package": [
+     "沿用“乡村记忆”视觉体系。"
+    ],
+    "safety": [
+     "已完成儿童化妆品备案（执行《儿童化妆品监督管理条例》）",
+     "原料准入执行“三筛”：种植环境无污染、采摘无霉果、压榨为物理低温冷榨",
+     "每批次原料农残检测报告在详情页动态更新"
+    ],
+    "comparison": [],
+    "comparisonSummary": "规划单品，暂未开售，可在小程序中「预约到货提醒」。"
+   }
+  },
+  "CY-GIFT-MAN": {
+   "code": "CY-GIFT-MAN",
+   "title": "茶芽芽 满月礼礼盒",
+   "subtitle": "满月礼 · 抚触油双支装",
+   "category": "gift",
+   "spec": "100ml + 30ml",
+   "price": 9900,
+   "listPrice": 13800,
+   "priceText": "99.00",
+   "listPriceText": "138.00",
+   "stock": 300,
+   "sales": 168,
+   "soldOut": false,
+   "presale": false,
+   "doseMl": 0.5,
+   "volumeMl": 130,
+   "tags": [
+    "满月礼",
+    "企业团购",
+    "可定制"
+   ],
+   "sellingPoints": [
+    {
+     "title": "满月礼场景定制",
+     "desc": "家庭装 + 便携装组合，附手写祝福卡与溯源卡，适合满月、百天、节日赠礼。"
+    },
+    {
+     "title": "企业/机构定制",
+     "desc": "面向本地企业、银行、高端酒店的节日福利礼盒与定制化采购方案，可专属包装设计。"
+    },
+    {
+     "title": "一盒两码",
+     "desc": "礼盒内两支各自独立溯源码，收礼人可分别验证。"
+    }
+   ],
+   "image": "/chayaya-mall/assets/img/image17.png",
+   "gallery": [
+    "/chayaya-mall/assets/img/image17.png",
+    "/chayaya-mall/assets/img/image18.png"
+   ],
+   "sourcePlatform": "self",
+   "detail": {
+    "positioning": "面向礼品与企业团购场景的组合装，提升品牌溢价与批量订单占比。",
+    "audience": "满月/百天送礼家庭、企业节日福利采购",
+    "coreValues": [
+     "送礼",
+     "可溯源",
+     "可定制"
+    ],
+    "specs": [
+     {
+      "k": "组合",
+      "v": "100ml 家庭常规装 + 30ml 便携体验装"
+     },
+     {
+      "k": "包装",
+      "v": "FSC 认证环保纸盒 + 溯源卡 + 祝福卡"
+     },
+     {
+      "k": "定制",
+      "v": "企业客户可定制外盒与贺卡文案"
+     }
+    ],
+    "usage": [
+     "按正装与体验装说明使用。"
+    ],
+    "package": [
+     "礼盒内附浒口村返乡创业故事卡，增强品牌情感温度。"
+    ],
+    "safety": [
+     "已完成儿童化妆品备案（执行《儿童化妆品监督管理条例》）",
+     "原料准入执行“三筛”：种植环境无污染、采摘无霉果、压榨为物理低温冷榨",
+     "每批次原料农残检测报告在详情页动态更新"
+    ],
+    "comparison": [],
+    "comparisonSummary": "组合装单毫升均价优于单买，适合礼赠与团购场景。"
+   }
+  }
+ },
+ "categories": [
+  {
+   "key": "oil",
+   "name": "抚触油",
+   "desc": "新生儿抚触 / 保湿舒缓"
+  },
+  {
+   "key": "care",
+   "name": "洗护护理",
+   "desc": "护臀膏 / 保湿霜 / 洗护二合一"
+  },
+  {
+   "key": "gift",
+   "name": "礼盒装",
+   "desc": "满月礼 / 节日福利"
+  },
+  {
+   "key": "trial",
+   "name": "体验装",
+   "desc": "低门槛试用 / 月子中心同款"
+  }
+ ],
+ "guides": {
+  "guides": [
+   {
+    "key": "m0-3",
+    "title": "0-3 个月：轻柔抚触建立安全感",
+    "duration": "每次 5 分钟，每天 1 次",
+    "steps": [
+     "室温调到 26-28℃，洗净双手，取下戒指手表。",
+     "掌心搓热抚触油（约按压 2 次），先在自己手腕内侧试温。",
+     "胸部：双手从宝宝胸口中央向两侧肩部轻推，重复 5-6 次。",
+     "腹部：以肚脐为中心顺时针轻抚，帮助排气，重复 5-6 次。",
+     "四肢：从手腕/脚踝向肩/大腿根部轻抚，每侧 5-6 次。",
+     "全程和宝宝对视、轻声说话，宝宝哭闹立即停止。"
+    ]
+   },
+   {
+    "key": "m4-6",
+    "title": "4-6 个月：加入背部与脚底",
+    "duration": "每次 5-10 分钟，每天 1 次",
+    "steps": [
+     "在 0-3 个月手法基础上，增加背部抚触：从颈部沿脊柱两侧向下滑到臀部。",
+     "脚底：用拇指从脚跟向脚趾方向推，再轻点每个脚趾。",
+     "宝宝开始翻身，可在换尿布台上放好防坠保护，或直接坐在床上操作。",
+     "背部抚触后可做 3-5 分钟趴卧（tummy time），注意全程看护。"
+    ]
+   },
+   {
+    "key": "m6+",
+    "title": "6 个月以上：抚触 + 被动操",
+    "duration": "每次 10 分钟，每天 1 次",
+    "steps": [
+     "先做全身抚触放松肌肉，再配合被动操：交替屈伸双腿、双臂画圈。",
+     "边做边说\"一二三四\"，把动作变成亲子游戏，有助于大运动发育。",
+     "出牙期宝宝爱流口水，抚触后记得清洁下巴并薄涂山茶油做隔离。",
+     "宝宝学爬学走阶段皮肤容易干燥，睡前抚触后重点涂抹小腿与脚踝。"
+    ]
+   }
+  ],
+  "current": {
+   "key": "m0-3",
+   "title": "0-3 个月：轻柔抚触建立安全感",
+   "duration": "每次 5 分钟，每天 1 次",
+   "steps": [
+    "室温调到 26-28℃，洗净双手，取下戒指手表。",
+    "掌心搓热抚触油（约按压 2 次），先在自己手腕内侧试温。",
+    "胸部：双手从宝宝胸口中央向两侧肩部轻推，重复 5-6 次。",
+    "腹部：以肚脐为中心顺时针轻抚，帮助排气，重复 5-6 次。",
+    "四肢：从手腕/脚踝向肩/大腿根部轻抚，每侧 5-6 次。",
+    "全程和宝宝对视、轻声说话，宝宝哭闹立即停止。"
+   ]
+  },
+  "doseMap": {
+   "CY-OIL-100": 0.5,
+   "CY-OIL-30": 0.25,
+   "CY-TRIAL-5": 0.25
+  }
+ },
+ "comparison": {
+  "dimensions": [
+   {
+    "dimension": "溯源体系",
+    "highEnd": "原料来自优质山茶油产区，拥有 7 项专利技术，但具体产地和加工过程以品牌整体宣传为主，消费者难以追踪单一产品源头。",
+    "mass": "成分表复杂，原料多为工业化采购，信息不透明，无公开溯源路径。",
+    "ours": "浒口村原生山茶林直供，老油坊匠人工艺传承，全程实拍溯源（可查看山林、采摘、压榨实景），原料真实可查。"
+   },
+   {
+    "dimension": "功效验证",
+    "highEnd": "拥有 7 项山茶油专利，通过老爸抽检 4924 项检测，获三甲医院临床测试认可。",
+    "mass": "功效以基础保湿、温和为主，验证多依赖品牌整体安全背书。",
+    "ours": "针对婴儿肌肤干燥、泛红等细分场景研发，通过皮肤刺激性测试，功效精准可验证；已在湖南郴州区域用户中积累真实口碑。"
+   },
+   {
+    "dimension": "母婴场景适配度",
+    "highEnd": "产品线覆盖面霜、乳、沐浴露等，包装以实用为主，未针对母婴单手操作、防洒、分龄等场景做专项优化。",
+    "mass": "包装大众化，部分产品有基础安全设计，整体未以“母婴深度使用场景”为核心开发。",
+    "ours": "融入“乡村记忆”视觉符号，加入手握弧度设计，包装兼顾安全（防洒、易握）与美感，贴合母婴日常护理场景。"
+   },
+   {
+    "dimension": "购买便捷性",
+    "highEnd": "电商平台全覆盖，线下商超及母婴店广泛铺货，渠道成熟。",
+    "mass": "电商平台、商超全覆盖，渠道属性偏大众化，缺乏深度服务。",
+    "ours": "线上小程序 + 本地生活平台 + 线下合作商店双线布局，B 端母婴店稳定供货，零售端精准试销，购买场景全覆盖。"
+   },
+   {
+    "dimension": "用户体验",
+    "highEnd": "提供标准化产品，会员体系以积分、促销为主，缺乏一对一护肤指导。",
+    "mass": "以单品销售为主，用户体验依赖用户自行摸索，缺少系统性服务。",
+    "ours": "会员制 + 私域社群运营，提供肤质适配建议、抚触教程等定制化服务，建立用户长期信任关系。"
+   },
+   {
+    "dimension": "情感价值",
+    "highEnd": "品牌故事源于创始人“为女儿寻找天然安全产品”的父爱初心。",
+    "mass": "品牌情感偏“大众家庭、温和可信”，缺乏独特文化内核。",
+    "ours": "以“与茶树一同生长，伴宝宝安心长大”为情感主张，绑定乡土真实与乡村助农理念，引发母婴群体深度情感共鸣。"
+   }
+  ],
+  "priceTable": [
+   {
+    "name": "松达 婴儿山茶油",
+    "spec": "30ml",
+    "price": 7800,
+    "per10ml": 2600,
+    "note": "烘炒工艺，行业知名度高"
+   },
+   {
+    "name": "贝亲 经典婴儿油",
+    "spec": "矿物油基底",
+    "price": 4500,
+    "per10ml": 900,
+    "note": "矿物油基底，透气性与肤感弱于植物油"
+   },
+   {
+    "name": "农家自榨山茶油",
+    "spec": "散装",
+    "price": 5800,
+    "per10ml": 580,
+    "note": "价格低，但过滤不彻底、合规性不足、气味不佳"
+   },
+   {
+    "name": "茶芽芽 婴儿抚触油（本项目）",
+    "spec": "100ml",
+    "price": 6900,
+    "per10ml": 690,
+    "note": "一级冷榨山茶油，一瓶一码一农户，全程溯源"
+   }
+  ],
+  "summary": "100ml 常规装 69 元，仅为松达（78 元/30ml）单价的 35%-45%，同样采用一级物理冷榨山茶油，且具备全程溯源体系，价格优势显著；与农家款每 10ml 价格持平，但产品形态专业化升级（婴儿专用油头、定量按压、避光包装、儿童化妆品备案），附加价值更高。"
+ },
+ "trace": {
+  "batches": [
+   {
+    "batchNo": "CHY-20260115-01",
+    "productCode": "CY-OIL-100",
+    "origin": "湖南省郴州市浒口村",
+    "plotNo": "浒口村·东坡油茶林 A-03 地块",
+    "farmer": "刘子祥",
+    "harvestDate": "2026-01-01",
+    "pressDate": "2026-01-10",
+    "pressWorkshop": "浒口村古法榨油坊（物理低温冷榨）",
+    "pressTech": "物理低温冷榨（≤60℃），不添加任何化学溶剂",
+    "fillDate": "2026-01-16",
+    "factory": "湖南某母婴化妆品代工厂（具备儿童化妆品生产资质）",
+    "inspectionNo": "SGS-2026-0115",
+    "inspectionReport": "/chayaya-mall/assets/reports/SGS-2026-0115.html",
+    "geo": {
+     "lat": 25.7703,
+     "lng": 113.0148
+    },
+    "unitTotal": 60,
+    "scans": 0,
+    "productName": "茶芽芽 婴儿山茶抚触油"
+   },
+   {
+    "batchNo": "CHY-20260320-02",
+    "productCode": "CY-OIL-30",
+    "origin": "湖南省郴州市浒口村",
+    "plotNo": "浒口村·南坡油茶林 B-07 地块",
+    "farmer": "周桂英",
+    "harvestDate": "2026-03-05",
+    "pressDate": "2026-03-12",
+    "pressWorkshop": "浒口村古法榨油坊（物理低温冷榨）",
+    "pressTech": "物理低温冷榨（≤60℃）",
+    "fillDate": "2026-03-20",
+    "factory": "湖南某母婴化妆品代工厂（具备儿童化妆品生产资质）",
+    "inspectionNo": "SGS-2026-0318",
+    "inspectionReport": "/chayaya-mall/assets/reports/SGS-2026-0318.html",
+    "geo": {
+     "lat": 25.7681,
+     "lng": 113.0192
+    },
+    "unitTotal": 40,
+    "scans": 0,
+    "productName": "茶芽芽 婴儿山茶抚触油"
+   }
+  ],
+  "batchDetails": {
+   "CHY-20260115-01": {
+    "batch": {
+     "batchNo": "CHY-20260115-01",
+     "productCode": "CY-OIL-100",
+     "origin": "湖南省郴州市浒口村",
+     "plotNo": "浒口村·东坡油茶林 A-03 地块",
+     "farmer": "刘子祥",
+     "harvestDate": "2026-01-01",
+     "pressDate": "2026-01-10",
+     "pressWorkshop": "浒口村古法榨油坊（物理低温冷榨）",
+     "pressTech": "物理低温冷榨（≤60℃），不添加任何化学溶剂",
+     "fillDate": "2026-01-16",
+     "factory": "湖南某母婴化妆品代工厂（具备儿童化妆品生产资质）",
+     "inspectionNo": "SGS-2026-0115",
+     "inspectionReport": "/chayaya-mall/assets/reports/SGS-2026-0115.html",
+     "geo": {
+      "lat": 25.7703,
+      "lng": 113.0148
+     }
+    },
+    "timeline": [
+     {
+      "stage": "plant",
+      "stageName": "原料产地环境与种植管护",
+      "icon": "🌱",
+      "happenedAt": "2025-03-12",
+      "place": "浒口村东坡油茶林 A-03 地块",
+      "operator": "农户 刘子祥",
+      "detail": {
+       "产地": "湖南省郴州市浒口村",
+       "地块编号": "A-03",
+       "地理坐标": "25.7703°N, 113.0148°E",
+       "土壤与海拔": "红壤 pH 5.5-6.5，海拔 420-680 米",
+       "管护方式": "人工除草、物理防虫，无化学除草剂",
+       "管护记录": "2025 年 3 月完成春季修枝与有机肥施用；全年 6 次人工除草"
+      },
+      "image": "/chayaya-mall/assets/img/image23.png",
+      "hash": "275452a1ba067d1a78b47b35bb62d0c2a4d04b0ed79d8455c2f17f9f53e97d40",
+      "prevHash": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "stage": "harvest",
+      "stageName": "果实采摘与成熟度筛选",
+      "icon": "🧺",
+      "happenedAt": "2026-01-01",
+      "place": "浒口村东坡油茶林 A-03 地块",
+      "operator": "农户 刘子祥",
+      "detail": {
+       "采摘日期": "2026-01-01",
+       "采摘方式": "人工采摘，只取春季第一茬饱满茶果",
+       "筛选标准": "一筛无霉果、二筛无虫蛀、三筛成熟度达标，达标率 100% 方可进入压榨",
+       "当批次鲜果量": "约 1,860 公斤"
+      },
+      "image": "/chayaya-mall/assets/img/image23.png",
+      "hash": "e89f7a1a05bcc831b38c19f08a4589bf3659fe87ec0a30e8d8e2c54b12920649",
+      "prevHash": "275452a1ba067d1a78b47b35bb62d0c2a4d04b0ed79d8455c2f17f9f53e97d40"
+     },
+     {
+      "stage": "press",
+      "stageName": "物理低温冷榨加工",
+      "icon": "🫒",
+      "happenedAt": "2026-01-10",
+      "place": "浒口村古法榨油坊",
+      "operator": "榨油坊 老师傅",
+      "detail": {
+       "压榨日期": "2026-01-10",
+       "压榨工艺": "古法工艺 + 物理低温冷榨（≤60℃）",
+       "出油率": "约 22%（冷榨出油率低于热榨，但保留更多活性成分）",
+       "本批次毛油量": "约 128 升",
+       "关键控制点": "不添加化学溶剂、不高温烘炒，避免苯并芘等风险物质生成"
+      },
+      "image": "",
+      "hash": "71d055b92f865d70cae4913de873c08afd491c99e59c98bd05a3e854b84a1ae2",
+      "prevHash": "e89f7a1a05bcc831b38c19f08a4589bf3659fe87ec0a30e8d8e2c54b12920649"
+     },
+     {
+      "stage": "inspect",
+      "stageName": "成品检测与合规备案",
+      "icon": "🔬",
+      "happenedAt": "2026-01-15",
+      "place": "SGS 第三方检测机构",
+      "operator": "品控 黄君然",
+      "detail": {
+       "检测报告编号": "SGS-2026-0115",
+       "检测项目": "菌落总数、铅、砷、汞、镉、苯并芘、酸价、过氧化值、皮肤刺激性",
+       "检测结论": "全部项目符合《化妆品安全技术规范》要求",
+       "合规备案": "已按《儿童化妆品监督管理条例》完成儿童化妆品备案",
+       "报告原文": "/chayaya-mall/assets/reports/SGS-2026-0115.html"
+      },
+      "image": "",
+      "hash": "5968ab419485c9e34532889fa136ea94a7cbd5cbe7c1a10615f382f5f7c21b33",
+      "prevHash": "71d055b92f865d70cae4913de873c08afd491c99e59c98bd05a3e854b84a1ae2"
+     },
+     {
+      "stage": "fill",
+      "stageName": "无菌车间灌装与赋码",
+      "icon": "🏭",
+      "happenedAt": "2026-01-16",
+      "place": "湖南某母婴化妆品代工厂",
+      "operator": "代工厂 生产线",
+      "detail": {
+       "灌装日期": "2026-01-16",
+       "灌装环境": "十万级洁净车间，无菌灌装",
+       "本批次产量": "3,000 瓶（100ml）",
+       "赋码方式": "一瓶一码，二维码内含 ECDSA 数字签名的数字身份证",
+       "包装": "食品级 PET 避光瓶 + 婴儿专用防回流泵头"
+      },
+      "image": "",
+      "hash": "709a4ae1744b3c8ce2e3bd294577548b4fb5198a58805a83f278ce6b0a730d61",
+      "prevHash": "5968ab419485c9e34532889fa136ea94a7cbd5cbe7c1a10615f382f5f7c21b33"
+     },
+     {
+      "stage": "logistics",
+      "stageName": "物流配送",
+      "icon": "🚚",
+      "happenedAt": "2026-01-18",
+      "place": "浒口村乡村物流节点 → 郴州市分拨中心",
+      "operator": "乡村物流点",
+      "detail": {
+       "发货方式": "整合乡村物流节点集中发货，降低配送成本",
+       "温控要求": "常温避光运输",
+       "时效": "湖南省内次日达，华南地区 2-3 日达"
+      },
+      "image": "",
+      "hash": "2d2c9118abe540d07a3c914b8254b18d37d9b2a67835fa42ea7fd2f35bde8eb5",
+      "prevHash": "709a4ae1744b3c8ce2e3bd294577548b4fb5198a58805a83f278ce6b0a730d61"
+     }
+    ],
+    "chain": {
+     "intact": true,
+     "nodeCount": 6,
+     "chainHead": "2d2c9118abe540d07a3c914b8254b18d37d9b2a67835fa42ea7fd2f35bde8eb5"
+    },
+    "units": {
+     "total": 60,
+     "inStock": 60,
+     "sold": 0,
+     "scans": 0
+    }
+   },
+   "CHY-20260320-02": {
+    "batch": {
+     "batchNo": "CHY-20260320-02",
+     "productCode": "CY-OIL-30",
+     "origin": "湖南省郴州市浒口村",
+     "plotNo": "浒口村·南坡油茶林 B-07 地块",
+     "farmer": "周桂英",
+     "harvestDate": "2026-03-05",
+     "pressDate": "2026-03-12",
+     "pressWorkshop": "浒口村古法榨油坊（物理低温冷榨）",
+     "pressTech": "物理低温冷榨（≤60℃）",
+     "fillDate": "2026-03-20",
+     "factory": "湖南某母婴化妆品代工厂（具备儿童化妆品生产资质）",
+     "inspectionNo": "SGS-2026-0318",
+     "inspectionReport": "/chayaya-mall/assets/reports/SGS-2026-0318.html",
+     "geo": {
+      "lat": 25.7681,
+      "lng": 113.0192
+     }
+    },
+    "timeline": [
+     {
+      "stage": "plant",
+      "stageName": "原料产地环境与种植管护",
+      "icon": "🌱",
+      "happenedAt": "2025-04-02",
+      "place": "浒口村南坡油茶林 B-07 地块",
+      "operator": "农户 周桂英",
+      "detail": {
+       "产地": "湖南省郴州市浒口村",
+       "地块编号": "B-07",
+       "地理坐标": "25.7681°N, 113.0192°E",
+       "管护方式": "人工除草、物理防虫，无化学除草剂"
+      },
+      "image": "/chayaya-mall/assets/img/image23.png",
+      "hash": "7d16de7d6376e85cd89f89693a64308af8717fe45f357166ef6e4970ac441eb6",
+      "prevHash": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "stage": "harvest",
+      "stageName": "果实采摘与成熟度筛选",
+      "icon": "🧺",
+      "happenedAt": "2026-03-05",
+      "place": "浒口村南坡油茶林 B-07 地块",
+      "operator": "农户 周桂英",
+      "detail": {
+       "采摘日期": "2026-03-05",
+       "采摘方式": "人工手采，当日送坊",
+       "筛选标准": "无霉果、无虫蛀、成熟度达标",
+       "当批次鲜果量": "约 940 公斤"
+      },
+      "image": "/chayaya-mall/assets/img/image23.png",
+      "hash": "30234a055c6ab787dcf7a4bdd9b6b51d9e56589382be9a5345a093618a72ab55",
+      "prevHash": "7d16de7d6376e85cd89f89693a64308af8717fe45f357166ef6e4970ac441eb6"
+     },
+     {
+      "stage": "press",
+      "stageName": "物理低温冷榨加工",
+      "icon": "🫒",
+      "happenedAt": "2026-03-12",
+      "place": "浒口村古法榨油坊",
+      "operator": "榨油坊 老师傅",
+      "detail": {
+       "压榨日期": "2026-03-12",
+       "压榨工艺": "物理低温冷榨（≤60℃）",
+       "本批次毛油量": "约 62 升"
+      },
+      "image": "",
+      "hash": "6cc1f538bb626053db3edd0586fe8b6168b82438ee31506fdefe958028d0ea7a",
+      "prevHash": "30234a055c6ab787dcf7a4bdd9b6b51d9e56589382be9a5345a093618a72ab55"
+     },
+     {
+      "stage": "inspect",
+      "stageName": "成品检测与合规备案",
+      "icon": "🔬",
+      "happenedAt": "2026-03-18",
+      "place": "SGS 第三方检测机构",
+      "operator": "品控 黄君然",
+      "detail": {
+       "检测报告编号": "SGS-2026-0318",
+       "检测结论": "全部项目符合《化妆品安全技术规范》要求",
+       "报告原文": "/chayaya-mall/assets/reports/SGS-2026-0318.html"
+      },
+      "image": "",
+      "hash": "589b82f96d164184a33b7f0d765185ba8cbeb5c20820ca4d1729884f5f0e2b23",
+      "prevHash": "6cc1f538bb626053db3edd0586fe8b6168b82438ee31506fdefe958028d0ea7a"
+     },
+     {
+      "stage": "fill",
+      "stageName": "无菌车间灌装与赋码",
+      "icon": "🏭",
+      "happenedAt": "2026-03-20",
+      "place": "湖南某母婴化妆品代工厂",
+      "operator": "代工厂 生产线",
+      "detail": {
+       "灌装日期": "2026-03-20",
+       "本批次产量": "4,000 瓶（30ml 体验装）",
+       "赋码方式": "一瓶一码，ECDSA 签名数字身份证"
+      },
+      "image": "",
+      "hash": "8db7a77d434b2a4a19c552f24bc879b401c77429000beda6f6a41f2e0634ca22",
+      "prevHash": "589b82f96d164184a33b7f0d765185ba8cbeb5c20820ca4d1729884f5f0e2b23"
+     },
+     {
+      "stage": "logistics",
+      "stageName": "物流配送",
+      "icon": "🚚",
+      "happenedAt": "2026-03-22",
+      "place": "浒口村乡村物流节点 → 郴州市分拨中心",
+      "operator": "乡村物流点",
+      "detail": {
+       "发货方式": "乡村物流节点集中发货",
+       "主要流向": "月子中心、母婴门店 B 端团购 + 线上零售"
+      },
+      "image": "",
+      "hash": "de91066136fb8ed52c5a2ea8c2f78579868d7909a592a9cb168e63ea4d8a439c",
+      "prevHash": "8db7a77d434b2a4a19c552f24bc879b401c77429000beda6f6a41f2e0634ca22"
+     }
+    ],
+    "chain": {
+     "intact": true,
+     "nodeCount": 6,
+     "chainHead": "de91066136fb8ed52c5a2ea8c2f78579868d7909a592a9cb168e63ea4d8a439c"
+    },
+    "units": {
+     "total": 40,
+     "inStock": 40,
+     "sold": 0,
+     "scans": 0
+    }
+   }
+  },
+  "units": [
+   {
+    "traceCode": "CY26010115010001",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010002",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010003",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010004",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010005",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010006",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010007",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010008",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010009",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010010",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010011",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010012",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010013",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010014",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010015",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010016",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010017",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010018",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010019",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010020",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010021",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010022",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010023",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   },
+   {
+    "traceCode": "CY26010115010024",
+    "batchNo": "CHY-20260115-01",
+    "status": "in_stock",
+    "scanCount": 0
+   }
+  ],
+  "antiFakeTip": "瓶底二维码带刮开涂层，首次查询才是\"刚从浒口村发出\"的正品；重复查询会提示已查询次数。",
+  "demoToken": "Q1kyNjAxMDExNTAxMDAwMXxDSFktMjAyNjAxMTUtMDF8U0dTLTIwMjYtMDExNXxNRVVDSUJTdVNRTUVPYnk2UmV0cGpJN3N4R0U5VnVJclRGRENEQXJvcWFQRWI4ejNBaUVBK09EVlBneXllVzFER1ZDTFFjTFpyb0VkcCtWNmtQSzlmYWVQWjBkWVgvVT0",
+  "tokenDigest": "0b85d7a64b175f19",
+  "demoQrSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 65 65\" shape-rendering=\"crispEdges\"><path fill=\"#ffffff\" d=\"M0 0h65v65H0z\"/><path stroke=\"#123f2e\" d=\"M2 2.5h7m1 0h2m1 0h1m1 0h2m1 0h1m1 0h2m1 0h2m1 0h5m1 0h1m1 0h1m5 0h1m1 0h1m1 0h2m1 0h1m2 0h1m2 0h2m1 0h7M2 3.5h1m5 0h1m3 0h1m2 0h2m1 0h4m2 0h1m3 0h1m1 0h7m1 0h2m1 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h2m1 0h1m5 0h1M2 4.5h1m1 0h3m1 0h1m3 0h2m3 0h1m2 0h1m1 0h1m1 0h1m2 0h2m4 0h1m3 0h1m1 0h3m2 0h2m3 0h1m2 0h3m1 0h1m1 0h3m1 0h1M2 5.5h1m1 0h3m1 0h1m1 0h3m1 0h1m2 0h1m1 0h1m4 0h1m2 0h1m2 0h1m1 0h1m2 0h1m4 0h1m1 0h4m1 0h1m3 0h2m1 0h1m1 0h1m1 0h3m1 0h1M2 6.5h1m1 0h3m1 0h1m1 0h1m3 0h1m2 0h1m1 0h3m1 0h2m2 0h12m3 0h2m1 0h4m2 0h3m2 0h1m1 0h3m1 0h1M2 7.5h1m5 0h1m1 0h1m1 0h2m2 0h1m3 0h2m1 0h1m1 0h1m2 0h1m1 0h1m3 0h1m2 0h4m1 0h1m1 0h3m5 0h1m3 0h1m5 0h1M2 8.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M10 9.5h1m1 0h1m4 0h1m1 0h1m1 0h1m1 0h3m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m1 0h2m2 0h2m3 0h1m1 0h2m1 0h1M2 10.5h1m3 0h1m1 0h3m1 0h2m1 0h3m1 0h1m1 0h1m2 0h3m1 0h1m1 0h5m2 0h2m1 0h2m1 0h1m2 0h5m1 0h1m1 0h6m2 0h1M5 11.5h1m1 0h1m5 0h7m1 0h3m1 0h5m2 0h1m2 0h1m1 0h2m1 0h2m1 0h5m1 0h2m1 0h2m1 0h2m1 0h1m2 0h2M2 12.5h1m2 0h1m1 0h3m1 0h1m2 0h1m1 0h1m1 0h1m4 0h4m3 0h4m1 0h2m7 0h2m4 0h1m1 0h2m2 0h1m2 0h1M3 13.5h1m2 0h1m3 0h3m1 0h6m1 0h5m2 0h1m1 0h1m2 0h3m1 0h1m2 0h1m4 0h2m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m1 0h2M2 14.5h2m2 0h10m3 0h1m1 0h1m1 0h1m4 0h2m1 0h4m2 0h3m1 0h1m2 0h3m3 0h4m4 0h1m1 0h3M2 15.5h2m1 0h3m5 0h2m2 0h7m1 0h2m1 0h1m2 0h2m2 0h1m1 0h2m1 0h5m1 0h2m1 0h1m2 0h2m1 0h2m1 0h2M2 16.5h1m1 0h7m2 0h1m2 0h2m3 0h3m2 0h1m3 0h4m1 0h2m1 0h2m1 0h1m1 0h1m1 0h1m1 0h3m4 0h3m1 0h2M3 17.5h1m2 0h2m3 0h1m3 0h1m3 0h2m2 0h2m1 0h2m2 0h1m3 0h1m7 0h1m2 0h1m5 0h1m3 0h2m1 0h1m1 0h3M4 18.5h1m1 0h3m3 0h1m1 0h3m3 0h2m3 0h1m2 0h3m2 0h1m2 0h1m1 0h1m4 0h4m1 0h1m1 0h2m1 0h3m2 0h2m1 0h2M3 19.5h2m1 0h1m2 0h2m4 0h4m4 0h1m1 0h2m1 0h1m2 0h2m1 0h2m1 0h2m1 0h2m2 0h1m1 0h1m2 0h5m2 0h2m1 0h2M2 20.5h1m3 0h3m1 0h2m1 0h3m3 0h4m3 0h1m4 0h1m1 0h1m1 0h3m2 0h3m1 0h1m4 0h1m1 0h2m1 0h1m1 0h1m4 0h1M2 21.5h1m1 0h3m2 0h3m4 0h1m2 0h1m1 0h1m1 0h2m2 0h1m2 0h1m3 0h5m1 0h4m1 0h1m3 0h8m3 0h1m1 0h1M2 22.5h1m1 0h2m2 0h1m3 0h1m1 0h1m1 0h1m4 0h2m1 0h1m2 0h3m1 0h2m4 0h3m1 0h1m1 0h2m1 0h1m2 0h4m1 0h2m2 0h1m1 0h3M4 23.5h1m2 0h1m1 0h3m3 0h1m2 0h1m1 0h2m2 0h2m2 0h1m2 0h1m1 0h3m1 0h2m1 0h1m1 0h3m1 0h2m2 0h1m1 0h2m1 0h3m2 0h3M2 24.5h1m3 0h1m1 0h2m3 0h1m1 0h2m1 0h1m4 0h2m1 0h3m1 0h4m2 0h4m2 0h1m2 0h1m2 0h3m3 0h1M4 25.5h1m9 0h2m1 0h1m3 0h1m2 0h2m1 0h1m1 0h2m1 0h1m2 0h3m3 0h3m1 0h5m1 0h1m3 0h1m2 0h1m1 0h1m1 0h1M2 26.5h2m4 0h7m4 0h8m1 0h2m2 0h1m1 0h2m1 0h2m1 0h2m1 0h5m1 0h3m1 0h4m1 0h5M2 27.5h1m2 0h1m4 0h2m1 0h7m1 0h4m1 0h1m1 0h1m4 0h2m4 0h2m1 0h1m1 0h2m4 0h1m1 0h2m1 0h2m1 0h2m2 0h1M2 28.5h4m2 0h2m2 0h3m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m2 0h1m1 0h2m1 0h2m1 0h1m2 0h1m5 0h2m1 0h1m4 0h1m1 0h1m1 0h1M6 29.5h1m2 0h2m1 0h1m2 0h1m4 0h2m1 0h1m1 0h1m2 0h1m1 0h1m3 0h1m1 0h2m1 0h4m3 0h1m1 0h2m4 0h3m3 0h3M4 30.5h10m4 0h1m1 0h2m1 0h4m1 0h8m1 0h3m1 0h1m2 0h1m1 0h1m2 0h2m1 0h8m1 0h1M2 31.5h2m2 0h1m3 0h4m3 0h2m3 0h1m2 0h2m1 0h1m1 0h1m3 0h2m2 0h1m1 0h3m1 0h4m2 0h1m1 0h1m1 0h1m3 0h1m2 0h2M4 32.5h1m1 0h1m1 0h1m1 0h4m1 0h1m3 0h1m1 0h1m5 0h1m2 0h1m1 0h1m1 0h1m5 0h1m1 0h1m1 0h1m7 0h1m1 0h1m1 0h1m1 0h1m1 0h1M2 33.5h1m3 0h1m3 0h1m3 0h1m1 0h2m4 0h1m1 0h1m1 0h3m1 0h1m3 0h1m2 0h1m2 0h2m2 0h1m1 0h1m1 0h7m3 0h1m1 0h3M5 34.5h6m2 0h1m5 0h4m1 0h1m3 0h7m1 0h3m1 0h2m2 0h1m1 0h1m1 0h1m1 0h1m1 0h8m2 0h1M2 35.5h1m2 0h1m4 0h3m2 0h1m2 0h1m1 0h1m1 0h1m1 0h5m1 0h1m1 0h1m2 0h1m2 0h1m1 0h2m1 0h2m4 0h1m2 0h1m1 0h3m1 0h1m3 0h1M4 36.5h1m1 0h1m1 0h2m3 0h4m2 0h2m1 0h2m5 0h2m5 0h7m7 0h2m1 0h2m3 0h1m1 0h1M4 37.5h3m2 0h1m5 0h1m4 0h1m1 0h2m3 0h2m2 0h3m2 0h2m1 0h4m4 0h3m5 0h1m2 0h1m1 0h1m1 0h1M7 38.5h4m2 0h1m1 0h5m1 0h4m1 0h1m1 0h1m1 0h3m2 0h1m1 0h1m1 0h6m2 0h3m1 0h2m1 0h1m4 0h1m2 0h1M4 39.5h1m6 0h5m1 0h1m1 0h1m2 0h1m1 0h3m3 0h6m4 0h1m1 0h4m1 0h1m4 0h1m1 0h2m2 0h1m2 0h2M3 40.5h1m1 0h4m8 0h1m1 0h1m1 0h2m2 0h7m4 0h1m1 0h2m5 0h4m1 0h1m1 0h4m1 0h1m4 0h1M7 41.5h1m3 0h1m4 0h1m1 0h2m3 0h1m4 0h2m2 0h2m2 0h1m1 0h2m1 0h4m3 0h1m4 0h1m2 0h1m3 0h2M3 42.5h1m4 0h6m1 0h3m2 0h3m1 0h1m1 0h1m4 0h4m1 0h6m4 0h1m1 0h4m4 0h3m1 0h1m1 0h1M2 43.5h4m3 0h4m1 0h1m4 0h1m1 0h1m1 0h3m1 0h2m1 0h4m1 0h1m2 0h1m1 0h1m2 0h3m1 0h1m1 0h2m1 0h2m2 0h1m1 0h2m1 0h2M4 44.5h3m1 0h1m1 0h2m1 0h2m1 0h1m3 0h2m1 0h4m1 0h3m4 0h1m1 0h1m4 0h2m1 0h1m6 0h1m1 0h2m2 0h3M2 45.5h2m1 0h3m1 0h2m6 0h2m4 0h1m2 0h1m2 0h1m2 0h2m5 0h2m1 0h1m1 0h2m4 0h2m2 0h1m1 0h1m1 0h1m1 0h1M2 46.5h4m2 0h3m1 0h1m1 0h1m2 0h1m2 0h1m7 0h1m2 0h4m1 0h4m1 0h1m4 0h1m1 0h5m1 0h5M2 47.5h2m1 0h1m1 0h1m1 0h1m1 0h5m4 0h1m2 0h1m1 0h2m3 0h1m1 0h2m1 0h3m4 0h2m1 0h5m1 0h2m2 0h1m2 0h2m2 0h1M2 48.5h1m3 0h1m1 0h4m1 0h3m1 0h2m1 0h3m1 0h2m1 0h1m2 0h2m1 0h1m1 0h2m6 0h1m1 0h1m1 0h2m2 0h4m3 0h2M2 49.5h4m5 0h2m1 0h2m1 0h1m1 0h1m3 0h2m1 0h1m6 0h1m1 0h1m1 0h1m2 0h1m3 0h5m1 0h3m4 0h1m2 0h3M2 50.5h2m2 0h1m1 0h1m1 0h2m1 0h1m3 0h2m2 0h4m3 0h2m2 0h2m3 0h3m1 0h1m1 0h4m1 0h5m5 0h2M2 51.5h1m1 0h1m2 0h1m1 0h2m5 0h1m1 0h1m1 0h1m2 0h5m1 0h4m2 0h1m1 0h2m1 0h2m1 0h2m1 0h2m1 0h2m1 0h5m1 0h2m1 0h2M4 52.5h6m2 0h1m1 0h1m1 0h1m1 0h3m1 0h2m1 0h1m2 0h3m1 0h2m1 0h2m1 0h1m2 0h1m3 0h1m1 0h1m4 0h3m5 0h1M2 53.5h3m1 0h1m2 0h1m3 0h2m1 0h2m1 0h3m2 0h1m2 0h1m7 0h1m2 0h2m6 0h2m1 0h3m1 0h1m1 0h2m3 0h3M2 54.5h4m2 0h2m1 0h2m5 0h1m2 0h1m2 0h11m2 0h4m3 0h1m1 0h1m3 0h3m1 0h6m1 0h1M10 55.5h3m2 0h2m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m3 0h2m1 0h2m1 0h2m1 0h2m1 0h2m2 0h1m1 0h3m3 0h2m1 0h2M2 56.5h7m1 0h3m1 0h1m2 0h1m2 0h3m1 0h2m2 0h3m1 0h1m1 0h1m2 0h1m3 0h3m4 0h1m1 0h2m1 0h2m1 0h1m1 0h1M2 57.5h1m5 0h1m2 0h1m2 0h5m3 0h2m4 0h1m1 0h1m3 0h3m5 0h1m2 0h1m3 0h1m3 0h2m3 0h1m1 0h2M2 58.5h1m1 0h3m1 0h1m1 0h1m5 0h1m1 0h2m2 0h1m1 0h1m1 0h1m1 0h1m1 0h6m2 0h2m5 0h2m1 0h1m1 0h1m2 0h6m1 0h3M2 59.5h1m1 0h3m1 0h1m3 0h3m2 0h1m3 0h2m1 0h4m1 0h4m1 0h2m1 0h2m1 0h2m1 0h2m1 0h1m3 0h1m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1M2 60.5h1m1 0h3m1 0h1m2 0h6m3 0h2m1 0h3m4 0h2m4 0h2m3 0h4m4 0h1m4 0h4m1 0h3M2 61.5h1m5 0h1m3 0h2m1 0h2m2 0h1m4 0h4m1 0h2m3 0h2m2 0h2m2 0h1m4 0h1m1 0h5m3 0h1m2 0h2M2 62.5h7m1 0h6m3 0h1m3 0h1m1 0h5m4 0h6m1 0h1m2 0h1m1 0h1m1 0h4m8 0h3\"/></svg>\n"
+ },
+ "kbEntries": [
+  {
+   "category": "origin",
+   "categoryName": "产地环境",
+   "question": "你们的山茶油是哪里来的？",
+   "answer": "茶芽芽的山茶油全部来自湖南省郴州市浒口村的原生山茶林（北纬 25°，世界山茶树适生黄金地带）。我们只采春季第一茬饱满茶果，由村里老匠人手工挑选，沿用浒口村代代相传的古法制油精髓，再结合物理低温冷榨工艺（≤60℃），最大程度锁住天然成分。您可以在小程序里扫瓶底二维码，直接看到这一瓶对应的油茶林地块、采摘日期与农户姓名。",
+   "keywords": "哪里 产地 来源 什么地方 基地 山茶林 浒口 产地环境",
+   "cards": [
+    {
+     "type": "origin",
+     "title": "浒口村东坡油茶林 A-03 地块",
+     "desc": "北纬 25° · 海拔 420-680 米 · 人工除草物理防虫",
+     "image": "/chayaya-mall/assets/img/image23.png"
+    }
+   ]
+  },
+  {
+   "category": "origin",
+   "categoryName": "产地环境",
+   "question": "能看看你们的种植基地吗？",
+   "answer": "可以。我们的油茶林位于浒口村东坡与南坡连片山场，三代人共同养护，以百年以上老茶树为主，管护方式是人工除草 + 物理防虫，不使用化学除草剂。小程序「溯源」页有实拍图，也欢迎您报名参加线下的“浒口村溯源之旅”，实地参观山茶花种植基地与产品生产过程。",
+   "keywords": "种植基地 茶林 实拍 实地 溯源之旅 参观",
+   "cards": [
+    {
+     "type": "trace",
+     "title": "全程溯源体系",
+     "desc": "茶树种植 → 果实采摘 → 冷榨加工 → 成品灌装",
+     "image": "/chayaya-mall/assets/img/image7.png"
+    }
+   ]
+  },
+  {
+   "category": "origin",
+   "categoryName": "产地环境",
+   "question": "为什么选浒口村的山茶油？",
+   "answer": "浒口村山茶油的油酸含量高达 80% 以上（进口橄榄油约 70%），并富含不饱和脂肪酸与维生素 E，人体皮脂的主要成分正是油酸，因此亲肤性好、吸收清爽。同时浒口村是我们团队自己的家乡，源头直供、可追溯，也能让收益回流村集体和农户。",
+   "keywords": "为什么选 油酸 优势 比橄榄油 好在哪",
+   "cards": []
+  },
+  {
+   "category": "safety",
+   "categoryName": "产品安全性",
+   "question": "产品安全吗？有检测报告吗？",
+   "answer": "安全。我们的核心承诺是“0 添加”：不含香精、不含化学防腐剂、不含矿物油，山茶基底油占比高至 95%。产品已按《儿童化妆品监督管理条例》完成儿童化妆品备案，并送第三方机构 SGS 检测，菌落总数、重金属（铅砷汞镉）、苯并芘、酸价、过氧化值、皮肤刺激性等项目均符合《化妆品安全技术规范》要求。每批次原料的农残检测报告也会在产品详情页动态更新。",
+   "keywords": "安全 检测报告 质检 SGS 备案 重金属 防腐剂 香精 矿物油 0添加 成分安全",
+   "cards": [
+    {
+     "type": "report",
+     "title": "SGS-2026-0115 检测报告",
+     "desc": "全部项目符合《化妆品安全技术规范》要求",
+     "url": "/chayaya-mall/assets/reports/SGS-2026-0115.html"
+    }
+   ]
+  },
+  {
+   "category": "safety",
+   "categoryName": "产品安全性",
+   "question": "新生儿可以用吗？敏感肌可以用吗？",
+   "answer": "产品定位就是 0-12 个月新生儿及敏感肌婴幼儿，基底为一级物理冷榨山茶油，成分表极简。不过每个宝宝体质不同，我们建议：首次使用前先在宝宝耳后或手腕内侧小面积涂抹，观察 24 小时无红肿刺痛再正常使用；如果宝宝正处于皮肤问题急性期，请先咨询儿科或皮肤科医生。",
+   "keywords": "新生儿 敏感肌 过敏 体质 能不能用 宝宝能用 耳后测试 试用",
+   "cards": [
+    {
+     "type": "safety",
+     "title": "首次使用建议",
+     "desc": "耳后/手腕内侧小面积试用 24 小时，无不适再正常使用"
+    }
+   ]
+  },
+  {
+   "category": "safety",
+   "categoryName": "产品安全性",
+   "question": "开封后能放多久？要怎么保存？",
+   "answer": "未开封保质期 3 年；开封后建议 12 个月内用完。山茶油怕光怕热，请避光常温保存，用完旋紧瓶盖。我们的泵头内置防回流结构，能减少空气、手油与细菌进入瓶内，延缓油体氧化。如果闻到明显油耗味、油体变浑浊，就不建议继续给宝宝使用了。",
+   "keywords": "保质期 开封 保存 存放 变质 油耗味 过期",
+   "cards": []
+  },
+  {
+   "category": "efficacy",
+   "categoryName": "产品功能与功效",
+   "question": "山茶油对宝宝皮肤到底有什么用？",
+   "answer": "原理有三点：一是山茶油中油酸含量达 80% 以上，与人体皮脂成分接近，能在皮肤表面形成一层透气的保护膜，减少水分流失；二是富含不饱和脂肪酸与维生素 E，具有一定的抗氧化与舒缓作用，适合干燥、泛红、起皮的护理场景；三是物理冷榨工艺保留了这些天然活性成分，且不含矿物油，所以肤感清爽、不黏腻。",
+   "keywords": "功效 作用 原理 为什么 油酸 保湿 舒缓 滋润 不饱和脂肪酸",
+   "cards": []
+  },
+  {
+   "category": "efficacy",
+   "categoryName": "产品功能与功效",
+   "question": "一瓶油能用在哪些地方？",
+   "answer": "这是一支“一油多用”的抚触油，常见四个场景：1）新生儿抚触按摩；2）日常保湿，缓解皮肤干燥起皮；3）头垢护理，先用油软化再轻柔清理；4）颈下、腋下、大腿根等褶皱处的淹红舒缓（皮肤完整、无破溃时）。",
+   "keywords": "一油多用 用在哪 场景 头垢 保湿 淹红 褶皱 抚触",
+   "cards": []
+  },
+  {
+   "category": "efficacy",
+   "categoryName": "产品功能与功效",
+   "question": "和市售婴儿油比有什么区别？",
+   "answer": "三点区别：1）基底不同——我们用一级物理冷榨山茶油，市面不少产品是矿物油或复合植物油的稀释配方；2）透明度不同——我们做到一瓶一码一农户，扫码能查到油茶林地块、采摘日期、压榨批次与农户姓名，多数品牌只能做整体宣传；3）性价比不同——100ml 家庭装 69 元，松达同品类是 78 元/30ml。",
+   "keywords": "区别 对比 竞品 松达 贝亲 强生 哪个好 价格",
+   "cards": []
+  },
+  {
+   "category": "massage",
+   "categoryName": "抚触科普与用量",
+   "question": "一次用多少油？",
+   "answer": "按泵头计量最方便：100ml 家庭装按压一次出油 0.5ml，30ml 体验装一次 0.25ml。具体参考：小腿/手臂单部位约 2-3 滴；全身抚触约按压 4-6 次（2-3ml）。记住“少量多次、掌心搓热再上手”，油多了反而滑手不好操作。",
+   "keywords": "用量 多少 几滴 几次 按压 油多 一次",
+   "cards": []
+  },
+  {
+   "category": "massage",
+   "categoryName": "抚触科普与用量",
+   "question": "不同月龄怎么抚触？",
+   "answer": "分月龄建议：0-3 个月以轻柔抚触为主，重点做胸腹顺时针与四肢向心性轻抚，每次 5 分钟；4-6 个月可加入背部与脚底，每次 5-10 分钟；6 个月以上可配合被动操，边抚触边和宝宝说话。共同要点是：室温 26-28℃、宝宝清醒不饥饿、避开脐部与皮肤破损处、动作由轻到重由慢到快，宝宝哭闹就立即停止。",
+   "keywords": "抚触 手法 教程 月龄 怎么做 步骤 按摩 被动操",
+   "cards": [
+    {
+     "type": "tutorial",
+     "title": "分月龄抚触教程",
+     "desc": "0-3 月 / 4-6 月 / 6 月以上三套手法图解",
+     "url": "/#/guide"
+    }
+   ]
+  },
+  {
+   "category": "massage",
+   "categoryName": "抚触科普与用量",
+   "question": "什么时候抚触最好？",
+   "answer": "推荐在洗澡后、睡前或喂奶后 1 小时进行，避开刚吃饱（易吐奶）和饥饿哭闹时。睡前抚触有助于放松、改善入睡，这也是很多月子中心把它作为提升睡眠质量手段的原因。每天 1 次、坚持 2 周以上更容易看到效果。",
+   "keywords": "什么时候 时间 睡前 洗澡后 频率 每天",
+   "cards": []
+  },
+  {
+   "category": "order",
+   "categoryName": "订单物流与售后",
+   "question": "我的订单到哪了？",
+   "answer": "您可以在「我的 → 我的订单」里查看实时物流轨迹。我们整合浒口村乡村物流节点集中发货，湖南省内一般次日达，华南地区 2-3 日达。如果您已登录，把订单号发我，我也可以帮您直接查询当前状态。",
+   "keywords": "订单 物流 快递 发货 到哪 什么时候到 运单",
+   "cards": []
+  },
+  {
+   "category": "order",
+   "categoryName": "订单物流与售后",
+   "question": "怎么退换货？",
+   "answer": "未拆封商品支持 7 天无理由退货；如收到破损或与订单不符，请在签收后 48 小时内拍照联系客服，我们承担运费并优先补发。试用小样有“过敏可退”承诺：首次使用出现不适，凭小样照片与订单可申请退款。",
+   "keywords": "退款 退货 换货 售后 破损 7天 无理由 过敏可退",
+   "cards": []
+  },
+  {
+   "category": "order",
+   "categoryName": "订单物流与售后",
+   "question": "会员有什么权益？",
+   "answer": "会员分三级：新芽会员（注册即享村集体直供价、可查看产品基础溯源记录）；成长会员（累计消费满 100 元，赠定制育儿科普手册、每月额外优惠券）；守护会员（累计消费满 500 元，可免费参与“浒口村溯源之旅”，实地参观山茶花种植基地与产品生产过程）。",
+   "keywords": "会员 等级 权益 折扣 优惠券 升级 新芽 成长 守护",
+   "cards": [
+    {
+     "type": "tier",
+     "title": "三级会员体系",
+     "desc": "新芽会员 → 成长会员 → 守护会员"
+    }
+   ]
+  },
+  {
+   "category": "order",
+   "categoryName": "订单物流与售后",
+   "question": "怎么扫码溯源？",
+   "answer": "拿出产品，刮开瓶底二维码下方的涂层，用微信扫码即可进入溯源页。页面会按时间轴展示：原料产地环境与种植管护 → 果实采摘与筛选 → 物理低温冷榨加工 → 成品检测报告 → 无菌灌装 → 物流配送，并显示这一瓶对应的地块坐标、采摘日期、压榨批次、农户姓名与 SGS 检测报告原文。每个码首次查询会记录防伪标记，重复查询会提示已被查询次数。",
+   "keywords": "扫码 溯源 二维码 怎么查 防伪 真假 刮开",
+   "cards": [
+    {
+     "type": "trace",
+     "title": "一物一码全流程溯源",
+     "desc": "点击进入溯源页，查看本瓶的完整履历",
+     "url": "/#/trace"
+    }
+   ]
+  }
+ ],
+ "quickQuestions": [
+  "宝宝脸上起红疹，能用这个油吗？",
+  "一次用多少油？怎么给宝宝抚触？",
+  "产品有检测报告吗？安全吗？",
+  "山茶油是哪里来的？能溯源吗？",
+  "我的订单到哪了？",
+  "会员有什么权益？"
+ ],
+ "hotQuestions": [
+  {
+   "intent": "symptom",
+   "name": "婴儿症状适用性",
+   "count": 12
+  },
+  {
+   "intent": "safety",
+   "name": "产品安全性",
+   "count": 9
+  },
+  {
+   "intent": "origin",
+   "name": "产地环境",
+   "count": 6
+  }
+ ],
+ "coupons": [
+  {
+   "id": 1,
+   "code": "NEWUSER10",
+   "title": "新客首单立减 10 元",
+   "amount": 1000,
+   "amountText": "10.00",
+   "minAmount": 2900,
+   "minAmountText": "29.00",
+   "status": "unused",
+   "source": "newuser"
+  },
+  {
+   "id": 2,
+   "code": "TIER5",
+   "title": "会员月度券 满 99 减 5",
+   "amount": 500,
+   "amountText": "5.00",
+   "minAmount": 9900,
+   "minAmountText": "99.00",
+   "status": "unused",
+   "source": "tier_month"
+  },
+  {
+   "id": 3,
+   "code": "OFFLINE20",
+   "title": "线下体验专享 满 138 减 20",
+   "amount": 2000,
+   "amountText": "20.00",
+   "minAmount": 13800,
+   "minAmountText": "138.00",
+   "status": "unused",
+   "source": "offline"
+  }
+ ],
+ "statsOverview": {
+  "users": 1286,
+  "orders": 342,
+  "amount": 38640,
+  "aidFamilies": 46
+ },
+ "demoState": {
+  "cart": [],
+  "orders": [
+   {
+    "id": 1,
+    "orderNo": "CY202602180930001234",
+    "status": "done",
+    "statusText": "已完成",
+    "goodsAmount": 6900,
+    "discountAmount": 0,
+    "freight": 0,
+    "payAmount": 6900,
+    "address": {
+     "receiver": "周女士",
+     "phone": "13800000002",
+     "province": "广东省",
+     "city": "珠海市",
+     "district": "香洲区",
+     "detail": "唐家湾镇金凤路 18 号北师大珠海校区"
+    },
+    "logistics": [
+     {
+      "time": "2026-02-19 10:20",
+      "text": "浒口村乡村物流节点已揽收"
+     },
+     {
+      "time": "2026-02-19 18:05",
+      "text": "到达郴州市分拨中心"
+     },
+     {
+      "time": "2026-02-20 09:12",
+      "text": "运输中，发往珠海市"
+     },
+     {
+      "time": "2026-02-21 11:40",
+      "text": "已签收，签收人：本人"
+     }
+    ],
+    "createdAt": "2026-02-18T09:30:00+08:00",
+    "paidAt": "2026-02-18T09:31:00+08:00",
+    "shippedAt": "2026-02-19T10:20:00+08:00",
+    "finishedAt": "2026-02-21T11:40:00+08:00",
+    "sourcePlatform": "self",
+    "payChannel": "mock_wechat",
+    "remark": "",
+    "items": [
+     {
+      "productId": 1,
+      "title": "茶芽芽 婴儿山茶抚触油",
+      "spec": "100ml",
+      "price": 6900,
+      "qty": 1,
+      "image": "/chayaya-mall/assets/img/image18.png",
+      "traceCodes": [
+       "CY26010115010001"
+      ]
+     }
+    ]
+   }
+  ],
+  "user": null,
+  "totalPaid": 6900,
+  "address": {
+   "receiver": "周女士",
+   "phone": "13800000002",
+   "province": "广东省",
+   "city": "珠海市",
+   "district": "香洲区",
+   "detail": "唐家湾镇金凤路 18 号北师大珠海校区"
+  },
+  "points": 0,
+  "tier": "xinYa"
+ },
+ "ruleMeta": {
+  "symptomRuleCount": 10,
+  "redFlagCount": 15,
+  "note": "AI 规则与后端共用同一份 data/ai-rules.mjs 实现"
+ }
+}

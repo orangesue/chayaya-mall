@@ -15,6 +15,7 @@ import { signTracePayload, chainHash } from '../utils/crypto.mjs';
 import { qrSvg, qrEncoderName } from '../utils/qrcode.mjs';
 import { nowIso } from '../utils/datetime.mjs';
 import brand from '../data/brand-content.mjs';
+import { PUBLIC_CHAIN_STAGES } from '../data/knowledge-base.mjs';
 
 const STAGE_ICON = {
   plant: '🌱', harvest: '🧺', press: '🫒', inspect: '🔬', fill: '🏭', logistics: '🚚',
@@ -158,11 +159,17 @@ export async function lookupTrace({ traceCode, token, batchNo, ip, ua }) {
   );
   await recordScan(code, ip, ua, isFirst ? 'first' : 'repeat');
 
-  const events = await loadEvents(unit.batch_no);
+  const allEvents = await loadEvents(unit.batch_no);
+  // 展示层过滤：产链信息只保留加工之后的节点（冷榨 → 检测 → 灌装 → 物流）。
+  // 哈希链仍用全部节点校验，防伪不受影响（见 data/knowledge-base.mjs 的说明）。
+  const events = allEvents.filter((e) => PUBLIC_CHAIN_STAGES.includes(e.stage));
   const chain = await verifyChain(unit.batch_no);
   const product = batch.product_code
-    ? await get('SELECT code, title, subtitle, spec, image FROM products WHERE code = ?', [batch.product_code])
+    ? await get('SELECT code, title, subtitle, spec, image, detail_json FROM products WHERE code = ?', [batch.product_code])
     : null;
+  // 新版溯源界面需要商品的详细参数、成分与用法（来自商品详情）
+  let productDetail = {};
+  try { productDetail = JSON.parse(product?.detail_json || '{}'); } catch { productDetail = {}; }
 
   return {
     authentic: true,
@@ -195,9 +202,27 @@ export async function lookupTrace({ traceCode, token, batchNo, ip, ua }) {
     product: product ? {
       code: product.code, title: product.title, subtitle: product.subtitle, spec: product.spec, image: product.image,
     } : null,
+    /**
+     * 新版溯源界面（三界面布局）需要的展示资料：
+     * 商品参数 / 成分 / 用法来自商品详情；地块与管护信息来自批次记录。
+     */
+    meta: {
+      audience: productDetail.audience || '0-12 个月新生儿及敏感肌婴幼儿',
+      specs: (productDetail.specs || []).slice(0, 8),
+      ingredients: '山茶籽油（≥95%）、生育酚（维生素 E）',
+      ingredientNote: '不含香精、不含化学防腐剂、不含矿物油；山茶基底油占比高至 95%。',
+      warning: '仅供外用。首次使用请先在耳后或手腕内侧小面积试用，观察 24 小时无不适再正常使用；皮肤破损、渗液、化脓处请勿涂抹并及时就医。',
+      usage: (productDetail.usage || []).slice(0, 4),
+      elevation: '420 - 680 米',
+      area: '约 320 亩连片山茶林',
+      treeAge: '以百年以上老茶树为主，三代人共同养护',
+      soil: '红壤，pH 5.5-6.5，排水良好',
+      manage: '人工除草、物理防虫，不使用化学除草剂',
+    },
     batch: {
       ...shapeBatch(batch),
       landInfo: brand.traceFlow,
+      landImage: '/assets/img/image23.png',
     },
     timeline: events,
     report: {
@@ -245,7 +270,9 @@ export async function buildTraceQr(traceCode, { size, base } = {}) {
 export async function getBatchOverview(batchNo) {
   const batch = await get('SELECT * FROM batches WHERE batch_no = ?', [batchNo]);
   if (!batch) throw notFound('批次不存在');
-  const events = await loadEvents(batchNo);
+  const allEvents = await loadEvents(batchNo);
+  // 与 C 端展示口径一致：只返回加工之后的节点；哈希链仍校验全部节点
+  const events = allEvents.filter((e) => PUBLIC_CHAIN_STAGES.includes(e.stage));
   const chain = await verifyChain(batchNo);
   const unitStat = await get(
     `SELECT COUNT(*) AS total,

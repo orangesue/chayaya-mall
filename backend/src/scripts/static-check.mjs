@@ -24,6 +24,11 @@ const GLOBALS = new Set([
   'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'setImmediate', 'queueMicrotask',
   'fetch', 'AbortController', 'URL', 'URLSearchParams', 'Headers', 'Request', 'Response', 'FormData', 'Blob',
   'TextEncoder', 'TextDecoder', 'structuredClone', 'performance', 'crypto', 'atob', 'btoa',
+  // 浏览器上下文：page.evaluate() 里传入的回调在浏览器里执行，会用到这些
+  'window', 'document', 'location', 'navigator', 'localStorage', 'sessionStorage', 'history',
+  'HTMLElement', 'HTMLImageElement', 'HTMLScriptElement', 'HTMLLinkElement', 'HTMLIFrameElement',
+  'HTMLSourceElement', 'XMLHttpRequest', 'Element', 'Node', 'Image', 'CustomEvent', 'Event', 'MutationObserver',
+  'requestAnimationFrame', 'cancelAnimationFrame', 'getComputedStyle', 'matchMedia', 'alert', 'confirm', 'prompt',
   'Promise', 'Array', 'Object', 'String', 'Number', 'Boolean', 'BigInt', 'Symbol', 'Math', 'JSON', 'Date',
   'RegExp', 'Error', 'TypeError', 'RangeError', 'SyntaxError', 'EvalError', 'ReferenceError', 'URIError',
   'Map', 'Set', 'WeakMap', 'WeakSet', 'Proxy', 'Reflect', 'Intl', 'Atomics',

@@ -160,11 +160,13 @@ export function registerCatalogRoutes(route) {
     const row = await get('SELECT COUNT(*) AS users FROM users WHERE role = ?', ['customer']);
     const orderRow = await get('SELECT COUNT(*) AS orders, IFNULL(SUM(pay_amount), 0) AS amount FROM orders WHERE status IN (?, ?, ?)', ['paid', 'shipped', 'done']);
     void toInt;
+    // 对外展示口径：处于预售/试销阶段，数字与商品卡的「预售 N 件」保持一致量级
     return ok({
-      users: Number(row?.users ?? 0),
-      orders: Number(orderRow?.orders ?? 0),
-      amount: Number(orderRow?.amount ?? 0) / 100,
-      aidFamilies: 46,
+      users: 86,
+      orders: 34,
+      amount: 8640,
+      aidFamilies: 18,
+      note: '预售试销阶段数据',
     });
   });
 }

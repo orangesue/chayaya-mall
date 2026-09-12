@@ -221,7 +221,7 @@ function buildSnapshot() {
       { id: 2, code: 'TIER5', title: '会员月度券 满 99 减 5', amount: 500, amountText: '5.00', minAmount: 9900, minAmountText: '99.00', status: 'unused', source: 'tier_month' },
       { id: 3, code: 'OFFLINE20', title: '线下体验专享 满 138 减 20', amount: 2000, amountText: '20.00', minAmount: 13800, minAmountText: '138.00', status: 'unused', source: 'offline' },
     ],
-    statsOverview: { users: 1286, orders: 342, amount: 38640, aidFamilies: 46 },
+    statsOverview: { users: 86, orders: 34, amount: 8640, aidFamilies: 18 },
     demoState: {
       cart: [], orders: [demoOrder], user: null,
       totalPaid: demoOrder.payAmount, address: demoAddress, points: 0, tier: 'xinYa',

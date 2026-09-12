@@ -13,6 +13,7 @@
  *   3. 溯源验签在浏览器端完成（用提交时算好的签名摘要比对），仍能演示"改了就报警"
  */
 import { buildRuleReply, detectIntent, extractSlots, triageSymptoms, analyzeEmotion } from './ai-rules.mjs';
+import { PUBLIC_CHAIN_STAGES } from './knowledge-base.mjs';
 
 let snapshot = null;
 let local = null;
@@ -543,6 +544,10 @@ const ROUTES = [
     }
     const batch = snapshot.trace.batches.find((b) => b.batchNo === unit.batchNo);
     const detail = snapshot.trace.batchDetails[unit.batchNo];
+    // 产链信息只展示加工之后的节点（与后端 PUBLIC_CHAIN_STAGES 口径一致）
+    const publicTimeline = detail.timeline.filter((t) => PUBLIC_CHAIN_STAGES.includes(t.stage));
+    const product = snapshot.products.find((p) => p.code === batch?.productCode) ?? null;
+    const productDetail = (product && snapshot.productDetails[product.code]?.detail) || {};
     const isFirst = (unit.scanCount ?? 0) === 0;
     const count = (unit.scanCount ?? 0) + 1;
     unit.scanCount = count;
@@ -572,9 +577,23 @@ const ROUTES = [
           ? '全部节点哈希校验通过，溯源数据未被篡改。'
           : '检测到节点哈希不匹配，数据可能被篡改。',
       },
-      product: snapshot.products.find((p) => p.code === batch?.productCode) ?? null,
-      batch: { ...batch, landInfo: snapshot.brandFull.traceFlow },
-      timeline: detail.timeline,
+      product,
+      // 新版三界面需要的展示资料（字段与后端 /api/trace/verify 保持一致）
+      meta: {
+        audience: productDetail.audience || '0-12 个月新生儿及敏感肌婴幼儿',
+        specs: (productDetail.specs || []).slice(0, 8),
+        ingredients: '山茶籽油（≥95%）、生育酚（维生素 E）',
+        ingredientNote: '不含香精、不含化学防腐剂、不含矿物油；山茶基底油占比高至 95%。',
+        warning: '仅供外用。首次使用请先在耳后或手腕内侧小面积试用，观察 24 小时无不适再正常使用；皮肤破损、渗液、化脓处请勿涂抹并及时就医。',
+        usage: (productDetail.usage || []).slice(0, 4),
+        elevation: '420 - 680 米',
+        area: '约 320 亩连片山茶林',
+        treeAge: '以百年以上老茶树为主，三代人共同养护',
+        soil: '红壤，pH 5.5-6.5，排水良好',
+        manage: '人工除草、物理防虫，不使用化学除草剂',
+      },
+      batch: { ...batch, landInfo: snapshot.brandFull.traceFlow, landImage: '/assets/img/image23.png' },
+      timeline: publicTimeline,
       report: { inspectionNo: batch?.inspectionNo, url: batch?.inspectionReport },
       qr: { encoder: '静态演示模式', printTip: '瓶底二维码已做刮开涂层，扫码即可查看本瓶完整履历。' },
     });

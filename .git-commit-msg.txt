@@ -1,33 +1,32 @@
-﻿fix: 修复 GitHub Pages 子目录部署导致页面空白（<base> 位置 + 资源路径前缀）
+﻿feat: 溯源结果页改为三界面布局；商品卡「已售」改「预售」并按团队要求调整数字与产链展示
 
-问题现象：线上 https://orangesue.github.io/chayaya-mall/ 打开后一片空白。
-根因有三个，且都属于"只有真实浏览器 + 子目录部署才暴露"的问题：
+一、溯源结果页改版（参考食品数字标签平台版式）
+- 新版结构：绿色头部 → 商品身份卡（产品图/规格/执行标准/备案号/正品标签/溯源码+条形码装饰）→ 三个一级标签
+- 一级标签即三个界面，点击直接切换：
+  · 商品信息：产品基本信息、产品参数、成分表（含成分说明与注意事项）、使用方法、用量参考表、检测与合规
+  · 农户信息：原料农户（含农户原话）、地块档案（含实拍图）、本批次参与人、助农信息
+  · 产链信息：全链条生产轨迹、防伪与存证校验
+- 后端 /api/trace/verify 新增 meta 字段（商品参数/成分/用法/地块信息）与 batch.landImage
+- 新增溯源页专用样式（绿色头部、身份卡、条形码、一级标签、用量参考表）
 
-1. <base href> 注入位置错误
-   原来插在 <link rel="icon"> 之前，而样式表 <link rel="stylesheet"> 在它前面，
-   导致样式表与模块脚本按域名根路径解析（https://<用户>.github.io/scripts/app.js）→ 404 → 空白。
-   修复：<base> 必须是 <head> 的第一个元素。
+二、产链信息按团队确认（方案 A）只展示加工之后的环节
+- 新增 PUBLIC_CHAIN_STAGES 常量（press/inspect/fill/logistics）作为展示层白名单
+- loadEvents 结果在 C 端过滤，时间轴由 6 个节点变为 4 个（冷榨→检测→灌装→物流）
+- 重要：hash 链校验（verifyChain）仍覆盖全部 6 个节点，防伪能力不变；页面与代码注释均已说明"少展示不等于少存证"
 
-2. 数据快照与前端 JS 里的图片路径是绝对路径 /assets/xxx
-   <base href> 只影响 HTML 解析出的 URL，管不到 JS 拼接的路径，
-   子目录部署时会去域名根目录找 → 首页图片全部 404。
-   修复：构建时把快照与脚本里的 /assets/ 统一加上部署前缀（lib/static-paths.mjs）。
+三、商品数字与文案调整
+- 商品卡与详情页：「已售 N」→「预售 N 件」
+- 销量按预售口径改小：100ml 48、30ml 36、试用小样 62、礼盒 18
+- 库存调整到 300-500：480 / 360 / 500 / 320（未开售商品保持 0）
+- 首页统计口径统一为预售试销阶段：注册用户 86、成交订单 34、合作农户 18
+  并修复 /api/stats/overview 仍返回真实订单数、与前端展示不一致的问题
+- 备案号保留为占位值，并在页面标注"待备案完成后替换"
 
-3. demo-api 的 /api/trace/overview 字段名与后端不一致
-   后端返回 images.system/query/dashboard/antiFake，而 brand.images 的键名是
-   traceSystem/traceQuery/traceDashboard/antiFake，直接透传导致 images.system 为 undefined，
-   页面渲染出 src="undefined" → 请求 /chayaya-mall/undefined → 404。
-   修复：显式映射为与后端一致的字段名。
+四、演示模式同步
+- demo-api.js 的 /api/trace/verify 补齐 meta / product / landImage，并按 PUBLIC_CHAIN_STAGES 过滤时间轴
+- build-static-offline.mjs 与 /api/stats/overview 使用同一套统计口径
 
-新增防护（避免同类问题再次漏到线上）
-- src/scripts/browser-check.mjs：用真实 Chrome 打开页面并逐页检查，
-  捕获控制台错误、资源加载失败与 4xx/5xx 响应；配合 serve-static.mjs 的 --prefix
-  在本地复现"子目录部署"，这正是 Node 模拟 DOM 查不出的场景
-- build-static-offline.mjs：构建期校验快照引用的每个图片路径都真实存在
-- frontend/scripts/boot-guard.js：启动看门狗。模块加载失败或 8 秒未渲染时，
-  把诊断信息直接画在页面上（含地址、UA、脚本清单），不再留下空白页无法排查
-- app.js：启动过程分步记录，失败时显示原因而不是停在骨架屏
-
-本地验证（子目录部署，真实 Chrome）
-- 首页 + 产品中心 + 商品详情 + 溯源 + AI 客服 + 品牌故事 + 我的：全部渲染正常，0 资源错误
-- 静态演示功能自检：24/24 通过
+验证
+- 后端：静态检查 0 问题、时间轴 4 节点、哈希链校验 6 节点通过
+- 真实浏览器（子目录部署）：三个界面逐一切换，商品信息 801 字 / 农户信息 400 字 / 产链信息 869 字（含 4 节点时间轴），资源与控制台错误 0 条
+- 静态站构建：素材引用自检通过（26 个路径）

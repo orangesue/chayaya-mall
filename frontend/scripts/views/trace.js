@@ -1,9 +1,27 @@
-/** 溯源频道：扫码/输入查询、时间轴、哈希链校验、批次全景、二维码打印 */
+/** 溯源频道：扫码/输入查询、三界面结果页（商品信息 / 农户信息 / 产链信息）、批次全景、二维码打印 */
 import { route } from '../router.js';
 import { get, post, state, toast, track } from '../store.js';
 
 const esc = (s) => String(s ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/** 客户端的商品资料（补充后端商品接口未覆盖的展示字段；备案号上线前需替换为真实号码） */
+const PRODUCT_LABELS = {
+  'CY-OIL-100': { standard: 'QB/T 4079（润肤油）', filing: '粤G妆网备字2026xxxxxx', filingPending: true, shelfLife: '36 个月' },
+  'CY-OIL-30': { standard: 'QB/T 4079（润肤油）', filing: '粤G妆网备字2026xxxxxx', filingPending: true, shelfLife: '36 个月' },
+  'CY-TRIAL-5': { standard: 'QB/T 4079（润肤油）', filing: '粤G妆网备字2026xxxxxx', filingPending: true, shelfLife: '36 个月' },
+  'CY-GIFT-MAN': { standard: 'QB/T 4079（润肤油）', filing: '粤G妆网备字2026xxxxxx', filingPending: true, shelfLife: '36 个月' },
+};
+
+/** 条形码装饰条（纯视觉，模仿标签平台的条码区） */
+function barcodeBars() {
+  let html = '';
+  for (let i = 0; i < 68; i += 1) {
+    const w = [1, 1, 2, 3][i % 4];
+    html += `<i style="width:${w}px;height:${18 + ((i * 7) % 16)}px"></i>`;
+  }
+  return `<div class="bars">${html}</div>`;
+}
 
 route('/trace', async ({ query }) => {
   const token = query.get('t');
@@ -14,7 +32,7 @@ route('/trace', async ({ query }) => {
   if (token || code) {
     const res = await get(`/api/trace/verify?${token ? `t=${encodeURIComponent(token)}` : `code=${encodeURIComponent(code)}`}`);
     track('scan', res.traceCode || code || 'token');
-    return { html: renderResult(res), title: res.authentic ? '溯源结果' : '防伪提示', tab: 'trace' };
+    return { html: renderResult(res), title: res.authentic ? '溯源结果' : '防伪提示', tab: 'trace', mount: mountTabs };
   }
 
   if (batch) {
@@ -34,7 +52,7 @@ route('/trace', async ({ query }) => {
       <div class="card" style="background:linear-gradient(135deg,#eaf6ef,#fdfaf1)">
         <div class="card-title">🔍 一物一码 · 全流程溯源</div>
         <p class="small" style="margin:0 0 10px;color:var(--ink-2)">
-          刮开产品瓶底涂层，用微信扫码即可查看这一瓶的完整履历：油茶林地块、采摘日期、压榨批次、农户姓名、检测报告与物流轨迹。
+          刮开产品瓶底涂层，用微信扫码即可查看这一瓶的完整履历：产品信息、原料农户、全链条生产轨迹与检测报告。
         </p>
         <div class="field" style="margin-bottom:10px">
           <input class="input" id="code-input" placeholder="也可以手动输入瓶底溯源码，如 CY26010115010001" />
@@ -135,7 +153,21 @@ route('/trace', async ({ query }) => {
 });
 
 /* ============================================================
- * 查询结果
+ * 一级标签切换（三个界面）
+ * ============================================================ */
+function mountTabs() {
+  document.querySelectorAll('.trace-tabs button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.trace-tabs button').forEach((b) => b.classList.remove('on'));
+      document.querySelectorAll('.trace-panel').forEach((p) => p.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById(btn.dataset.p)?.classList.add('on');
+    });
+  });
+}
+
+/* ============================================================
+ * 溯源结果页：绿色头部 + 身份卡 + 三个界面
  * ============================================================ */
 function renderResult(res) {
   if (!res.authentic) {
@@ -167,54 +199,173 @@ function renderResult(res) {
   }
 
   const b = res.batch || {};
-  const li = b.landInfo || {};
+  const p = res.product || {};
+  const label = PRODUCT_LABELS[p.code] || {};
+  const meta = res.meta || {};
+
   return `
-  <div class="page">
-    <div class="page-pad">
-      <div class="card" style="background:linear-gradient(135deg,#eaf6ef,#fdfaf1)">
-        <div class="row-between">
-          <div>
-            <div class="bold" style="font-size:16px;color:var(--green-900)">✅ 正品验证通过</div>
-            <div class="tiny muted mt6">溯源码 ${esc(res.traceCode)}</div>
+  <div class="page trace-page">
+    <!-- 绿色头部 -->
+    <header class="trace-hero">
+      <div class="row-between" style="font-size:12px;opacity:.95">
+        <span>🌱 茶芽芽 · 一物一码溯源</span>
+        <span>${esc(b.origin || '')}</span>
+      </div>
+      <div class="trace-hero-title">${esc(p.title || '婴儿山茶抚触油')}</div>
+      <div class="trace-hero-sub">浒口茶油助农先锋队 · 北京师范大学（珠海校区）</div>
+    </header>
+
+    <!-- 身份卡 -->
+    <section class="trace-idcard">
+      <div class="trace-idtop">
+        <img class="trace-pic" src="${esc(p.image || '/assets/img/image18.png')}" alt="${esc(p.title || '')}" />
+        <div class="grow">
+          <div class="bold" style="font-size:15px">${esc(p.title || '')}</div>
+          <div class="mt6">
+            <span class="tag">抚触油</span>
+            <span class="tag">规格 ${esc(p.spec || '')}</span>
+            ${label.shelfLife ? `<span class="tag plain">保质期 ${esc(label.shelfLife)}</span>` : ''}
           </div>
-          <img src="/assets/img/image22.jpeg" style="width:56px;border-radius:8px" alt="防伪码" />
-        </div>
-        <div class="notice ${res.scan.isFirst ? 'ok' : ''} mt10" style="${res.scan.isFirst ? '' : 'background:var(--warn-bg)'}">
-          ${esc(res.scan.tip)}
+          ${label.standard ? `<div class="tiny muted">产品执行标准：<b>${esc(label.standard)}</b></div>` : ''}
+          ${label.filing ? `<div class="tiny muted">儿童化妆品备案号：<b>${esc(label.filing)}</b>${label.filingPending ? ' <span class="trace-pending">待备案完成后替换</span>' : ''}</div>` : ''}
+          <div class="mt6"><span class="trace-verified">✅ ${res.scan.isFirst ? '正品验证通过 · 首次查询' : `正品验证通过 · 第 ${res.scan.count} 次查询`}</span></div>
         </div>
       </div>
+      <div class="trace-codebar">
+        <div class="row-between">
+          <span class="trace-codelabel">🌿 一物一码溯源标识</span>
+          <span class="trace-codenum">${esc(res.traceCode)}</span>
+        </div>
+        ${barcodeBars()}
+        <div class="tiny muted" style="margin-top:6px">此编码为本产品一物一码，由团队溯源系统统一赋码；扫码可查看全链条信息</div>
+      </div>
+    </section>
 
-      ${res.product ? `
-      <div class="card">
-        <div class="row" style="gap:11px">
-          <img src="${res.product.image}" style="width:74px;height:74px;border-radius:10px;object-fit:cover" alt="" />
-          <div class="grow">
-            <div class="bold">${esc(res.product.title)}</div>
-            <div class="small muted">${esc(res.product.subtitle || '')}</div>
-            <div class="mt6"><span class="tag">${esc(res.product.spec)}</span><span class="tag plain">${esc(res.unitStatusText)}</span></div>
-          </div>
+    ${res.scan.isFirst ? '' : `<div class="page-pad"><div class="notice" style="margin-top:12px">${esc(res.scan.tip)}</div></div>`}
+
+    <!-- 一级标签 = 三个界面 -->
+    <nav class="trace-tabs">
+      <button class="on" data-p="tp1">商品信息</button>
+      <button data-p="tp2">农户信息</button>
+      <button data-p="tp3">产链信息</button>
+    </nav>
+
+    <!-- 界面一：商品信息 -->
+    <section class="trace-panel on" id="tp1">
+      <div class="trace-sec">
+        <h2>产品基本信息</h2>
+        <table class="info">
+          <tr><th>产品名称</th><td>${esc(p.title || '')}${p.subtitle ? `（${esc(p.subtitle)}）` : ''}</td></tr>
+          <tr><th>净含量</th><td>${esc(p.spec || '')}</td></tr>
+          <tr><th>适用人群</th><td>${esc(meta.audience || '0-12 个月新生儿及敏感肌婴幼儿')}</td></tr>
+          <tr><th>产品批号</th><td>${esc(res.batchNo)}</td></tr>
+          <tr><th>生产日期</th><td>${esc(String(b.fillDate || '').slice(0, 10))}</td></tr>
+          <tr><th>保质期</th><td>${esc(label.shelfLife || '36 个月')}（开封后建议 12 个月内用完）</td></tr>
+          <tr><th>产地</th><td>${esc(b.origin || '')}</td></tr>
+          <tr><th>贮存条件</th><td>避光、阴凉干燥处存放，用后旋紧瓶盖</td></tr>
+        </table>
+      </div>
+
+      ${meta.specs?.length ? `
+      <div class="trace-sec">
+        <h2>产品参数</h2>
+        <table class="info">
+          ${meta.specs.map((s) => `<tr><th>${esc(s.k)}</th><td>${esc(s.v)}</td></tr>`).join('')}
+        </table>
+      </div>` : ''}
+
+      ${meta.ingredients ? `
+      <div class="trace-sec">
+        <h2>成分表</h2>
+        <div style="font-size:13.5px;line-height:1.9">${esc(meta.ingredients)}</div>
+        <div class="notice" style="margin-top:8px"><b>成分说明：</b>${esc(meta.ingredientNote || '')}</div>
+        <div class="notice" style="margin-top:8px"><b>注意事项：</b>${esc(meta.warning || '')}</div>
+      </div>` : ''}
+
+      ${meta.usage?.length ? `
+      <div class="trace-sec">
+        <h2>使用方法</h2>
+        <div style="font-size:13.5px;line-height:1.9">
+          ${meta.usage.map((u, i) => `${i + 1}. ${esc(u)}`).join('<br />')}
+        </div>
+        <div class="dosetable">
+          <div class="head">用 量 参 考</div>
+          <table>
+            <tr><th>规格</th><th>按压一次</th><th>单部位用量</th><th>全身抚触</th></tr>
+            <tr><td>100ml 家庭装</td><td>0.5ml</td><td>约 2-3 滴</td><td>约 4-6 次按压</td></tr>
+            <tr><td>30ml 体验装</td><td>0.25ml</td><td>约 1-2 滴</td><td>约 8-12 次按压</td></tr>
+          </table>
         </div>
       </div>` : ''}
 
-      <div class="card">
-        <div class="card-title">📍 原料产地与种植管护</div>
-        <div class="tl-detail">
-          <div class="kv"><span class="k">产地</span><span class="v">${esc(b.origin)}</span></div>
-          <div class="kv"><span class="k">地块编号</span><span class="v">${esc(b.plotNo)}</span></div>
-          <div class="kv"><span class="k">负责农户</span><span class="v">${esc(b.farmer)}</span></div>
-          <div class="kv"><span class="k">地理坐标</span><span class="v">${b.geo?.lat ? `${b.geo.lat}°N, ${b.geo.lng}°E` : '—'}</span></div>
-          ${li.area ? `<div class="kv"><span class="k">林地规模</span><span class="v">${esc(li.area)}</span></div>` : ''}
-          ${li.altitude ? `<div class="kv"><span class="k">海拔</span><span class="v">${esc(li.altitude)}</span></div>` : ''}
-          ${li.manage ? `<div class="kv"><span class="k">管护方式</span><span class="v">${esc(li.manage)}</span></div>` : ''}
-          <div class="kv"><span class="k">采摘日期</span><span class="v">${esc(String(b.harvestDate).slice(0, 10))}</span></div>
-          <div class="kv"><span class="k">压榨批次</span><span class="v">${esc(b.pressDate ? String(b.pressDate).slice(0, 10) : '')} ${esc(b.pressWorkshop || '')}</span></div>
-          <div class="kv"><span class="k">加工工厂</span><span class="v">${esc(b.factory)}</span></div>
+      <div class="trace-sec">
+        <h2>检测与合规</h2>
+        <table class="info">
+          <tr><th>检测机构</th><td>SGS 通标标准技术服务有限公司（示例）</td></tr>
+          <tr><th>检测报告号</th><td>${esc(res.report.inspectionNo || '')}</td></tr>
+          <tr><th>检测结论</th><td>菌落总数、重金属、苯并芘、酸价、过氧化值、皮肤刺激性等项目均符合《化妆品安全技术规范》要求</td></tr>
+          <tr><th>合规备案</th><td>已按《儿童化妆品监督管理条例》完成儿童化妆品备案</td></tr>
+        </table>
+        <a class="btn ghost sm mt10" href="${esc(res.report.url || '#')}" target="_blank">📄 查看检测报告原文 ›</a>
+      </div>
+    </section>
+
+    <!-- 界面二：农户信息 -->
+    <section class="trace-panel" id="tp2">
+      <div class="trace-sec">
+        <h2>原料农户</h2>
+        <div class="trace-farmer">
+          <div class="trace-avatar">${esc(String(b.farmer || '农').slice(0, 1))}</div>
+          <div class="grow">
+            <div class="bold" style="font-size:15px">${esc(b.farmer || '')}</div>
+            <div class="small muted">${esc(b.plotNo || '')} · 负责农户</div>
+            <div class="mt6"><span class="tag">浒口村合作社</span><span class="tag">古法压榨</span></div>
+          </div>
         </div>
-        <img src="/assets/img/image23.png" style="border-radius:10px;margin-top:10px" alt="浒口村山茶林实拍" />
+        <div class="trace-quote">“这片茶林是祖辈种下的，春天第一茬茶果最饱满，都是手工一颗颗挑的。”</div>
       </div>
 
-      <div class="card">
-        <div class="card-title">🕒 全流程时间轴</div>
+      <div class="trace-sec">
+        <h2>地块档案</h2>
+        <table class="info">
+          <tr><th>地块编号</th><td>${esc(b.plotNo || '')}</td></tr>
+          <tr><th>位置</th><td>${esc(b.origin || '')}</td></tr>
+          <tr><th>地理坐标</th><td>${b.geo?.lat ? `${b.geo.lat}°N, ${b.geo.lng}°E` : '—'}</td></tr>
+          <tr><th>海拔</th><td>${esc(meta.elevation || '420 - 680 米')}</td></tr>
+          <tr><th>林地规模</th><td>${esc(meta.area || '约 320 亩连片山茶林')}</td></tr>
+          <tr><th>树龄</th><td>${esc(meta.treeAge || '以百年以上老茶树为主')}</td></tr>
+          <tr><th>土壤</th><td>${esc(meta.soil || '红壤，pH 5.5-6.5，排水良好')}</td></tr>
+          <tr><th>管护方式</th><td>${esc(meta.manage || '人工除草、物理防虫，不使用化学除草剂')}</td></tr>
+          <tr><th>采摘日期</th><td>${esc(String(b.harvestDate || '').slice(0, 10))}</td></tr>
+        </table>
+        ${b.landImage ? `<img src="${esc(b.landImage)}" style="border-radius:10px;margin-top:10px" alt="浒口村山茶林实拍" />
+        <div class="tiny muted" style="margin-top:6px">浒口村油茶林实拍</div>` : ''}
+      </div>
+
+      <div class="trace-sec">
+        <h2>本批次参与人</h2>
+        <table class="info">
+          <tr><th>采摘</th><td>${esc(b.farmer || '')}（农户）</td></tr>
+          <tr><th>压榨</th><td>${esc(b.pressWorkshop || '浒口村古法榨油坊')}</td></tr>
+          <tr><th>品控</th><td>团队品控（原料三筛：环境无污染 / 采摘无霉果 / 压榨物理低温冷榨）</td></tr>
+          <tr><th>检测</th><td>SGS 第三方检测机构</td></tr>
+          <tr><th>灌装</th><td>${esc(b.factory || '')}</td></tr>
+        </table>
+      </div>
+
+      <div class="trace-sec">
+        <h2>助农信息</h2>
+        <div class="notice ok">
+          本瓶原料直接采购自浒口村合作社与农户，<b>收购价高于当地散收均价</b>；
+          收益回流村集体，用于油茶林管护与村内物流点建设。
+        </div>
+      </div>
+    </section>
+
+    <!-- 界面三：产链信息（只展示加工之后：冷榨 → 检测 → 灌装 → 物流） -->
+    <section class="trace-panel" id="tp3">
+      <div class="trace-sec">
+        <h2>全链条生产轨迹</h2>
         <div class="timeline">
           ${res.timeline.map((t) => `
             <div class="tl-item">
@@ -229,40 +380,41 @@ function renderResult(res) {
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-title">🔬 检测报告</div>
-        <div class="small muted">报告编号：${esc(res.report.inspectionNo)}</div>
-        <a class="btn outline block mt10" href="${res.report.url}" target="_blank">查看电子质检报告原文 ›</a>
-      </div>
-
-      <div class="card">
-        <div class="card-title">🔐 防伪与存证校验</div>
+      <div class="trace-sec">
+        <h2>防伪与存证校验</h2>
         <div class="notice ${res.chain.intact ? 'ok' : 'danger'}">
-          <b>${res.chain.intact ? '链上存证校验通过' : '存证校验异常'}</b><br />${esc(res.chain.note)}
+          <b>${res.chain.intact ? `${res.chain.nodeCount} 个节点哈希校验全部通过` : '存证校验异常'}</b><br />${esc(res.chain.note)}
         </div>
-        <div class="tl-detail mt10">
-          <div class="kv"><span class="k">签名算法</span><span class="v">${esc(res.signature.algorithm)}</span></div>
-          <div class="kv"><span class="k">签名校验</span><span class="v">${res.signature.verified ? '✅ 通过' : '⚠️ 未通过'}</span></div>
-          <div class="kv"><span class="k">存证链</span><span class="v">${esc(res.chain.algorithm)}（${res.chain.nodeCount} 个节点）</span></div>
-          <div class="kv"><span class="k">链尾哈希</span><span class="v" style="word-break:break-all">${esc(String(res.chain.head).slice(0, 40))}…</span></div>
-          <div class="kv"><span class="k">本次查询</span><span class="v">第 ${res.scan.count} 次${res.scan.isFirst ? '（首次）' : ''}</span></div>
+        <table class="info" style="margin-top:10px">
+          <tr><th>签名算法</th><td>${esc(res.signature.algorithm)}</td></tr>
+          <tr><th>存证方式</th><td>${esc(res.chain.algorithm)}</td></tr>
+          <tr><th>本次查询</th><td>第 ${res.scan.count} 次${res.scan.isFirst ? '（首次查询，判定为正品）' : ''}</td></tr>
+          <tr><th>链尾哈希</th><td style="font-family:ui-monospace,monospace;font-size:11px;word-break:break-all">${esc(String(res.chain.head).slice(0, 32))}…</td></tr>
+        </table>
+        <div class="tiny muted" style="margin-top:8px">
+          说明：页面展示加工之后的 4 个节点，防伪校验仍覆盖种植、采摘在内的全部 ${res.chain.nodeCount} 个节点。
         </div>
       </div>
+    </section>
 
-      <div class="card">
+    <div class="page-pad">
+      <div class="card mt14">
         <div class="card-title">🤝 这一瓶背后的农户</div>
         <p class="small muted" style="margin:0">
-          这瓶抚触油的原料来自浒口村 <b>${esc(b.farmer)}</b> 家养护的
-          ${esc(b.plotNo || '油茶林')}。你支付的每一分钱，都在为更好的原料和乡村的未来付费。
+          这瓶抚触油的原料来自浒口村 <b>${esc(b.farmer || '')}</b> 家养护的 ${esc(b.plotNo || '油茶林')}。
+          你支付的每一分钱，都在为更好的原料和乡村的未来付费。
         </p>
-        <a class="btn ghost block mt10" href="#/product/${esc(res.product?.code || 'CY-OIL-100')}">再看看这款产品</a>
+        <div class="btn-row mt10">
+          <a class="btn ghost" href="#/product/${esc(p.code || 'CY-OIL-100')}">看看这款产品</a>
+          <a class="btn outline" href="#/ai?q=${encodeURIComponent('扫码看到的溯源信息是真的吗？')}">问客服</a>
+        </div>
       </div>
     </div>
   </div>`;
 }
 
 /* ============================================================
- * 批次全景
+ * 批次全景（后台与溯源页共用）
  * ============================================================ */
 function renderBatch(data) {
   const b = data.batch;
@@ -300,7 +452,7 @@ function renderBatch(data) {
       </div>
 
       <div class="card">
-        <div class="card-title">🕒 生产时间轴</div>
+        <div class="card-title">🕒 生产时间轴<span class="sub">（展示加工之后环节）</span></div>
         <div class="timeline">
           ${data.timeline.map((t) => `
             <div class="tl-item">

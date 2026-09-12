@@ -104,7 +104,7 @@ function goodsCard(p) {
       <div class="spec">${esc(p.spec)}${p.presale ? ' · 预售' : ''}</div>
       <div class="row-between">
         <span class="price"><span class="unit">¥</span><span class="num">${(p.price / 100).toFixed(0)}</span></span>
-        <span class="tiny muted">已售 ${p.sales}</span>
+        <span class="tiny muted">预售 ${p.sales} 件</span>
       </div>
       <div class="mt6">${p.tags.slice(0, 2).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
     </div>
@@ -199,7 +199,7 @@ route('/product/:code', async ({ params }) => {
         <div class="row-between">
           <span class="price"><span class="unit">¥</span><span class="num" style="font-size:23px">${(p.price / 100).toFixed(2)}</span>
             ${p.listPrice > p.price ? `<span class="price-old">¥${(p.listPrice / 100).toFixed(2)}</span>` : ''}</span>
-          <span class="tiny muted">已售 ${p.sales} · 库存 ${p.stock}</span>
+          <span class="tiny muted">预售 ${p.sales} 件 · 库存 ${p.stock}</span>
         </div>
         <div class="bold mt6" style="font-size:16px">${esc(p.title)}</div>
         <div class="small muted">${esc(p.subtitle || p.spec)}</div>

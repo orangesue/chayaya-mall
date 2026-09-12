@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>溯源结果页 · 新版设计预览 | 茶芽芽</title>
+<style>
+  :root {
+    --green-900: #123f2e; --green-700: #2e6b4f; --green-600: #3f8a63; --green-500: #5aa06e;
+    --green-300: #a8cfb4; --green-100: #e6f1e9; --green-50: #f3f8f4;
+    --cream: #fdfaf1; --tea: #dcc98a; --ink: #23302b; --ink-2: #4d5b54; --ink-3: #86948c;
+    --line: #e5eae6; --danger: #d0453b; --warn: #b7791f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #e9efe9; color: var(--ink);
+    font-family: "PingFang SC", "Microsoft YaHei", -apple-system, sans-serif; font-size: 14px; line-height: 1.62;
+  }
+  .wrap { max-width: 480px; margin: 0 auto; background: var(--cream); min-height: 100vh; }
+  .note { background: #fff8e6; color: #7a5410; padding: 10px 14px; font-size: 12.5px; border-bottom: 1px solid #f0e2bd; }
+
+  /* ---------- 绿色头部（对应参考图的品牌栏） ---------- */
+  .hero { background: linear-gradient(160deg, #3f8a63, #2e6b4f); color: #fff; padding: 14px 16px 18px; }
+  .hero .brandline { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; opacity: .95; }
+  .hero .brandline .org { display: flex; align-items: center; gap: 6px; }
+  .hero h1 { font-size: 19px; margin: 10px 0 2px; letter-spacing: .5px; }
+  .hero .sub { font-size: 12px; opacity: .85; }
+  .hero .tools { display: flex; gap: 14px; margin-top: 12px; font-size: 12.5px; }
+  .hero .tools span { display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,.16); padding: 4px 10px; border-radius: 999px; }
+
+  /* ---------- 顶部身份卡（对应参考图的商品卡 + 条码） ---------- */
+  .idcard { background: #fff; margin: -10px 12px 0; border-radius: 14px; box-shadow: 0 3px 16px rgba(20,50,35,.10); overflow: hidden; }
+  .idcard .top { display: flex; gap: 12px; padding: 14px; }
+  .idcard .pic { width: 92px; height: 92px; border-radius: 10px; object-fit: cover; background: var(--green-50); flex: 0 0 auto; }
+  .idcard .meta { flex: 1; min-width: 0; }
+  .idcard .name { font-size: 16px; font-weight: 700; }
+  .idcard .tags { margin: 6px 0; }
+  .tag { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 11.5px; background: var(--green-100); color: var(--green-700); margin-right: 5px; }
+  .tag.gray { background: #f1f4f2; color: var(--ink-2); }
+  .kvline { font-size: 12.5px; color: var(--ink-2); }
+  .kvline b { color: var(--ink); font-weight: 600; }
+  .idcard .codebar { border-top: 1px dashed var(--line); padding: 10px 14px 12px; }
+  .codebar .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .codebar .label { display: inline-flex; align-items: center; gap: 5px; background: #fff3d6; color: #8a6100; font-size: 12px; padding: 4px 10px; border-radius: 8px; font-weight: 600; }
+  .codebar .num { font-family: ui-monospace, Consolas, monospace; font-size: 15px; letter-spacing: 1px; }
+  .bars { height: 34px; margin-top: 8px; display: flex; gap: 1px; align-items: flex-end; }
+  .bars i { background: #23302b; display: block; }
+  .codebar .foot { font-size: 11px; color: var(--ink-3); margin-top: 6px; }
+  .verified { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: #22664a; background: #eaf6ef; padding: 3px 9px; border-radius: 999px; font-weight: 600; }
+
+  /* ---------- 一级标签（就是这三个二级界面本身） ---------- */
+  .toptabs { display: flex; gap: 8px; padding: 14px 12px 0; }
+  .toptabs button {
+    flex: 1; border: 0; background: #fff; color: var(--ink-2); font-size: 13.5px; font-weight: 600;
+    padding: 11px 6px; border-radius: 10px 10px 0 0; cursor: pointer; font-family: inherit;
+    border-bottom: 3px solid transparent; box-shadow: 0 -1px 6px rgba(20,50,35,.05);
+  }
+  .toptabs button.on { color: var(--green-700); background: #fff; border-bottom-color: var(--green-500); }
+  .panel { display: none; background: #fff; padding: 2px 14px 22px; }
+  .panel.on { display: block; }
+
+  /* ---------- 小节标题（对应参考图的竖线标题） ---------- */
+  .sec { margin-top: 18px; }
+  .sec h2 { font-size: 15px; margin: 0 0 10px; padding-left: 10px; border-left: 4px solid var(--green-500); line-height: 1.2; }
+  .sec h3 { font-size: 13.5px; margin: 14px 0 6px; color: var(--ink); }
+
+  table.info { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.info th, table.info td { text-align: left; padding: 7px 0; vertical-align: top; border-bottom: 1px solid var(--line); }
+  table.info th { color: var(--ink-3); font-weight: 400; width: 34%; }
+  table.info tr:last-child th, table.info tr:last-child td { border-bottom: 0; }
+
+  .ingredient { font-size: 13.5px; line-height: 1.9; }
+  .warnbox { background: #fff8e6; border-radius: 8px; padding: 10px 12px; font-size: 12.5px; color: #7a5410; margin-top: 2px; }
+  .warnbox b { color: #8a6100; }
+
+  /* 用量参考表（对应营养成分表的观感） */
+  .dosetable { border: 1px solid #e6c98a; border-radius: 8px; overflow: hidden; margin-top: 6px; }
+  .dosetable .head { background: #e0a800; color: #fff; font-weight: 700; text-align: center; padding: 8px; font-size: 14px; letter-spacing: 2px; }
+  .dosetable table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .dosetable th { background: #fff8e6; color: #7a5410; padding: 7px; text-align: center; font-weight: 600; }
+  .dosetable td { padding: 7px; text-align: center; border-top: 1px solid #f0e2bd; }
+
+  /* ---------- 农户信息 ---------- */
+  .farmer { display: flex; gap: 12px; align-items: center; background: var(--green-50); border-radius: 12px; padding: 14px; }
+  .farmer .avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--green-300); color: #fff; font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+  .farmer .name { font-size: 16px; font-weight: 700; }
+  .farmer .role { font-size: 12.5px; color: var(--ink-3); }
+  .quote { border-left: 3px solid var(--green-300); background: var(--green-50); padding: 10px 12px; border-radius: 0 8px 8px 0; font-size: 13px; color: var(--ink-2); margin-top: 10px; }
+  .plot { margin-top: 12px; font-size: 13px; }
+  .plot img { width: 100%; border-radius: 10px; margin-top: 8px; }
+
+  /* ---------- 产链信息：时间轴 ---------- */
+  .chain { position: relative; padding-left: 26px; margin-top: 4px; }
+  .chain::before { content: ''; position: absolute; left: 9px; top: 6px; bottom: 10px; width: 2px; background: linear-gradient(var(--green-300), var(--green-100)); }
+  .node { position: relative; padding-bottom: 16px; }
+  .node .dot { position: absolute; left: -26px; top: 0; width: 20px; height: 20px; border-radius: 50%; background: var(--green-500); color: #fff; font-size: 10px; display: flex; align-items: center; justify-content: center; }
+  .node .t { font-size: 13.5px; font-weight: 700; }
+  .node .m { font-size: 11.5px; color: var(--ink-3); margin: 1px 0 5px; }
+  .node .d { background: var(--green-50); border-radius: 8px; padding: 8px 10px; font-size: 12.5px; color: var(--ink-2); }
+  .node .d div { display: flex; gap: 8px; }
+  .node .d .k { color: var(--ink-3); flex: 0 0 88px; }
+  .hash { font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; color: var(--ink-3); margin-top: 4px; word-break: break-all; }
+  .okbox { background: #eaf6ef; color: #22664a; border-radius: 8px; padding: 10px 12px; font-size: 12.5px; }
+
+  .footnote { font-size: 11.5px; color: var(--ink-3); padding: 14px 16px 30px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="note">
+    <b>这是设计预览页</b>，用来确认新版溯源界面的样子，不影响线上页面。看完告诉我要改哪里。
+  </div>
+
+  <!-- 绿色头部 -->
+  <header class="hero">
+    <div class="brandline">
+      <span class="org">🌱 茶芽芽 · 一物一码溯源</span>
+      <span>湖南郴州 · 浒口村</span>
+    </div>
+    <h1>母婴专用抚触油</h1>
+    <div class="sub">浒口茶油助农先锋队 · 北京师范大学（珠海校区）</div>
+    <div class="tools">
+      <span>A 大字</span><span>🔊 语音播报</span><span>⬇ 保存图片</span>
+    </div>
+  </header>
+
+  <!-- 身份卡：商品图 + 关键参数 + 溯源码 / 条码 -->
+  <section class="idcard">
+    <div class="top">
+      <img class="pic" src="/assets/img/image18.png" alt="茶芽芽婴儿山茶抚触油" />
+      <div class="meta">
+        <div class="name">茶芽芽 婴儿山茶抚触油</div>
+        <div class="tags">
+          <span class="tag">抚触油</span>
+          <span class="tag">规格 100ml/瓶</span>
+          <span class="tag gray">保质期 36 个月</span>
+        </div>
+        <div class="kvline">产品执行标准：<b>QB/T 4079</b>（润肤油）</div>
+        <div class="kvline">儿童化妆品备案号：<b>粤G妆网备字2026xxxxxx</b>
+          <span style="font-size:10.5px;color:#b7791f;background:#fff8e6;padding:0 6px;border-radius:999px;margin-left:4px">待备案完成后替换</span>
+        </div>
+        <div style="margin-top:6px"><span class="verified">✅ 正品验证通过 · 首次查询</span></div>
+      </div>
+    </div>
+    <div class="codebar">
+      <div class="row">
+        <span class="label">🌿 一物一码溯源标识</span>
+        <span class="num">CY26010115010001</span>
+      </div>
+      <div class="bars" id="bars"></div>
+      <div class="foot">此编码为本产品一物一码，由团队溯源系统统一赋码；扫码可查看全链条信息</div>
+    </div>
+  </section>
+
+  <!-- 一级标签 = 三个二级界面 -->
+  <nav class="toptabs">
+    <button class="on" data-p="p1">商品信息</button>
+    <button data-p="p2">农户信息</button>
+    <button data-p="p3">产链信息</button>
+  </nav>
+
+  <!-- ============ 界面一：商品信息 ============ -->
+  <section class="panel on" id="p1">
+    <div class="sec">
+      <h2>产品基本信息</h2>
+      <table class="info">
+        <tr><th>产品名称</th><td>茶芽芽 婴儿山茶抚触油（初生系列）</td></tr>
+        <tr><th>净含量</th><td>100ml</td></tr>
+        <tr><th>适用人群</th><td>0-12 个月新生儿及敏感肌婴幼儿</td></tr>
+        <tr><th>产品批号</th><td>CHY-20260115-01</td></tr>
+        <tr><th>生产日期</th><td>2026-01-16</td></tr>
+        <tr><th>保质期</th><td>36 个月（开封后建议 12 个月内用完）</td></tr>
+        <tr><th>产地</th><td>湖南省郴州市浒口村</td></tr>
+        <tr><th>贮存条件</th><td>避光、阴凉干燥处存放，用后旋紧瓶盖</td></tr>
+      </table>
+    </div>
+
+    <div class="sec">
+      <h2>成分表</h2>
+      <div class="ingredient">山茶籽油（≥95%）、生育酚（维生素 E）</div>
+      <div class="warnbox" style="margin-top:8px">
+        <b>成分说明：</b>不含香精、不含化学防腐剂、不含矿物油；山茶基底油占比高至 95%。
+      </div>
+      <div class="warnbox" style="margin-top:8px">
+        <b>注意事项：</b>仅供外用。首次使用请先在耳后或手腕内侧小面积试用，观察 24 小时无不适再正常使用；
+        皮肤破损、渗液、化脓处请勿涂抹并及时就医。如出现不适请停用并咨询医生。
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>使用方法</h2>
+      <div class="ingredient">
+        1. 取 2-3 滴于掌心搓热（100ml 装约按压 4-6 次）。<br />
+        2. 按「胸口 → 腹部顺时针 → 四肢 → 背部」顺序轻柔抚触，每个部位 5-6 次。<br />
+        3. 建议在宝宝清醒、不饥饿、室温 26-28℃ 时进行，每次 5-10 分钟。<br />
+        4. 用后旋紧瓶盖，避光常温存放。
+      </div>
+      <div class="dosetable">
+        <div class="head">用 量 参 考</div>
+        <table>
+          <tr><th>规格</th><th>按压一次</th><th>单部位用量</th><th>全身抚触</th></tr>
+          <tr><td>100ml 家庭装</td><td>0.5ml</td><td>约 2-3 滴</td><td>约 4-6 次按压</td></tr>
+          <tr><td>30ml 体验装</td><td>0.25ml</td><td>约 1-2 滴</td><td>约 8-12 次按压</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>检测与合规</h2>
+      <table class="info">
+        <tr><th>检测机构</th><td>SGS 通标标准技术服务有限公司（示例）</td></tr>
+        <tr><th>检测报告号</th><td>SGS-2026-0115</td></tr>
+        <tr><th>检测结论</th><td>菌落总数、重金属、苯并芘、酸价、过氧化值、皮肤刺激性等项目均符合《化妆品安全技术规范》要求</td></tr>
+        <tr><th>合规备案</th><td>已按《儿童化妆品监督管理条例》完成儿童化妆品备案</td></tr>
+      </table>
+      <div style="margin-top:10px"><span class="tag" style="cursor:pointer">📄 查看检测报告原文 ›</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 界面二：农户信息 ============ -->
+  <section class="panel" id="p2">
+    <div class="sec">
+      <h2>原料农户 <span style="font-size:11px;color:#d0453b;font-weight:400">← 待确认是否删除（B / C）</span></h2>
+      <div class="farmer">
+        <div class="avatar">刘</div>
+        <div>
+          <div class="name">刘子祥</div>
+          <div class="role">浒口村东坡油茶林 A-03 地块 · 负责农户</div>
+          <div class="tags" style="margin-top:5px"><span class="tag">三代种茶</span><span class="tag">古法压榨</span></div>
+        </div>
+      </div>
+      <div class="quote">“这片茶林是我爷爷那辈种下的，春天第一茬茶果最饱满，我们都是手工一颗颗挑的。”</div>
+    </div>
+
+    <div class="sec">
+      <h2>地块档案</h2>
+      <table class="info">
+        <tr><th>地块编号</th><td>A-03</td></tr>
+        <tr><th>位置</th><td>湖南省郴州市浒口村 东坡油茶林</td></tr>
+        <tr><th>地理坐标</th><td>25.7703°N, 113.0148°E</td></tr>
+        <tr><th>海拔</th><td>420 - 680 米</td></tr>
+        <tr><th>林地规模</th><td>约 320 亩连片山茶林</td></tr>
+        <tr><th>树龄</th><td>以百年以上老茶树为主</td></tr>
+        <tr><th>土壤</th><td>红壤，pH 5.5-6.5，排水良好</td></tr>
+        <tr><th>管护方式</th><td>人工除草、物理防虫，不使用化学除草剂</td></tr>
+      </table>
+      <div class="plot">
+        <img src="/assets/img/image23.png" alt="浒口村山茶林实拍" />
+        <div style="font-size:11.5px;color:var(--ink-3);margin-top:6px">浒口村油茶林实拍（拍摄于采摘季）</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>本批次参与人 <span style="font-size:11px;color:#d0453b;font-weight:400">← 待确认是否删除（B / C）</span></h2>
+      <table class="info">
+        <tr><th>采摘</th><td>刘子祥（农户）</td></tr>
+        <tr><th>压榨</th><td>浒口村古法榨油坊 · 老师傅</td></tr>
+        <tr><th>品控</th><td>黄君然（团队品控）</td></tr>
+        <tr><th>检测</th><td>SGS 第三方检测机构</td></tr>
+        <tr><th>灌装</th><td>湖南某母婴化妆品代工厂（十万级洁净车间）</td></tr>
+      </table>
+    </div>
+
+    <div class="sec">
+      <h2>助农信息</h2>
+      <div class="okbox">
+        本瓶原料直接采购自浒口村合作社与农户，<b>收购价高于当地散收均价</b>；
+        收益回流村集体，用于油茶林管护与村内物流点建设。
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 界面三：产链信息 ============ -->
+  <section class="panel" id="p3">
+    <div class="sec">
+      <h2>全链条生产轨迹</h2>
+      <div class="note" style="border-radius:10px;margin-bottom:12px">
+        <b>等你确认</b>：你说「产链信息里把原料和果农采摘删除」——「产链信息」这一页里<b>没有</b>叫“原料”或“果农采摘”的小节，
+        所以请确认你指的是下面哪一种（我会按你选的删）：
+        <div style="margin-top:6px;line-height:1.9">
+          <b>A.</b> 删掉时间轴的前两个节点（🌱 原料产地环境与种植管护、🧺 果实采摘与成熟度筛选）→ 时间轴从「冷榨」开始，共 4 个节点<br />
+          <b>B.</b> 删掉「农户信息」那一页里的「原料农户」名片和「本批次参与人」表（保留地块档案）<br />
+          <b>C.</b> 两处都删
+        </div>
+      </div>
+      <div class="chain">
+        <div class="node" data-node="plant">
+          <div class="dot">🌱</div>
+          <div class="t">原料产地环境与种植管护 <span style="font-size:11px;color:#d0453b;font-weight:400">← 待确认是否删除（A / C）</span></div>
+          <div class="m">2025-03-12 · 农户 刘子祥 · 浒口村东坡油茶林 A-03</div>
+          <div class="d">
+            <div><span class="k">产地</span><span>湖南省郴州市浒口村</span></div>
+            <div><span class="k">管护方式</span><span>人工除草、物理防虫，无化学除草剂</span></div>
+            <div><span class="k">管护记录</span><span>春季修枝与有机肥施用；全年 6 次人工除草</span></div>
+          </div>
+          <div class="hash">节点哈希 c7a1…3f9e</div>
+        </div>
+
+        <div class="node" data-node="harvest">
+          <div class="dot">🧺</div>
+          <div class="t">果实采摘与成熟度筛选 <span style="font-size:11px;color:#d0453b;font-weight:400">← 待确认是否删除（A / C）</span></div>
+          <div class="m">2026-01-01 · 农户 刘子祥</div>
+          <div class="d">
+            <div><span class="k">采摘方式</span><span>人工采摘，只取春季第一茬饱满茶果</span></div>
+            <div><span class="k">筛选标准</span><span>无霉果、无虫蛀、成熟度达标，达标率 100%</span></div>
+            <div><span class="k">当批鲜果量</span><span>约 1,860 公斤</span></div>
+          </div>
+          <div class="hash">节点哈希 4b2d…8811</div>
+        </div>
+
+        <div class="node">
+          <div class="dot">🫒</div>
+          <div class="t">物理低温冷榨加工</div>
+          <div class="m">2026-01-10 · 浒口村古法榨油坊</div>
+          <div class="d">
+            <div><span class="k">压榨工艺</span><span>古法工艺 + 物理低温冷榨（≤60℃）</span></div>
+            <div><span class="k">出油率</span><span>约 22%</span></div>
+            <div><span class="k">本批毛油</span><span>约 128 升</span></div>
+            <div><span class="k">关键控制</span><span>不添加化学溶剂、不高温烘炒</span></div>
+          </div>
+          <div class="hash">节点哈希 91fe…c204</div>
+        </div>
+
+        <div class="node">
+          <div class="dot">🔬</div>
+          <div class="t">成品检测与合规备案</div>
+          <div class="m">2026-01-15 · SGS 第三方检测机构</div>
+          <div class="d">
+            <div><span class="k">报告编号</span><span>SGS-2026-0115</span></div>
+            <div><span class="k">检测项目</span><span>菌落总数、铅砷汞镉、苯并芘、酸价、过氧化值、皮肤刺激性</span></div>
+            <div><span class="k">检测结论</span><span>全部项目符合《化妆品安全技术规范》要求</span></div>
+          </div>
+          <div class="hash">节点哈希 2d2c…9118</div>
+        </div>
+
+        <div class="node">
+          <div class="dot">🏭</div>
+          <div class="t">无菌车间灌装与赋码</div>
+          <div class="m">2026-01-16 · 湖南某母婴化妆品代工厂</div>
+          <div class="d">
+            <div><span class="k">灌装环境</span><span>十万级洁净车间，无菌灌装</span></div>
+            <div><span class="k">本批产量</span><span>3,000 瓶（100ml）</span></div>
+            <div><span class="k">赋码方式</span><span>一瓶一码，内含数字签名的防伪标识</span></div>
+          </div>
+          <div class="hash">节点哈希 77a5…10bc</div>
+        </div>
+
+        <div class="node">
+          <div class="dot">🚚</div>
+          <div class="t">物流配送</div>
+          <div class="m">2026-01-18 · 浒口村乡村物流节点 → 郴州市分拨中心</div>
+          <div class="d">
+            <div><span class="k">发货方式</span><span>乡村物流节点集中发货</span></div>
+            <div><span class="k">时效</span><span>湖南省内次日达，华南 2-3 日达</span></div>
+          </div>
+          <div class="hash">节点哈希 5c8e…44d1</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>防伪与存证校验</h2>
+      <div class="okbox">
+        ✅ 6 个节点哈希校验全部通过，溯源数据未被篡改。
+      </div>
+      <table class="info" style="margin-top:10px">
+        <tr><th>签名算法</th><td>ECDSA / secp256k1（椭圆曲线数字签名）</td></tr>
+        <tr><th>存证方式</th><td>SHA-256 哈希链，逐节点串联存证</td></tr>
+        <tr><th>本次查询</th><td>第 1 次（首次查询，判定为正品）</td></tr>
+        <tr><th>链尾哈希</th><td style="font-family:ui-monospace,monospace;font-size:11.5px;word-break:break-all">2d2c9118abe540d0…</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <div class="footnote">
+    预览页 · 数据取自项目真实演示数据（批次 CHY-20260115-01）<br />
+    确认设计后我再改到线上页面
+  </div>
+</div>
+
+<script>
+  // 生成条码样式的装饰条（纯视觉，对应参考图里的条形码区域）
+  (function () {
+    const host = document.getElementById('bars');
+    let html = '';
+    for (let i = 0; i < 68; i += 1) {
+      const w = [1, 1, 2, 3][i % 4];
+      html += `<i style="width:${w}px;height:${18 + ((i * 7) % 16)}px"></i>`;
+    }
+    host.innerHTML = html;
+  })();
+
+  // 一级标签切换（点了直接切到对应界面）
+  document.querySelectorAll('.toptabs button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.toptabs button').forEach((b) => b.classList.remove('on'));
+      document.querySelectorAll('.panel').forEach((p) => p.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById(btn.dataset.p).classList.add('on');
+      window.scrollTo({ top: 260, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
