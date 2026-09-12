@@ -75,6 +75,11 @@ jobs:
 
       - name: 配置 Pages
         uses: actions/configure-pages@v5
+        with:
+          # 尝试自动开启 Pages（部分仓库/权限下有效，可省去手动设置）
+          # 注意：GitHub 限制 GITHUB_TOKEN 无法代为开启 Pages 仓库设置，
+          # 若本步骤失败，请在 Settings → Pages → Source 选择 "GitHub Actions"
+          enablement: true
 
       - name: 上传站点产物
         uses: actions/upload-pages-artifact@v3
