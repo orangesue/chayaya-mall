@@ -1,0 +1,11 @@
+﻿feat: 静态演示站补充站点二维码与文档，完善构建脚本
+
+- build-static-offline.mjs：构建时生成站点二维码（qr-site.svg 与 qr-site.html），可直接放 PPT 或打印给评委扫
+- 新增 verify-site-qr.mjs：用独立解码器回读校验二维码内容正确（7 项）
+- 新增 build-static-site.mjs / serve-static.mjs / demo-api-check.mjs 等配套脚本与 npm scripts
+- README 增补「三种分享方式对比」，说明 GitHub Pages 静态演示站的原理与已知差异
+- docs/分享给别人使用-公网访问指南.md 重写：三种方式对比、Pages 开启步骤、常见问题
+
+验证结果
+- 后端：静态检查 0 问题、二维码 5/5、端到端 27/27、页面渲染 11/11、静态托管 20/20、链接 15/15
+- 静态演示站：功能自检 24/24、页面渲染 11/11、站点二维码 7/7

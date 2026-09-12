@@ -18,6 +18,10 @@
     "serve:check": "node src/scripts/serve-check.mjs",
     "link:check": "node src/scripts/link-check.mjs",
     "build:static": "node src/scripts/build-static-site.mjs",
+    "build:static:offline": "node src/scripts/build-static-offline.mjs",
+    "serve:static": "node src/scripts/serve-static.mjs ../site 8899",
+    "demo:check": "node src/scripts/demo-api-check.mjs",
+    "qr:site": "node src/scripts/verify-site-qr.mjs",
     "export:mp": "node src/scripts/export-miniprogram.mjs",
     "sanitize": "node src/scripts/sanitize-for-publish.mjs",
     "verify": "npm run static:check && npm run qr:check && npm run smoke && npm run ui:check && npm run serve:check && npm run link:check"

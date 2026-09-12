@@ -337,6 +337,35 @@ window.__CY_DEMO__ = {
 5. 溯源防伪在浏览器端用"内容摘要比对"实现，仍能演示"重复查询提示"与"篡改报警"
 `);
 
+  /* ---------------- 站点二维码：直接放进 PPT / 海报给评委扫 ---------------- */
+  const siteUrl = `${normalizedBase}`;
+  const siteQr = await qrSvg(siteUrl, { ecl: 'M', margin: 1, dark: '#123f2e' });
+  fs.writeFileSync(path.join(OUT, 'qr-site.svg'), siteQr, 'utf8');
+  // 同时生成一份带说明的 HTML，便于直接截图或打印
+  write('qr-site.html', `<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>茶芽芽演示站二维码</title>
+<style>
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+       background:#fdfaf1;font-family:"PingFang SC","Microsoft YaHei",sans-serif;color:#23302b}
+  .box{text-align:center;padding:36px 40px;background:#fff;border-radius:20px;
+       box-shadow:0 10px 40px rgba(24,58,42,.12)}
+  h1{font-size:22px;margin:0 0 6px}
+  .sub{color:#86948c;font-size:13px;margin-bottom:18px}
+  .qr{width:260px;height:260px;margin:0 auto}
+  .url{margin-top:16px;font-size:13px;color:#2e6b4f;word-break:break-all}
+  .tip{margin-top:10px;font-size:12px;color:#86948c;line-height:1.7}
+  @media print { body{background:#fff} .box{box-shadow:none} }
+</style></head><body>
+  <div class="box">
+    <h1>🌱 茶芽芽 · 婴儿山茶抚触油</h1>
+    <div class="sub">浒口茶油助农先锋队 · 大学生电商三创赛</div>
+    <div class="qr">${siteQr.replace('<svg ', '<svg style="width:100%;height:100%" ')}</div>
+    <div class="url">${normalizedBase}</div>
+    <div class="tip">扫码即可打开小程序演示站<br />含商品购买、一物一码溯源、AI 健康咨询客服</div>
+  </div>
+</body></html>`);
+  log('  ✔ 生成站点二维码 qr-site.svg 与 qr-site.html（可直接放 PPT / 打印）');
+
   const count = (d) => fs.readdirSync(d, { withFileTypes: true }).reduce((a, e) => a + (e.isDirectory() ? count(path.join(d, e.name)) : 1), 0);
   const size = (d) => fs.readdirSync(d, { withFileTypes: true }).reduce((a, e) => a + (e.isDirectory() ? size(path.join(d, e.name)) : fs.statSync(path.join(d, e.name)).size), 0);
 

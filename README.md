@@ -28,25 +28,41 @@ npm start
 > 首次启动会自动建库并写入演示数据（6 个商品、2 个溯源批次、100 个一物一码、16 条知识库问答）。
 > 需要重置演示数据时执行 `npm run reset`。
 
-### 想让别人也能打开？（公网访问）
+### 想让别人也能打开？（三种方式）
 
-服务默认监听 `0.0.0.0`，同一 WiFi 的手机可直接用**局域网地址**打开
-（启动时会打印，形如 `http://192.168.x.x:8788`）。
+| 方式 | 地址 | 你电脑关机 | 适合 |
+|---|---|---|---|
+| **① GitHub Pages（推荐）** | `https://orangesue.github.io/chayaya-mall/` | ✅ 不受影响 | **评委扫码、作品集展示** |
+| ② Cloudflare 隧道 | 每次重启都变 | ❌ 立刻断 | 临时演示、需要管理后台 |
+| ③ 局域网 | `http://192.168.x.x:8788` | ❌ 立刻断 | 现场演示 |
 
-要让**不同网络**的人也能打开，用 Cloudflare 免费隧道：
+**① 静态演示站**（构建 + 自动部署已配好，只需在仓库开启一次 Pages）：
 
 ```bash
-# 终端 1：启动服务（可加访问口令，防止陌生扫描者占用隧道）
-cd chayaya/backend && ACCESS_KEY=你的口令 npm start
-
-# 终端 2：启动公网隧道
-cloudflared tunnel --url http://127.0.0.1:8788
-# 终端会打印 https://xxxx.trycloudflare.com —— 把这个地址发给别人即可
+cd chayaya/backend
+npm run build:static:offline -- --base=/chayaya-mall/   # 本地预览用构建
 ```
 
-- 溯源二维码会**自动适配**：别人从公网访问，二维码就指向公网域名；本机访问指向本机（见 `deriveBaseUrl()`）
-- 本机访问**免口令**，公网/局域网访问需口令
-- 完整说明（含固定域名、云服务器升级路径、常见问题）：`docs/分享给别人使用-公网访问指南.md`
+- 原理：构建时导出**数据快照**（`data/api-snapshot.json`）+ 前端内置**浏览器端 API**（`scripts/demo-api.js`），
+  所以**没有任何服务器也能完整体验**：商品、加购、下单、支付、溯源码、扫码验真、AI 客服全部可用
+- AI 客服直接复用后端同一份规则模块（`data/ai-rules.mjs`），不是另写一套
+- 已知差异（页面内也会提示）：数据是构建时快照、订单存浏览器本地、**不含管理后台**、
+  溯源防伪用内容摘要比对替代私钥验签
+- 部署由 `.github/workflows/deploy-pages.yml` 自动完成：push 到 `main` 后自动重建并发布
+- 构建时还会生成 **站点二维码**（`site/qr-site.svg` / `qr-site.html`），可直接放到 PPT 给评委扫
+
+**② 公网隧道**（要看管理后台/实时数据时用）：
+
+```bash
+# 终端 1：启动服务（ACCESS_KEY 可选，设置后公网访问需口令、本机免口令）
+cd chayaya/backend && ACCESS_KEY=你的口令 npm start
+# 终端 2：建立隧道
+cloudflared tunnel --url http://127.0.0.1:8788
+```
+
+溯源二维码会**自动适配访问来源**：别人从公网访问，二维码就指向公网域名（见 `deriveBaseUrl()`）。
+
+完整说明（含 Pages 开启步骤、常见问题、升级路径）：`docs/分享给别人使用-公网访问指南.md`
 
 ## 二、目录结构
 
