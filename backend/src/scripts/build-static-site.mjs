@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 构建静态演示站点（用于 GitHub Pages 等纯静态托管）
  * 用法: node src/scripts/build-static-site.mjs [--base=/仓库名/]
  *
@@ -29,6 +29,7 @@ import { verifyChain } from '../services/trace.mjs';
 import { tokenForTrace } from '../utils/trace-code.mjs';
 import { sha256 } from '../utils/crypto.mjs';
 import { qrSvg } from '../utils/qrcode.mjs';
+import { patchTextPaths, rewriteAssetPaths } from './lib/static-paths.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BACKEND = path.resolve(__dirname, '..', '..');
@@ -248,14 +249,11 @@ function write(rel, content) {
   fs.writeFileSync(file, content, 'utf8');
 }
 
-function patchPaths(text) {
-  let out = text;
-  // 站内 hash 链接改为相对形式（配合 <base href>），使子目录部署也能正确跳转
-  out = out.replace(/(["'`])\/#\//g, '$1./#/');
-  out = out.replace(/(["'`])\/#"/g, '$1./#"');
-  // 提示：图片仍是 /assets/... 绝对路径，由 <base href="<base>"> 解析
-  return out;
-}
+
+/**
+ * 把数据快照里的绝对资源路径改写为"带部署前缀"的形式。
+ * 实现放在 lib/static-paths.mjs，与离线构建脚本共用，避免两份逻辑走偏。
+ */
 
 /* ============================================================
  * 主流程
@@ -306,8 +304,8 @@ async function main() {
   log(`  ✔ 复制素材 ${assetFiles} 个`);
 
   // 数据快照
-  write('data/api-snapshot.json', JSON.stringify(snapshot, null, 1));
-  log(`  ✔ 写入数据快照 data/api-snapshot.json（${(fs.statSync(path.join(OUT, 'data/api-snapshot.json')).size / 1024).toFixed(0)} KB）`);
+  write('data/api-snapshot.json', JSON.stringify(rewriteAssetPaths(snapshot, normalizedBase), null, 1));
+  log(`  ✔ 写入数据快照 data/api-snapshot.json（${(fs.statSync(path.join(OUT, 'data/api-snapshot.json')).size / 1024).toFixed(0)} KB，图片路径已改为带前缀形式）`);
 
   // 演示模式配置
   write('scripts/config.js', `/**
@@ -323,20 +321,19 @@ window.__CY_DEMO__ = {
 `);
   log('  ✔ 写入演示模式配置 scripts/config.js');
 
-  // 首页：注入 <base> 与 config.js
+  // 首页：注入 <base>（必须是 head 首个元素）与 config.js
   const indexHtml = fs.readFileSync(path.join(FRONTEND, 'index.html'), 'utf8');
-  let patched = indexHtml.replace(
-    /<link rel="icon"[^>]*>/,
-    (m) => `<base href="${normalizedBase}" />\n  ${m}`,
-  );
+  let patched = indexHtml.replace(/<head>/i, `<head>\n  <base href="${normalizedBase}" />`);
   patched = patched.replace(
-    /<script type="module"/,
-    '<script src="./scripts/config.js"></script>\n  <script type="module"',
+    /<script src="\.\/scripts\/boot-guard\.js"><\/script>/,
+    '<script src="./scripts/boot-guard.js"></script>\n  <script src="./scripts/config.js"></script>',
   );
+  // 兜底：把前端入口里的绝对资源路径改为相对，避免任何解析顺序问题
+  patched = patched.replace(/(href|src)="\/(?!\/)/g, '$1="./');
   patched = patched.replace('茶芽芽 · 婴儿山茶抚触油商城', '茶芽芽 · 婴儿山茶抚触油商城（演示站）');
-  patched = patchPaths(patched);
+  patched = patchTextPaths(patched, normalizedBase);
   write('index.html', patched);
-  log('  ✔ 生成 index.html（注入 <base> 与演示配置）');
+  log('  ✔ 生成 index.html（<base> 置于 head 首位 + 资源路径改相对）');
 
   // 404.html 与 index.html 同内容：GitHub Pages 上任何路径都能进应用
   write('404.html', patched);
@@ -348,7 +345,7 @@ window.__CY_DEMO__ = {
   for (const f of fs.readdirSync(path.join(OUT, 'scripts', 'views'))) {
     const p = path.join(OUT, 'scripts', 'views', f);
     const before = fs.readFileSync(p, 'utf8');
-    const after = patchPaths(before);
+    const after = patchTextPaths(before, normalizedBase);
     if (after !== before) { fs.writeFileSync(p, after, 'utf8'); patchedJs += 1; }
   }
   log(`  ✔ 修正 ${patchedJs} 个视图文件中的站内链接`);

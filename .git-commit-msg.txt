@@ -1,6 +1,33 @@
-﻿docs: 更新公网访问指南，标注 Pages 已上线并完成验证
+﻿fix: 修复 GitHub Pages 子目录部署导致页面空白（<base> 位置 + 资源路径前缀）
 
-- 记录线上地址 https://orangesue.github.io/chayaya-mall/ 与验证结果（线上功能自检 24/24）
-- 说明 configure-pages 的 enablement 参数已完成 Pages 自动开启，手动步骤标注为已完成
-- 补充 Run workflow 按钮位置说明（需进入具体工作流页面才会出现）
-- 补充部署失败时的排查方向（Settings → Pages → Source 需为 GitHub Actions）
+问题现象：线上 https://orangesue.github.io/chayaya-mall/ 打开后一片空白。
+根因有三个，且都属于"只有真实浏览器 + 子目录部署才暴露"的问题：
+
+1. <base href> 注入位置错误
+   原来插在 <link rel="icon"> 之前，而样式表 <link rel="stylesheet"> 在它前面，
+   导致样式表与模块脚本按域名根路径解析（https://<用户>.github.io/scripts/app.js）→ 404 → 空白。
+   修复：<base> 必须是 <head> 的第一个元素。
+
+2. 数据快照与前端 JS 里的图片路径是绝对路径 /assets/xxx
+   <base href> 只影响 HTML 解析出的 URL，管不到 JS 拼接的路径，
+   子目录部署时会去域名根目录找 → 首页图片全部 404。
+   修复：构建时把快照与脚本里的 /assets/ 统一加上部署前缀（lib/static-paths.mjs）。
+
+3. demo-api 的 /api/trace/overview 字段名与后端不一致
+   后端返回 images.system/query/dashboard/antiFake，而 brand.images 的键名是
+   traceSystem/traceQuery/traceDashboard/antiFake，直接透传导致 images.system 为 undefined，
+   页面渲染出 src="undefined" → 请求 /chayaya-mall/undefined → 404。
+   修复：显式映射为与后端一致的字段名。
+
+新增防护（避免同类问题再次漏到线上）
+- src/scripts/browser-check.mjs：用真实 Chrome 打开页面并逐页检查，
+  捕获控制台错误、资源加载失败与 4xx/5xx 响应；配合 serve-static.mjs 的 --prefix
+  在本地复现"子目录部署"，这正是 Node 模拟 DOM 查不出的场景
+- build-static-offline.mjs：构建期校验快照引用的每个图片路径都真实存在
+- frontend/scripts/boot-guard.js：启动看门狗。模块加载失败或 8 秒未渲染时，
+  把诊断信息直接画在页面上（含地址、UA、脚本清单），不再留下空白页无法排查
+- app.js：启动过程分步记录，失败时显示原因而不是停在骨架屏
+
+本地验证（子目录部署，真实 Chrome）
+- 首页 + 产品中心 + 商品详情 + 溯源 + AI 客服 + 品牌故事 + 我的：全部渲染正常，0 资源错误
+- 静态演示功能自检：24/24 通过

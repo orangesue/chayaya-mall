@@ -21,6 +21,7 @@ import { kbEntries, kbCategories, quickQuestions, symptomRules, medicalRedFlags 
 import { chainHash, sha256 } from '../utils/crypto.mjs';
 import { newTraceCode, tokenForTrace, tracePayload } from '../utils/trace-code.mjs';
 import { qrSvg } from '../utils/qrcode.mjs';
+import { patchTextPaths, rewriteAssetPaths, relativizeHtmlAssets } from './lib/static-paths.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BACKEND = path.resolve(__dirname, '..', '..');
@@ -261,6 +262,7 @@ function copyDir(from, to, filter = () => true) {
   return n;
 }
 
+/** 写入文件（自动建目录） */
 function write(rel, content) {
   const file = path.join(OUT, rel);
   fs.mkdirSync(path.dirname(file), { recursive: true });
@@ -275,6 +277,9 @@ async function main() {
 
   const { snapshot, qrSource } = buildSnapshot();
   snapshot.trace.demoQrSvg = await qrSvg(qrSource, { ecl: 'M', margin: 2 });
+
+  // 图片路径改为带部署前缀（否则子目录部署时首页图片全部 404）
+  const finalSnapshot = rewriteAssetPaths(snapshot, normalizedBase);
 
   log(`  ✔ 数据快照：商品 ${snapshot.products.length} 个 / 批次 ${snapshot.trace.batches.length} 个 / 溯源码 ${snapshot.trace.units.length} 个 / 知识库 ${snapshot.kbEntries.length} 条`);
 
@@ -295,8 +300,50 @@ async function main() {
   const assetFiles = copyDir(path.join(PUBLIC, 'assets'), path.join(OUT, 'assets'));
   log(`  ✔ 复制素材 ${assetFiles} 个`);
 
-  write('data/api-snapshot.json', JSON.stringify(snapshot, null, 1));
-  log(`  ✔ 写入数据快照（${(fs.statSync(path.join(OUT, 'data/api-snapshot.json')).size / 1024).toFixed(0)} KB）`);
+  write('data/api-snapshot.json', JSON.stringify(finalSnapshot, null, 1));
+  log(`  ✔ 写入数据快照（${(fs.statSync(path.join(OUT, 'data/api-snapshot.json')).size / 1024).toFixed(0)} KB，图片路径已改为带前缀形式）`);
+
+  // 修正前端 JS 里硬编码的绝对图片路径（<base> 管不到 JS 拼接的 URL）
+  let patchedJs = 0;
+  for (const dir of ['scripts', path.join('scripts', 'views')]) {
+    const abs = path.join(OUT, dir);
+    if (!fs.existsSync(abs)) continue;
+    for (const f of fs.readdirSync(abs)) {
+      if (!f.endsWith('.js')) continue;
+      const p = path.join(abs, f);
+      const before = fs.readFileSync(p, 'utf8');
+      const after = patchTextPaths(before, normalizedBase);
+      if (after !== before) { fs.writeFileSync(p, after, 'utf8'); patchedJs += 1; }
+    }
+  }
+  log(`  ✔ 修正 ${patchedJs} 个前端脚本中的资源路径`);
+
+  /**
+   * 构建期自检：数据快照里出现的每个图片路径都必须真实存在。
+   * 起因：demo-api 的字段名与后端不一致，导致页面渲染出 src="undefined"，
+   * 浏览器把 "undefined" 当相对路径请求 → 404，页面图片裂开却没人发现。
+   * 这里把问题拦在构建阶段（对应 ui-check / browser-check 只能事后发现）。
+   */
+  const missingAssets = [];
+  const seen = new Set();
+  (function walk(v) {
+    if (typeof v === 'string') {
+      if (v.includes('/assets/') && !seen.has(v)) {
+        seen.add(v);
+        const rel = v.replace(normalizedBase, '').replace(/^\//, '');
+        if (!fs.existsSync(path.join(OUT, rel))) missingAssets.push(v);
+      }
+      return;
+    }
+    if (Array.isArray(v)) { v.forEach(walk); return; }
+    if (v && typeof v === 'object') { Object.values(v).forEach(walk); }
+  })(finalSnapshot);
+  if (missingAssets.length) {
+    console.error('  ❌ 快照引用了不存在的素材：');
+    for (const m of missingAssets.slice(0, 10)) console.error('     ' + m);
+    throw new Error(`快照中有 ${missingAssets.length} 个图片路径在构建产物里不存在`);
+  }
+  log(`  ✔ 素材引用自检通过（共 ${seen.size} 个路径，全部存在）`);
 
   write('scripts/config.js', `/**
  * 运行模式配置（构建产物，请勿手动修改）
@@ -310,14 +357,25 @@ window.__CY_DEMO__ = {
 };
 `);
 
+  /**
+   * 注入 <base> 与演示配置。
+   *
+   * 关键教训：<base> 必须是 <head> 里的**第一个**元素。
+   * 第一版把它插在 <link rel="icon"> 之前，而样式表 <link rel="stylesheet"> 在它前面，
+   * 结果样式表与随后的模块脚本都按"域名根路径"解析
+   * （变成 https://<用户>.github.io/scripts/app.js），子目录部署下全部 404，页面一片空白。
+   * 真实浏览器能查到这个问题，Node 模拟 DOM 查不出来 —— 所以加了 browser-check.mjs。
+   */
   const indexHtml = fs.readFileSync(path.join(FRONTEND, 'index.html'), 'utf8');
-  let patched = indexHtml.replace(/<link rel="icon"[^>]*>/, (m) => `<base href="${normalizedBase}" />\n  ${m}`);
-  patched = patched.replace(/<script type="module"/, '<script src="./scripts/config.js"></script>\n  <script type="module"');
+  let patched = indexHtml.replace(/<head>/i, `<head>\n  <base href="${normalizedBase}" />`);
+  patched = patched.replace(/<script src="\.\/scripts\/boot-guard\.js"><\/script>/, '<script src="./scripts/boot-guard.js"></script>\n  <script src="./scripts/config.js"></script>');
+  // 兜底：把入口里的绝对资源路径改为相对（<base> 行会被跳过，避免二次改写）
+  patched = relativizeHtmlAssets(patched);
   patched = patched.replace('茶芽芽 · 婴儿山茶抚触油商城', '茶芽芽 · 婴儿山茶抚触油商城（演示站）');
   write('index.html', patched);
   write('404.html', patched);   // GitHub Pages：任意路径都能进应用
   write('home.html', patched);
-  log('  ✔ 生成 index.html / 404.html（注入 <base> 与演示配置）');
+  log('  ✔ 生成 index.html / 404.html（<base> 置于 head 首位 + 资源路径改相对）');
 
   write('DEMO-README.txt', `茶芽芽小程序 · 静态演示站
 ================================

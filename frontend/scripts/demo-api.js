@@ -450,7 +450,16 @@ const ROUTES = [
   /* ---------- 溯源 ---------- */
   [/^\/api\/trace\/overview$/, () => ok({
     flow: snapshot.brandFull.traceFlow,
-    images: snapshot.brand.images,
+    // 字段名必须与后端 /api/trace/overview 完全一致：
+    // 页面读的是 images.system / images.query / images.dashboard / images.antiFake，
+    // 而 brand.images 里的键名是 traceSystem / traceQuery / traceDashboard / antiFake。
+    // 第一版直接传了 brand.images，导致 images.system 为 undefined（图片 404）。
+    images: {
+      system: snapshot.brand.images.traceSystem,
+      query: snapshot.brand.images.traceQuery,
+      dashboard: snapshot.brand.images.traceDashboard,
+      antiFake: snapshot.brand.images.antiFake,
+    },
     algorithm: {
       code: 'ECDSA / secp256k1（椭圆曲线数字签名）',
       chain: 'SHA-256 哈希链（逐节点存证）',

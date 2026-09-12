@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "chayaya-mall",
   "version": "1.0.0",
   "private": true,
@@ -21,6 +21,7 @@
     "build:static:offline": "node src/scripts/build-static-offline.mjs",
     "serve:static": "node src/scripts/serve-static.mjs ../site 8899",
     "demo:check": "node src/scripts/demo-api-check.mjs",
+    "browser:check": "node src/scripts/browser-check.mjs",
     "qr:site": "node src/scripts/verify-site-qr.mjs",
     "export:mp": "node src/scripts/export-miniprogram.mjs",
     "sanitize": "node src/scripts/sanitize-for-publish.mjs",
@@ -35,6 +36,7 @@
     "acorn": "^8.18.0",
     "acorn-walk": "^8.3.5",
     "jsqr": "^1.4.0",
-    "pngjs": "^7.0.0"
+    "pngjs": "^7.0.0",
+    "puppeteer-core": "^25.10.0"
   }
 }
