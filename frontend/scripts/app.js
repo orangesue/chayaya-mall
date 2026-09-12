@@ -21,7 +21,40 @@ async function boot() {
     setSession(sid);
   }
 
-  if (state.token) {
+  /**
+   * 静态演示模式（GitHub Pages / 纯静态托管）：
+   * 没有 Node 后端，用浏览器本地的 API 实现替代，数据来自构建时快照。
+   * 必须在任何页面发起请求之前完成安装。
+   */
+  const cfg = globalThis.window?.__CY_DEMO__ ?? globalThis.__CY_DEMO__;
+  if (cfg?.mode) {
+    try {
+      const base = cfg.base || './';
+      // 用页面地址解析快照路径，兼容子目录部署（GitHub Pages 的 /仓库名/）
+      const snapUrl = new URL(`${base}data/api-snapshot.json`.replace(/^\/\//, '/'), location.href).href;
+      const [{ installDemoApi }, snap] = await Promise.all([
+        import('./demo-api.js'),
+        fetch(snapUrl).then((r) => {
+          if (!r.ok) throw new Error(`数据快照加载失败（HTTP ${r.status}）`);
+          return r.json();
+        }),
+      ]);
+      installDemoApi(snap);
+      console.log('[demo] 已启用静态演示模式', snap.builtAt ?? '');
+    } catch (e) {
+      console.error('[demo] 演示模式初始化失败，将无法加载数据：', e);
+      const el = document.getElementById('app');
+      if (el) {
+        el.innerHTML = `<div class="page"><div class="page-pad" style="padding-top:40px">
+          <div class="card"><div class="card-title">😥 演示数据加载失败</div>
+          <p class="small muted">${e.message}</p>
+          <p class="small muted">请确认 <code>data/api-snapshot.json</code> 已随站点一起部署。</p></div></div></div>`;
+      }
+      return;
+    }
+  }
+
+  if (state.token || cfg?.mode) {
     await refreshUser();
     await refreshCartCount();
   }

@@ -9,7 +9,9 @@ import { ok } from '../http/respond.mjs';
 import { get, query } from '../db/index.mjs';
 import { qrEncoderName } from '../utils/qrcode.mjs';
 import { buildTraceQr, lookupTrace, verifyChain } from '../services/trace.mjs';
-import { detectIntent, extractSlots, triageSymptoms, analyzeEmotion } from '../services/ai.mjs';import { aiMode } from '../services/llm.mjs';
+// 纯规则函数来自 data/ai-rules.mjs（与静态演示模式共用同一份实现）
+import { detectIntent, extractSlots, triageSymptoms, analyzeEmotion, isSymptomQuery } from '../data/ai-rules.mjs';
+import { aiMode } from '../services/llm.mjs';
 import { publicKeyPem } from '../utils/crypto.mjs';
 
 /** AI 红线与意图回归用例（与 AI 客服引擎的真实实现共用同一套规则） */
@@ -74,7 +76,6 @@ export function registerDevRoutes(route) {
 
   /** AI 实验：跑一遍意图识别 + 医疗红线分级 + 情绪识别 */
   route('POST', '/api/dev/ai-lab', async () => {
-    const { isSymptomQuery } = await import('../services/ai.mjs');
     const results = AI_CASES.map((c) => {
       const slots = extractSlots(c.text);
       const intent = detectIntent(c.text);

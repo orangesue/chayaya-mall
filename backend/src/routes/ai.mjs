@@ -74,7 +74,7 @@ export function registerAiRoutes(route) {
     const user = await currentUser(req, url);
     void user;
     requireFields(body, ['text']);
-    const { detectIntent, extractSlots, triageSymptoms, analyzeEmotion } = await import('../services/ai.mjs');
+    const { detectIntent, extractSlots, triageSymptoms, analyzeEmotion } = await import('../data/ai-rules.mjs');
     const text = String(body.text);
     const slots = extractSlots(text);
     return ok({

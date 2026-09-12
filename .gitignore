@@ -41,6 +41,9 @@ secrets.json
 DEMO-ACCESS-KEY.txt
 .ssh-tmp/
 
+# ---------- 静态演示站构建产物（由 GitHub Actions 自动构建，无需入库） ----------
+site/
+
 # ---------- 编辑器 / 系统 ----------
 .vscode/
 .idea/

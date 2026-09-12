@@ -1,6 +1,8 @@
 /**
  * 前端渲染验证（无需浏览器，在 Node 中模拟 DOM 真实执行前端代码）
- * 用法: 先 npm start，然后 node src/scripts/ui-check.mjs
+ * 用法:
+ *   先 npm start，然后 node src/scripts/ui-check.mjs
+ *   验证静态演示站: UI_BASE=http://127.0.0.1:8899 UI_ROOT=../site node src/scripts/ui-check.mjs
  *
  * 为什么这样做：本机沙箱禁止 Node 拉起带管道的子进程（spawn EPERM），无法启动 Chrome；
  * 因此这里实现一个最小 DOM，把前端 router / store / views 真实加载并渲染，
@@ -12,7 +14,11 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const BASE = process.env.UI_BASE || 'http://127.0.0.1:8788';
-const FRONTEND = path.resolve(process.cwd(), '..', 'frontend');
+/** 要加载的前端根目录：默认用 frontend 源码；静态站验证时指向构建产物 */
+const FRONTEND = process.env.UI_ROOT
+  ? path.resolve(process.cwd(), process.env.UI_ROOT)
+  : path.resolve(process.cwd(), '..', 'frontend');
+const IS_STATIC = Boolean(process.env.UI_ROOT);
 
 const PAGES = [
   { name: '首页', hash: '#/', expect: ['源头自营', '热销单品', '品牌故事', '消费即助农'] },
@@ -188,6 +194,9 @@ function installDom() {
   globalThis.localStorage = localStorage;
   globalThis.sessionStorage = win.sessionStorage;
   globalThis.fetch = win.fetch;
+  // 浏览器全局：静态演示模式的 demo-api 解码溯源 token 时会用到 atob/btoa（Node 里没有）
+  globalThis.atob = (s) => Buffer.from(String(s), 'base64').toString('binary');
+  globalThis.btoa = (s) => Buffer.from(String(s), 'binary').toString('base64');
   // Node 24 的 globalThis.navigator 是只读 getter，用 defineProperty 覆盖
   try {
     Object.defineProperty(globalThis, 'navigator', { value: win.navigator, configurable: true, writable: true });
@@ -203,25 +212,84 @@ function installDom() {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function fetchDemoCode() {
-  const res = await fetch(`${BASE}/api/trace/demo`);
-  const json = await res.json();
-  return json?.data?.traceCode;
+  /**
+   * 静态演示模式：必须从**静态站自己的数据快照**里取 token。
+   * 不能借用真实后端的 token —— 两者是不同构建的数据，
+   * 而演示模式的摘要比对依赖"token 与摘要来自同一次构建"（第一版就栽在这里）。
+   */
+  if (IS_STATIC) {
+    try {
+      const snap = JSON.parse(fs.readFileSync(path.join(FRONTEND, 'data', 'api-snapshot.json'), 'utf8'));
+      if (snap.trace?.demoToken) return `t:${snap.trace.demoToken}`;
+      if (snap.trace?.units?.[0]?.traceCode) return `code:${snap.trace.units[0].traceCode}`;
+    } catch { /* 落到下面的后端分支 */ }
+  }
+  try {
+    const res = await fetch(`${BASE}/api/trace/demo`);
+    const json = await res.json();
+    // 静态演示模式返回 url（内嵌签名 token），真实后端返回 traceCode。
+    // 必须用 URL 解析取参数：签名是 base64，字符串里可能包含 "t=" 之类的子串，
+    // 直接 split('t=') 会取错。
+    const raw = json?.data?.url ?? '';
+    const hash = raw.includes('#') ? raw.slice(raw.indexOf('#')) : raw;
+    const qs = hash.includes('?') ? new URLSearchParams(hash.slice(hash.indexOf('?') + 1)) : new URLSearchParams();
+    if (qs.get('t')) return `t:${qs.get('t')}`;
+    if (qs.get('code')) return `code:${qs.get('code')}`;
+    return json?.data?.traceCode;
+  } catch {
+    return null;
+  }
 }
 
 async function main() {
-  const health = await fetch(`${BASE}/api/health`).then((r) => r.json()).catch(() => null);
+  const health = IS_STATIC
+    ? { data: { status: 'static' } }   // 静态站没有后端，跳过健康检查
+    : await fetch(`${BASE}/api/health`).then((r) => r.json()).catch(() => null);
   if (!health?.data) {
     console.error(`后端未启动或不可访问：${BASE}（请先执行 npm start）`);
     process.exit(1);
   }
   const demoCode = await fetchDemoCode();
-  const pages = PAGES.map((p) => ({ ...p, hash: p.hash.replace('__DEMO__', demoCode || 'CY26010115010001') }));
+  const pages = PAGES.map((p) => {
+    if (!p.hash.includes('__DEMO__')) return p;
+    // __DEMO__ 三种来源都要兼容：带签名 token、明文溯源码、无数据时的兜底码
+    let hash;
+    if (demoCode?.startsWith('t:')) {
+      hash = /[?&]code=__DEMO__/.test(p.hash)
+        ? p.hash.replace(/code=__DEMO__/, `t=${encodeURIComponent(demoCode.slice(2))}`)
+        : p.hash.replace('__DEMO__', encodeURIComponent(demoCode.slice(2)));
+    } else if (demoCode?.startsWith('code:')) {
+      hash = p.hash.replace('__DEMO__', encodeURIComponent(demoCode.slice(5)));
+    } else {
+      hash = p.hash.replace('__DEMO__', demoCode || 'CY26010115010001');
+    }
+    return { ...p, hash };
+  });
 
   let pass = 0;
   const failures = [];
 
   for (const p of pages) {
     const { document, app, win } = installDom();
+    // 静态演示模式：先用构建产物里的 config.js 设置 window.__CY_DEMO__，
+    // 这样 app.js 才会走"浏览器本地 API"分支，等价于真实浏览器的加载顺序。
+    if (IS_STATIC) {
+      const cfgPath = path.join(FRONTEND, 'scripts', 'config.js');
+      if (fs.existsSync(cfgPath)) {
+        try {
+          // config.js 只做赋值，直接用 Function 在新作用域里执行不会挂到 window 上，
+          // 所以这里手工解析出 base / mode 两个必要字段。
+          const cfgText = fs.readFileSync(cfgPath, 'utf8');
+          const base = cfgText.match(/base:\s*'([^']*)'/)?.[1] ?? '/';
+          const mode = /mode:\s*true/.test(cfgText);
+          win.__CY_DEMO__ = { mode, base, builtAt: 'static' };
+        } catch (e) {
+          console.error('[ui-check] 读取静态站 config.js 失败：', e.message);
+        }
+      } else {
+        console.error('[ui-check] 未找到静态站 config.js，演示模式不会启用');
+      }
+    }
     win.location.hash = p.hash;
     const errors = [];
     const origError = console.error;
@@ -233,7 +301,7 @@ async function main() {
       void store;
       // 每个页面独立加载一次 app.js，保证路由表干净
       await import(`${pathToFileURL(path.join(FRONTEND, 'scripts', 'app.js')).href}?page=${encodeURIComponent(p.name)}`);
-      await sleep(700);
+      await sleep(IS_STATIC ? 1200 : 700);
       text = `${document.getElementById('app').innerHTML ? stripTags(document.getElementById('app').innerHTML) : ''} ${app.innerText}`;
       // 页面底部内容在子节点里，统一从 innerHTML 提取文本更完整
       text = stripTags(document.getElementById('app').innerHTML) || app.innerText;

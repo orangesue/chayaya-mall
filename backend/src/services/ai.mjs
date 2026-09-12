@@ -15,226 +15,27 @@
 import { query, get, run } from '../db/index.mjs';
 import { randomId } from '../utils/crypto.mjs';
 import { nowIso } from '../utils/datetime.mjs';
+import { handoffTriggers, medicalDisclaimer, kbCategories, quickQuestions } from '../data/knowledge-base.mjs';
 import {
-  intentKeywords, symptomRules, medicalRedFlags, medicalDisclaimer, emotionKeywords, handoffTriggers,
-  quickQuestions, kbEntries, kbCategories,
-} from '../data/knowledge-base.mjs';
+  normalize, detectIntent, isSymptomQuery, extractSlots, triageSymptoms, analyzeEmotion,
+  searchKbEntries, buildCards, LEVEL_HEADLINE, mergeSlots,
+} from '../data/ai-rules.mjs';
 import { polishAnswer, aiMode } from './llm.mjs';
-import { getBatchOverview } from './trace.mjs';
+
+/**
+ * 说明：意图识别、槽位抽取、症状分级、情绪分析、标准话术拼装这些"纯计算"逻辑
+ * 已抽到 data/ai-rules.mjs，与静态演示模式（GitHub Pages）共用同一份代码，
+ * 保证「网页演示版」和「真实运行版」的回答完全一致。
+ * 本文件只负责需要数据库的部分：知识库检索、订单查询、会话与消息落库。
+ */
 
 /* ============================================================
- * 文本归一化与匹配
- * ============================================================ */
-const normalize = (s) => String(s ?? '')
-  .toLowerCase()
-  .replace(/[\s\u3000]+/g, '')
-  .replace(/[，。！？；：、"'（）()【】\[\]…~～!?,.;:%]/g, '');
-
-function hitScore(text, words) {
-  let score = 0;
-  const hits = [];
-  for (const w of words) {
-    const key = normalize(w);
-    if (!key) continue;
-    if (text.includes(key)) {
-      // 越长的关键词越具体，权重越高
-      score += 1 + Math.min(2, key.length / 3);
-      hits.push(w);
-    }
-  }
-  return { score, hits };
-}
-
-/* ============================================================
- * 意图识别
- * ============================================================ */
-export function detectIntent(text) {
-  const t = normalize(text);
-  const scores = {};
-  for (const [intent, words] of Object.entries(intentKeywords)) {
-    const { score, hits } = hitScore(t, words);
-    if (score > 0) scores[intent] = { score, hits };
-  }
-  const ranked = Object.entries(scores).sort((a, b) => b[1].score - a[1].score);
-  const total = ranked.reduce((s, [, v]) => s + v.score, 0);
-  if (!ranked.length) {
-    return { intent: 'unknown', confidence: 0, hits: [], scores };
-  }
-  const [intent, best] = ranked[0];
-  return {
-    intent,
-    confidence: total > 0 ? Number((best.score / total).toFixed(3)) : 0,
-    hits: best.hits,
-    scores,
-  };
-}
-
-/* ============================================================
- * 症状描述识别
- * 说明：知识库中的 intentKeywords.symptom 是"完整症状名"，用 include 匹配长词会漏掉
- * 口语化表达（例如"脖子褶皱处发红"匹配不到"褶皱红"）。因此这里单独维护一份
- * 更贴近真实提问的短词表，命中即判定用户正在描述宝宝的症状。
- * ============================================================ */
-const SYMPTOM_PHRASES = [
-  '红疹', '皮疹', '起疹', '疹子', '湿疹', '热疹', '痱子', '荨麻疹', '尿布疹', '口水疹',
-  '红屁股', '红臀', '淹红', '淹脖子', '破皮', '破了', '抓破', '擦破', '渗液', '渗水',
-  '流脓', '化脓', '脓点', '脓疱', '结痂', '脱屑', '起皮', '脱皮', '干燥', '干痒', '发痒',
-  '痒', '抓挠', '红肿', '泛红', '发红', '红红的', '起红点', '小红点', '头垢', '乳痂',
-  '头皮结痂', '发烧', '发热', '低烧', '高烧', '拉肚子', '腹泻', '便秘', '吐奶', '肠胀气',
-  '肚子胀', '哭闹', '睡不好', '烦躁', '鼻塞', '咳嗽', '拒奶', '精神差',
-  // 部位词：常与症状连用（"屁股红""脖子红"）
-  '屁股红', '脖子红', '脸上红', '脸红', '下巴红', '嘴角红', '腋下红', '大腿根红', '褶皱红', '褶皱发红',
-];
-
-/** 用户是否在描述/咨询某种症状 */
-export function isSymptomQuery(text) {
-  const t = normalize(text);
-  return SYMPTOM_PHRASES.some((p) => t.includes(normalize(p)));
-}
-
-/** 从症状词表中提取命中的短语（用于回答里"您提到的是…"） */
-export function symptomPhrases(text) {
-  const t = normalize(text);
-  return SYMPTOM_PHRASES.filter((p) => t.includes(normalize(p)));
-}
-
-/* ============================================================
- * 槽位抽取（多轮对话状态管理）
- * ============================================================ */
-export function extractSlots(text) {
-  const t = normalize(text);
-  const slots = {};
-
-  // 月龄 / 年龄
-  const monthMatch = t.match(/(\d{1,2})\s*(个月|月龄|月)/);
-  const dayMatch = t.match(/(\d{1,3})\s*(天|日)/);
-  const yearMatch = t.match(/(\d{1,2})\s*(岁|周岁)/);
-  if (monthMatch) slots.babyMonths = Number(monthMatch[1]);
-  else if (dayMatch) slots.babyMonths = Math.max(0, Math.round(Number(dayMatch[1]) / 30));
-  else if (yearMatch) slots.babyMonths = Number(yearMatch[1]) * 12;
-
-  // 持续时间
-  const durMatch = t.match(/(\d{1,3})\s*(分钟|小时|天|周|个月)/);
-  if (durMatch) slots.duration = `${durMatch[1]}${durMatch[2]}`;
-  if (/刚起|刚刚|今天|昨天/.test(t)) slots.duration = slots.duration || '1天内';
-
-  // 症状
-  const symptoms = [];
-  for (const rule of symptomRules) {
-    for (const p of [...rule.patterns, ...(rule.keywords ?? [])]) {
-      if (t.includes(normalize(p))) {
-        symptoms.push({ name: rule.name, pattern: p, level: rule.level });
-        break;
-      }
-    }
-  }
-  if (symptoms.length) slots.symptoms = symptoms;
-  const phrases = symptomPhrases(text);
-  if (phrases.length) slots.symptomPhrases = phrases;
-
-  // 部位
-  const parts = ['脸', '面', '额头', '下巴', '嘴角', '脖子', '颈', '腋下', '手臂', '手肘', '大腿', '腿窝', '屁股', '臀', '尿布区', '后背', '背', '肚子', '腹部', '头皮', '头顶', '耳朵', '全身'];
-  const found = parts.filter((p) => t.includes(normalize(p)));
-  if (found.length) slots.parts = found;
-
-  return slots;
-}
-
-/* ============================================================
- * 症状安全分级
- * ============================================================ */
-export function triageSymptoms(text, slots = {}) {
-  const t = normalize(text);
-  const redFlags = [];
-  for (const rf of medicalRedFlags) {
-    if (t.includes(normalize(rf.pattern))) redFlags.push(rf);
-  }
-
-  const matched = slots.symptoms ?? [];
-  let level = 'ok';
-  const order = { ok: 0, caution: 1, avoid: 2, emergency: 3 };
-  for (const s of matched) {
-    if (order[s.level] > order[level]) level = s.level;
-  }
-  if (redFlags.length) level = 'emergency';
-
-  const rules = matched
-    .map((s) => symptomRules.find((r) => r.name === s.name))
-    .filter(Boolean);
-
-  // 只提到通用的"红/痒/干燥"等短语、但没匹配到具体症状条目时，
-  // 按"谨慎"处理（提示先小面积试用并观察），保守优先。
-  const genericPhrases = slots.symptomPhrases ?? [];
-  const hasGenericOnly = !matched.length && genericPhrases.length && level === 'ok';
-  if (hasGenericOnly) level = 'caution';
-
-  return { level, matched, rules, redFlags, genericPhrases, hasGenericOnly };
-}
-
-const LEVEL_HEADLINE = {
-  emergency: '⚠️ 这种情况请先带宝宝就医',
-  avoid: '⚠️ 患处暂时不要涂油',
-  caution: '需要谨慎使用，建议先咨询医生',
-  ok: '可以按日常护理方式使用',
-};
-
-/* ============================================================
- * 情绪分析
- * ============================================================ */
-export function analyzeEmotion(text) {
-  const t = normalize(text);
-  const angry = hitScore(t, emotionKeywords.angry);
-  const anxious = hitScore(t, emotionKeywords.anxious);
-  const positive = hitScore(t, emotionKeywords.positive);
-  const exclaim = (String(text).match(/[!！]{2,}|[?？]{2,}/g) || []).length;
-
-  let emotion = 'neutral';
-  let score = 0;
-  if (angry.score > 0) { emotion = 'angry'; score = angry.score + exclaim; }
-  else if (anxious.score > 0) { emotion = 'anxious'; score = anxious.score; }
-  else if (positive.score > 0) { emotion = 'positive'; score = positive.score; }
-
-  return { emotion, score, hits: [...angry.hits, ...anxious.hits, ...positive.hits], exclaim };
-}
-
-/* ============================================================
- * 知识库检索
+ * 知识库检索（从数据库读条目后交给纯函数打分）
  * ============================================================ */
 async function searchKb(text, intent, { limit = 1 } = {}) {
-  const t = normalize(text);
   const rows = await query('SELECT * FROM kb_entries WHERE priority > 0');
-  const pool = rows.length ? rows : kbEntries.map((e) => ({ ...e, keywords: e.keywords.join(' '), cards_json: JSON.stringify(e.cards ?? []), category_name: kbCategories.find((c) => c.key === e.category)?.name }));
-  const scored = pool.map((row) => {
-    const words = String(row.keywords || '').split(/\s+/).filter(Boolean);
-    const { score, hits } = hitScore(t, words);
-    const sameIntent = row.category === intent ? 1.6 : 0;
-    return { row, score: score + sameIntent, hits };
-  }).sort((a, b) => b.score - a.score);
-  return scored.slice(0, limit).filter((s) => s.score > 0);
-}
-
-/* ============================================================
- * 卡片消息构建
- * ============================================================ */
-async function buildCards(intent, text, slots) {
-  const cards = [];
-  const t = normalize(text);
-  if (intent === 'origin' || t.includes('溯源') || t.includes('产地')) {
-    cards.push({ type: 'trace', title: '一物一码 · 全流程溯源', desc: '查看本瓶对应的山茶林地块、农户与检测报告', url: '/#/trace', image: '/assets/img/image7.png' });
-  }
-  if (intent === 'safety' || t.includes('检测') || t.includes('安全')) {
-    cards.push({ type: 'report', title: 'SGS-2026-0115 检测报告', desc: '菌落总数、重金属、苯并芘、皮肤刺激性等项目符合《化妆品安全技术规范》', url: '/assets/reports/SGS-2026-0115.html' });
-  }
-  if (intent === 'massage' || t.includes('抚触') || t.includes('用量')) {
-    cards.push({ type: 'tutorial', title: '分月龄抚触教程', desc: slots.babyMonths ? `${slots.babyMonths} 个月宝宝对应手法` : '0-3 月 / 4-6 月 / 6 月以上三套手法', url: '/#/guide' });
-  }
-  if (intent === 'order') {
-    cards.push({ type: 'order', title: '我的订单', desc: '查看物流轨迹与溯源码', url: '/#/orders' });
-  }
-  if (intent === 'efficacy' || t.includes('价格') || t.includes('多少钱') || t.includes('买')) {
-    cards.push({ type: 'product', title: '婴儿山茶抚触油 100ml / 30ml', desc: '95% 高纯度冷榨山茶油 · 一瓶一码可溯源', url: '/#/product/CY-OIL-100', image: '/assets/img/image18.png' });
-  }
-  return cards;
+  if (!rows.length) return [];
+  return searchKbEntries(text, intent, rows, { limit });
 }
 
 /* ============================================================
@@ -243,7 +44,7 @@ async function buildCards(intent, text, slots) {
 export async function generateReply({ text, sessionId, history = [], slots = {}, user = null, orderHint = null }) {
   const messageId = randomId(8);
   const intentInfo = detectIntent(text);
-  const newSlots = { ...slots, ...extractSlots(text) };
+  const newSlots = mergeSlots(slots, extractSlots(text));
   const triage = triageSymptoms(text, newSlots);
   const emotionInfo = analyzeEmotion(text);
 

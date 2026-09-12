@@ -1,0 +1,93 @@
+# 自动把「静态演示站」部署到 GitHub Pages
+#
+# 为什么需要它：
+#   评委扫码时必须能随时打开，不能依赖任何人的电脑开机。
+#   GitHub Pages 是永久在线、免费、自带 HTTPS 的静态托管；
+#   本项目把商品/溯源/知识库数据打成快照，并让 AI 客服规则在浏览器端运行，
+#   因此**没有后端也能完整体验**（订单不持久化、管理后台除外，页面内有说明）。
+#
+# 触发方式：
+#   1) push 到 main 且改动了 site 相关目录时自动部署
+#   2) 也可以在 Actions 页面手动点 "Run workflow"
+#
+# 部署地址：https://<用户名>.github.io/<仓库名>/
+
+name: Deploy static demo to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'frontend/**'
+      - 'backend/src/data/**'
+      - 'backend/src/scripts/build-static-offline.mjs'
+      - 'backend/public/assets/**'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同时只跑一个部署；新的推送会取消排队中的旧任务
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 准备 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: 安装依赖
+        working-directory: backend
+        run: npm ci --omit=dev
+
+      - name: 计算站点根路径（用于 <base href>）
+        id: basepath
+        run: echo "base=/${GITHUB_REPOSITORY#*/}/" >> "$GITHUB_OUTPUT"
+
+      - name: 构建静态演示站
+        working-directory: backend
+        run: node src/scripts/build-static-offline.mjs --base=${{ steps.basepath.outputs.base }}
+
+      - name: 校验构建产物完整性
+        run: |
+          set -e
+          test -f site/index.html            || { echo "缺少 site/index.html"; exit 1; }
+          test -f site/404.html              || { echo "缺少 site/404.html"; exit 1; }
+          test -f site/scripts/app.js        || { echo "缺少前端入口脚本"; exit 1; }
+          test -f site/scripts/config.js     || { echo "缺少演示模式配置"; exit 1; }
+          test -f site/scripts/ai-rules.mjs  || { echo "缺少 AI 规则模块"; exit 1; }
+          test -f site/data/api-snapshot.json || { echo "缺少数据快照"; exit 1; }
+          node -e "const s=require('./site/data/api-snapshot.json'); if(!s.products?.length||!s.trace?.demoToken) process.exit(1); console.log('快照校验通过：商品', s.products.length, '溯源码', s.trace.units.length)"
+          echo "site 文件数：$(find site -type f | wc -l)"
+
+      - name: 配置 Pages
+        uses: actions/configure-pages@v5
+
+      - name: 上传站点产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
